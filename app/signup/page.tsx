@@ -4,6 +4,7 @@ import InputBox from "@/components/InputBox";
 import { BACKEND_URL } from "@/lib/Constants";
 import Link from "next/link";
 import React, { useRef } from "react";
+import { signIn } from "next-auth/react";
 
 type FormInputs = {
   name: string;
@@ -34,6 +35,21 @@ const SignupPage = () => {
     const response = await res.json();
     alert("User Registered!");
     console.log({ response });
+    //
+    // auto login after register and redirect
+    const result = await signIn("credentials", {
+      redirect: false,
+      username: "test@gmail.com",
+      password: "123",
+    });
+
+    if (result?.error) {
+      // setError(result.error);
+      alert("Login after register Failed!");
+    } else {
+      // Redirect or show success message
+      window.location.href = "/";
+    }
   };
   const data = useRef<FormInputs>({
     name: "",
