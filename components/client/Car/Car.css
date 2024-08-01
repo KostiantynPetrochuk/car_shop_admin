@@ -1,0 +1,102 @@
+/* Car Card */
+
+.card-list-item {
+  height: 432px;
+  width: 328px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  margin: 0 10px;
+}
+
+.card-list-item-top {
+  position: relative;
+}
+
+.card-list-item-top.light-blue {
+  background-color: rgba(15, 23, 49, 0.9);
+}
+
+.card-list-item-top img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-list-item-top-category {
+  color: #fff;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  background-color: #3d923a;
+  padding: 10px 15px;
+  display: inline-block;
+  border-radius: 30px;
+  position: absolute;
+  left: 20px;
+  top: 23px;
+}
+
+.card-list-item-bot {
+  padding: 0 30px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  background-color: #050b20;
+}
+
+.card-list-item-bot.light-blue {
+  background-color: rgba(15, 23, 49, 0.9);
+}
+
+.card-list-item-bot-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-list-item-bot-row:nth-child(2) {
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 0;
+}
+
+.card-list-item-bot-row-title {
+  color: #fff;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.card-list-item-bot-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-list-item-bot-col-logo {
+  height: 16px;
+  width: 16px;
+}
+
+.card-list-item-bot-label {
+  color: #fff;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  margin-top: 14px;
+}
+
+.card-list-item-bot-label-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.card-list-item-bot-link {
+  color: #fff;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+}
+
+.card-list-item-bot-link-arrow {
+  margin-left: 8px;
+}

@@ -1,12 +1,32 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { Header, Footer } from "@/components/client";
+import {
+  Hero,
+  BodyTypes,
+  Brands,
+  Services,
+  LatestCars,
+  WhyUs,
+  FeaturedCars,
+  BottomBanner,
+} from "@/partials/Home";
+
+import "./page.css";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div>
-        <p>Hello World!</p>
-      </div>
-    </main>
+    <>
+      <Header />
+      <main className="main">
+        <Hero />
+        <BodyTypes />
+        <Brands />
+        <Services />
+        <LatestCars />
+        <WhyUs />
+        <FeaturedCars />
+        <BottomBanner />
+      </main>
+      <Footer />
+    </>
   );
 }
