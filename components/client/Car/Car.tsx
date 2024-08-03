@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import "./Car.css";
 
@@ -49,14 +50,14 @@ const Car = ({ background = "" }: CarProps) => {
           <div className="card-list-item-bot-col">
             <span className="card-list-item-bot-label-price">$22.000</span>
           </div>
-          <a href="#" className="card-list-item-bot-link">
+          <Link href="/car" className="card-list-item-bot-link">
             <span className="card-list-item-bot-link-title">View Details</span>
             <img
               className="card-list-item-bot-link-arrow"
               src="/img/link_arrow.svg"
               alt="link arrow"
             />
-          </a>
+          </Link>
         </div>
       </div>
     </li>

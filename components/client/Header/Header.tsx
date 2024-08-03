@@ -1,25 +1,26 @@
 import React from "react";
 
+import Link from "next/link";
+
 import "./Header.css";
 
 const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        <img className="header-left-logo" src="/img/logo.svg" />
+        <Link href="/">
+          <img className="header-left-logo" src="/img/logo.svg" />
+        </Link>
         <div className="header-left-phone-inner">
-          <img
-            className="header-left-phone-inner-logo"
-            src="/img/phone.svg"
-          />
+          <img className="header-left-phone-inner-logo" src="/img/phone.svg" />
           <span>+75 123 456 789</span>
         </div>
       </div>
       <div className="header-right">
-        <a href="#" className="header-link">
-          Home
-        </a>
-        <a href="#" className="header-link">
+        <Link href="/catalog" className="header-link">
+          Catalog
+        </Link>
+        {/* <a href="#" className="header-link">
           Listings
         </a>
         <a href="#" className="header-link">
@@ -33,7 +34,7 @@ const Header = () => {
         </a>
         <a href="#" className="header-link">
           Contacts
-        </a>
+        </a> */}
       </div>
       <div className="header-burger-inner">
         <div className="header-burger">
@@ -43,10 +44,10 @@ const Header = () => {
         </div>
         <nav className="mobile-menu">
           <ul className="mobile-menu">
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
+            <Link href="/catalog" className="header-link">
+              Catalog
+            </Link>
+            {/* <li>
               <a href="#">Listings</a>
             </li>
             <li>
@@ -60,7 +61,7 @@ const Header = () => {
             </li>
             <li>
               <a href="#">Contacts</a>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>
