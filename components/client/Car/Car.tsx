@@ -3,10 +3,10 @@ import React from "react";
 import "./Car.css";
 
 type CarProps = {
-  background: string;
+  background?: string;
 };
 
-const Car = ({ background }: CarProps) => {
+const Car = ({ background = "" }: CarProps) => {
   return (
     <li className="card-list-item">
       <div className={`card-list-item-top ${background}`}>

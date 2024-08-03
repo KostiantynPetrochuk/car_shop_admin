@@ -1,0 +1,19 @@
+/* media queries */
+
+@media screen and (max-width: 1050px) {
+  .catalog-sort-results {
+    display: none;
+  }
+  .catalog-sort-filter {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .catalog-sort-title {
+    display: none;
+  }
+  .catalog-sort-results {
+    display: none;
+  }
+}
