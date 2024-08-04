@@ -2,26 +2,26 @@
   padding-bottom: 80px;
 }
 
-.cars-title {
+.title {
   text-align: center;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 40px;
 }
 
-.cars-list {
+.list {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
   padding: 0;
 }
 
-.cars-button-inner {
+.buttonInner {
   display: flex;
   justify-content: center;
   margin-top: 40px;
 }
 
-.cars-button {
+.button {
   background-color: #405ff2;
   color: #fff;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -34,19 +34,19 @@
 }
 
 @media screen and (max-width: 1550px) {
-  .cars-list {
+  .list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
   }
-  .cars .cars-list .card-list-item {
+  /* .cars .cars-list .card-list-item {
     margin-bottom: 20px;
-  }
+  } */
 }
 
 @media screen and (max-width: 1200px) {
-  .cars-list {
+  .list {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -55,21 +55,21 @@
   .cars {
     padding-bottom: 10px;
   }
-  .cars-button-inner {
+  .buttonInner {
     margin: 0;
   }
-  .cars .cars-list {
+  .list {
     grid-template-columns: 1fr;
     margin-bottom: 0;
   }
-  .cars .cars-list .card-list-item {
+  /* .cars .cars-list .card-list-item {
     margin: 0 0 20px 0;
-  }
+  } */
 }
 
-@media screen and (max-width: 400px) {
+/* @media screen and (max-width: 400px) {
   .cars .cars-list .card-list-item {
     height: 400px;
     width: 280px;
   }
-}
+} */

@@ -1,58 +1,50 @@
 import React from "react";
 
-import "./Services.css";
+import styles from "./Services.module.css";
 
 const Services = () => {
   return (
     <section className="services">
       <div className="container">
-        <div className="services-inner">
-          <div className="services-item">
-            <div className="services-item-left">
-              <h3 className="services-item-title">Are You Looking</h3>
-              <h3 className="services-item-title">For a Car ?</h3>
-              <span className="services-item-info">
+        <div className={styles.inner}>
+          <div className={styles.item}>
+            <div className={styles.itemLeft}>
+              <h3 className={styles.title}>Are You Looking</h3>
+              <h3 className={styles.title}>For a Car ?</h3>
+              <span className={styles.info}>
                 We are committed to providing our customers with exceptional
                 service.
               </span>
-              <a href="#" className="services-item-link">
-                <span className="services-item-link-label">Get Started</span>
-                <img
-                  className="services-item-link-arrow"
-                  src="img/link_arrow.svg"
-                  alt=""
-                />
+              <a href="#" className={styles.link}>
+                <span>Get Started</span>
+                <img className={styles.arrow} src="img/link_arrow.svg" alt="" />
               </a>
             </div>
-            <div className="services-item-right">
+            <div className={styles.itemRight}>
               <img
-                className="service-logo"
+                className={styles.logo}
                 src="img/electric_car_logo.svg"
                 alt=""
               />
             </div>
           </div>
 
-          <div className="services-item">
-            <div className="services-item-left">
-              <h3 className="services-item-title">Do You Want to</h3>
-              <h3 className="services-item-title">Sell a Car ?</h3>
-              <span className="services-item-info">
+          <div className={styles.item}>
+            <div className={styles.itemLeft}>
+              <h3 className={styles.title}>Do You Want to</h3>
+              <h3 className={styles.title}>Sell a Car ?</h3>
+              <span className={styles.info}>
                 We are committed to providing our customers with exceptional
                 service.
               </span>
-              <a href="#" className="services-item-link">
-                <span className="services-item-link-label">Get Started</span>
-                <img
-                  className="services-item-link-arrow"
-                  src="img/link_arrow.svg"
-                  alt=""
-                />
+              <a href="#" className={styles.link}>
+                <span>Get Started</span>
+                <img className={styles.arrow} src="img/link_arrow.svg" alt="" />
               </a>
             </div>
-            <div className="services-item-right">
+            <div className={styles.itemRight}>
               <img
-                className="service-logo"
+                className={styles.logo}
                 src="img/electric-car2_logo.svg"
                 alt=""
               />

@@ -1,10 +1,10 @@
-.catalog-pagination {
+.pagination {
   display: flex;
   justify-content: center;
   margin: 40px 0;
 }
 
-.catalog-pagination-prev {
+.prev {
   display: inline-block;
   height: 38px;
   width: 60px;
@@ -15,7 +15,7 @@
   cursor: pointer;
 }
 
-.catalog-pagination-prev::before {
+.prev::before {
   content: "";
   position: absolute;
   height: 10px;
@@ -27,7 +27,7 @@
   left: 24px;
 }
 
-.catalog-pagination-next {
+.next {
   display: inline-block;
   height: 38px;
   width: 60px;
@@ -38,7 +38,7 @@
   cursor: pointer;
 }
 
-.catalog-pagination-next::before {
+.next::before {
   content: "";
   position: absolute;
   height: 10px;
@@ -50,7 +50,7 @@
   left: 24px;
 }
 
-.catalog-pagination-item {
+.item {
   height: 40px;
   width: 40px;
   color: black;
@@ -67,12 +67,12 @@
   overflow: hidden;
 }
 
-.catalog-pagination-item.current {
+.item.current {
   background-color: #050b20;
   color: #fff;
   cursor: auto;
 }
 
-.catalog-pagination-item.disabled {
+.item.disabled {
   pointer-events: none;
 }

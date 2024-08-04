@@ -1,23 +1,23 @@
-.brands-logo {
-  height: 64px;
-  width: 64px;
+.logo {
+  height: 34px;
+  width: 34px;
 }
 
-.brands-title {
+.title {
   font-size: 40px;
   font-weight: bold;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   text-align: center;
 }
 
-.brands-list {
+.list {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
   padding: 0;
 }
 
-.brands-list-item {
+.item {
   height: 120px;
   width: 138px;
   border: 2px solid #e9e9e9;
@@ -27,7 +27,7 @@
   align-items: center;
 }
 
-.brands-link {
+.link {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,26 +36,22 @@
   width: 100%;
 }
 
-.brands-link:visited {
+.link:visited {
   color: #000;
 }
 
-.brands-logo {
-  height: 34px;
-  width: 34px;
-}
-
-.brands-name {
+.name {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 18px;
 }
 
-.brands-bottom-link-inner {
+.bottomLinkInner {
   display: flex;
   justify-content: center;
   margin-top: 50px;
 }
-.brands-bottom-link {
+
+.bottomLink {
   border: 2px solid #050b20;
   height: 60px;
   width: 160px;
@@ -66,19 +62,19 @@
   margin-top: 14px;
 }
 
-.brands-bottom-link-title {
+.bottomLinkTitle {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 600;
   color: #050b20;
   font-size: 18px;
 }
 
-.brands-bottom-link-arrow {
+.bottomLinkArrow {
   margin-left: 10px;
 }
 
 @media screen and (max-width: 1550px) {
-  .brands-list {
+  .list {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
@@ -86,26 +82,26 @@
     align-items: center;
   }
 
-  .brands-list-item {
+  .item {
     margin-bottom: 20px;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .brands-list {
+  .list {
     grid-template-columns: 1fr 1fr;
   }
-  .brands-list-item {
+  .item {
     height: 110px;
     width: 128px;
   }
-  .brands-bottom-link-inner {
+  .bottomLinkInner {
     margin-top: 10px;
   }
 }
 
 @media screen and (max-width: 350px) {
-  .brands-title {
+  .title {
     font-size: 26px;
     margin-top: 10px;
   }

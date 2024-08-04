@@ -1,44 +1,28 @@
 import React from "react";
-
-import "./SortForm.css";
+import styles from "./SortForm.module.css";
 
 const SortForm = () => {
   return (
-    <section className="catalog-sort">
+    <section className={styles.sort}>
       <div className="container">
-        <div className="catalog-sort-inner">
-          <div className="catalog-sort-results">
-            Showing 1 – 12 of 15 results
+        <div className={styles.inner}>
+          <div className={styles.results}>Showing 1 – 12 of 15 results</div>
+          <div className={styles.filter}>
+            <img className={styles.logo} src="/img/filter.svg" alt="" />
+            <span className={styles.title}>Filters</span>
           </div>
-          <div className="catalog-sort-filter">
-            <img
-              className="catalog-sort-filter-logo"
-              src="/img/filter.svg"
-              alt=""
-            />
-            <span>Filters</span>
-          </div>
-          <div className="catalog-sort-action">
-            <span className="catalog-sort-title">Sort by:</span>
-            <div className="catalog-sort-select">
-              <span className="catalog-sort-select-current">Default</span>
-              <div className="catalog-sort-select-dropdown">
-                <span
-                  data-sort="default"
-                  className="catalog-sort-select-dropdown-item"
-                >
+          <div className={styles.action}>
+            <span className={styles.title}>Sort by:</span>
+            <div className={styles.select}>
+              <span>Default</span>
+              <div className={styles.dropdown}>
+                <span data-sort="default" className={styles.dropdownItem}>
                   Default
                 </span>
-                <span
-                  data-sort="low_to_hight"
-                  className="catalog-sort-select-dropdown-item"
-                >
+                <span data-sort="low_to_hight" className={styles.dropdownItem}>
                   Price (Low to High)
                 </span>
-                <span
-                  data-sort="hight_to_low"
-                  className="catalog-sort-select-dropdown-item"
-                >
+                <span data-sort="hight_to_low" className={styles.dropdownItem}>
                   Price (High to Low)
                 </span>
               </div>

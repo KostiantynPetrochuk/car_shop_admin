@@ -3,35 +3,35 @@
   padding-bottom: 100px;
 }
 
-.whyus-title {
+.title {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   text-align: center;
   font-size: 40px;
 }
 
-.whyus-list {
+.list {
   list-style-type: none;
   padding: 0;
   display: flex;
 }
 
-.whyus-list-item-title {
+.itemTitle {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 20px;
 }
 
-.whyus-list-item-info {
+.info {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 12px;
   line-height: 2;
 }
 
 @media screen and (max-width: 1550px) {
-  .whyus-list {
+  .list {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-  .whyus-list-item {
+  .item {
     margin: 4px;
   }
 }
@@ -40,16 +40,16 @@
   .whyus {
     padding-bottom: 10px;
   }
-  .whyus-list {
+  .list {
     grid-template-columns: 1fr;
   }
-  .whyus-list-item {
+  .item {
     margin: 20px 0 20px 0;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .whyus-title {
+  .title {
     font-size: 30px;
   }
 }

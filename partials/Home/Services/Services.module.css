@@ -1,9 +1,9 @@
-.services-inner {
+.inner {
   display: flex;
   justify-content: space-between;
 }
 
-.services-item {
+.item {
   display: flex;
   height: 394px;
   width: 686px;
@@ -13,35 +13,35 @@
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.services-item:nth-child(1) {
+.item:nth-child(1) {
   background-color: #e9f2ff;
 }
 
-.services-item:nth-child(2) {
+.item:nth-child(2) {
   background-color: #ffe9f3;
 }
 
-.services-item-left {
+.itemLeft {
   display: flex;
   flex-direction: column;
   max-width: 355px;
 }
 
-.services-item-title {
+.title {
   font-size: 30px;
   margin: 10px 0;
 }
 
-.services-item-info {
+.info {
   font-size: 15px;
   line-height: 2;
 }
 
-.services-item-right {
+.itemRight {
   margin-left: 60px;
 }
 
-.services-item-link {
+.link {
   color: #fff;
   font-size: 15px;
   height: 60px;
@@ -53,57 +53,57 @@
   margin-top: 14px;
 }
 
-.services-item:nth-child(1) .services-item-left .services-item-link {
+.item:nth-child(1) .itemLeft .link {
   background-color: #405ff2;
 }
 
-.services-item:nth-child(2) .services-item-left .services-item-link {
+.item:nth-child(2) .itemLeft .link {
   background-color: #050b20;
 }
 
-.services-item-link-arrow {
+.arrow {
   margin-left: 10px;
 }
 
 @media screen and (max-width: 1550px) {
-  .services-inner {
+  .inner {
     flex-direction: column;
     align-items: center;
   }
-  .services-item:nth-child(2) {
+  .item:nth-child(2) {
     margin-top: 20px;
   }
 }
 
 @media screen and (max-width: 770px) {
-  .services-item {
+  .item {
     height: 233px;
     width: 457px;
     padding: 15px;
   }
 
-  .services-item-link {
+  .itemLink {
     height: 40px;
     width: 150px;
   }
 
-  .services-item-title {
+  .title {
     font-size: 24px;
   }
 }
 
 @media screen and (max-width: 550px) {
-  .services-item {
+  .item {
     width: 90%;
     flex-direction: column-reverse;
     padding: 10px;
     height: 280px;
   }
-  .service-logo {
+  .logo {
     height: 70px;
     width: 70px;
   }
-  .services-item-title {
+  .title {
     font-size: 20px;
     margin: 4px 0;
   }

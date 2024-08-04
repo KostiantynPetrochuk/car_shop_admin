@@ -1,23 +1,22 @@
 import React from "react";
-
 import Link from "next/link";
 
-import "./Header.css";
+import styles from "./Header.module.css";
 
 const Header = () => {
   return (
-    <header className="header">
-      <div className="header-left">
+    <header className={styles.header}>
+      <div className={styles.left}>
         <Link href="/">
-          <img className="header-left-logo" src="/img/logo.svg" />
+          <img className={styles.logo} src="/img/logo.svg" />
         </Link>
-        <div className="header-left-phone-inner">
-          <img className="header-left-phone-inner-logo" src="/img/phone.svg" />
-          <span>+75 123 456 789</span>
+        <div className={styles.phoneInner}>
+          <img className={styles.phoneLogo} src="/img/phone.svg" />
+          <span className={styles.phone}>+75 123 456 789</span>
         </div>
       </div>
-      <div className="header-right">
-        <Link href="/catalog" className="header-link">
+      <div className={styles.right}>
+        <Link href="/catalog" className={styles.link}>
           Catalog
         </Link>
         {/* <a href="#" className="header-link">
@@ -36,15 +35,15 @@ const Header = () => {
           Contacts
         </a> */}
       </div>
-      <div className="header-burger-inner">
-        <div className="header-burger">
-          <span></span>
-          <span></span>
-          <span></span>
+      <div className={styles.burgerInner}>
+        <div className={styles.burger}>
+          <span className={styles.burgerItem}></span>
+          <span className={styles.burgerItem}></span>
+          <span className={styles.burgerItem}></span>
         </div>
-        <nav className="mobile-menu">
-          <ul className="mobile-menu">
-            <Link href="/catalog" className="header-link">
+        <nav className={styles.mobileMenu}>
+          <ul className={styles.mobileMenuList}>
+            <Link href="/catalog" className={styles.mobileLink}>
               Catalog
             </Link>
             {/* <li>

@@ -1,104 +1,101 @@
 import React from "react";
 
-import "./Footer.css";
+import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className={styles.footer}>
       <div className="container">
         <div className="footer-top-inner">
-          <div className="footer-top">
+          <div className={styles.top}>
             <div className="footer-top-col">
-              <img className="footer-left-logo" src="/img/logo.svg" />
-              <div className="footer-left-phone-inner">
-                <img
-                  className="footer-left-phone-inner-logo"
-                  src="/img/phone.svg"
-                />
+              <img className={styles.logo} src="/img/logo.svg" />
+              <div className={styles.phoneInner}>
+                <img src="/img/phone.svg" />
                 <span>+75 123 456 789</span>
               </div>
             </div>
-            <div className="footer-top-col">
-              <span className="footer-col-title">Company</span>
-              <a className="footer-col-link" href="#">
+            <div className={styles.col}>
+              <span className={styles.title}>Company</span>
+              <a className={styles.link} href="#">
                 About Us
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Blog
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Services
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 FAQs
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Terms
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Contact Us
               </a>
             </div>
-            <div className="footer-top-col">
-              <span className="footer-col-title">Top Brands</span>
-              <a className="footer-col-link" href="#">
+            <div className={styles.col}>
+              <span className={styles.title}>Top Brands</span>
+              <a className={styles.link} href="#">
                 Toyota
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Porsche
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Audi
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 BMW
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Ford
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Nissan
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Peugeot
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Volkswagen
               </a>
             </div>
-            <div className="footer-top-col">
-              <span className="footer-col-title">Vehicles Type</span>
-              <a className="footer-col-link" href="#">
+            <div className={styles.col}>
+              <span className={styles.title}>Vehicles Type</span>
+              <a className={styles.link} href="#">
                 Sedan
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Hatchback
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 SUV
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Hybrid
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Electric
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Coupe
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Truck
               </a>
-              <a className="footer-col-link" href="#">
+              <a className={styles.link} href="#">
                 Convertible
               </a>
             </div>
           </div>
         </div>
       </div>
-      <div className="footer-bot-inner">
+      <div className={styles.botInner}>
         <div className="container">
-          <div className="footer-bot">
+          <div className={styles.bot}>
             © 2024 exemple.com. All rights reserved.
           </div>
         </div>

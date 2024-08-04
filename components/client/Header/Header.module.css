@@ -6,44 +6,44 @@
   height: 100px;
 }
 
-.header-left {
+.left {
   display: flex;
   padding: 0 60px;
 }
 
-.header-left-logo {
+.logo {
   height: 25px;
   width: 105px;
   margin-right: 42px;
 }
 
-.header-left-phone-inner {
+.phoneInner {
   display: flex;
   align-items: center;
 }
 
-.header-left-phone-inner-logo {
+.phoneLogo {
   width: 25px;
   height: 25px;
   margin-right: 10px;
 }
 
-.header-left-phone-inner span {
+.phone {
   color: #fff;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.header-right {
+.right {
   padding-right: 60px;
 }
 
-.header-link {
+.link {
   color: #fff;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   margin: 0 10px;
 }
 
-.header-burger-inner {
+.burgerInner {
   height: 100%;
   display: none;
   align-items: center;
@@ -51,7 +51,7 @@
   z-index: 1001;
 }
 
-.header-burger {
+.burger {
   height: 40px;
   width: 40px;
   margin-right: 25px;
@@ -59,7 +59,7 @@
   z-index: 1002;
 }
 
-.header-burger span {
+.burgerItem {
   height: 2px;
   width: 40px;
   background-color: #fff;
@@ -67,34 +67,34 @@
   transition: 0.35s;
 }
 
-.header-burger span:nth-child(1) {
+.burgerItem:nth-child(1) {
   top: 4px;
 }
 
-.header-burger.opened span:nth-child(1) {
+.burger.opened .burgerItem:nth-child(1) {
   transform: rotate(45deg);
   top: 49%;
 }
 
-.header-burger span:nth-child(2) {
+.burgerItem:nth-child(2) {
   top: calc(50% - 1px);
 }
 
-.header-burger.opened span:nth-child(2) {
+.burger.opened .burgerItem:nth-child(2) {
   transform: translateX(-100px);
   opacity: 0;
 }
 
-.header-burger span:nth-child(3) {
+.burgerItem:nth-child(3) {
   bottom: 4px;
 }
 
-.header-burger.opened span:nth-child(3) {
+.burger.opened .burgerItem:nth-child(3) {
   transform: rotate(-45deg);
   bottom: 49%;
 }
 
-.mobile-menu {
+.mobileMenu {
   display: none;
   position: fixed;
   top: 0;
@@ -110,16 +110,16 @@
 }
 
 /* Show the menu when active */
-.mobile-menu.active {
+.mobileMenu.active {
   display: flex;
 }
 
-.mobile-menu-list {
+.mobileMenuList {
   list-style-type: none;
   padding: 0;
 }
 
-.mobile-menu-list-item-link {
+.mobileLink {
   display: inline-block;
   color: #fff;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -131,10 +131,10 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .header-right {
+  .right {
     display: none;
   }
-  .header-burger-inner {
+  .burgerInner {
     display: flex;
   }
 }
@@ -146,10 +146,10 @@
 }
 
 @media screen and (max-width: 500px) {
-  .header-left-phone-inner {
+  .phoneInner {
     display: none;
   }
-  .header-left {
+  .left {
     padding-right: 0;
   }
 }

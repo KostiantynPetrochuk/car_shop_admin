@@ -1,17 +1,21 @@
 import React from "react";
 import { Car } from "@/components/client";
-import { CatalogForm, CatalogPagination } from "@/partials/Catalog/components";
+import {
+  CatalogForm,
+  CatalogPagination,
+  CatalogFormBg,
+} from "@/partials/Catalog/components";
 
-import "./CatalogBody.css";
+import styles from "./CatalogBody.module.css";
 
 const CatalogBody = () => {
   return (
-    <section className="catalog">
+    <section className={styles.catalog}>
       <div className="container">
-        <div className="catalog-inner">
-          <div className="catalog-form-bg"></div>
+        <div className={styles.inner}>
+          <CatalogFormBg />
           <CatalogForm />
-          <ul className="cars-list">
+          <ul className={styles.carsList}>
             <Car />
             <Car />
             <Car />
