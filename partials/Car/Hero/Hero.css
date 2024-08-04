@@ -1,0 +1,139 @@
+.hero-inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero-left-badges {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.hero-left-badge {
+  background-color: #e9f2ff;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #405ff2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  padding: 14px 24px;
+  margin-right: 10px;
+}
+
+.hero-left-badge-logo {
+  margin-right: 8px;
+}
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  border: 2px solid #e1e1e1;
+  height: fit-content;
+  padding: 30px;
+  border-radius: 16px;
+  margin-top: 86px;
+}
+
+.hero-right-price {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.hero-right-link {
+  background-color: #405ff2;
+  color: #fff;
+  height: 56px;
+  width: 338px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  margin-top: 48px;
+}
+
+.hero-right-link-logo {
+  transform: translateX(-40px);
+}
+
+.hero-left-slider {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1380px) {
+  .hero-inner {
+    flex-direction: column;
+  }
+  .hero-right {
+    flex-direction: row;
+    align-items: center;
+    max-width: 870px;
+  }
+  .hero-right-link,
+  .hero-right-price {
+    margin-top: 0;
+  }
+  .hero-right-price {
+    margin-left: 20px;
+  }
+  .hero-right-link {
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .hero-right {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-right-link {
+    margin-left: 0;
+  }
+  .hero-right-price {
+    margin: 20px 0;
+  }
+  .hero-left-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero-left-badge {
+    margin: 0;
+    max-width: 200px;
+  }
+  .hero-left-badge:nth-child(n-1) {
+    margin-right: 10px;
+  }
+  .hero-left-badge:nth-child(1),
+  .hero-left-badge:nth-child(2) {
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .hero-swiper {
+    max-height: 300px;
+  }
+  .hero-right {
+    padding: 20px;
+    margin-top: 30px;
+  }
+  .hero-right-link {
+    width: 200px;
+  }
+  .hero-right-link-logo {
+    transform: translateX(-10px);
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .hero-left-badge {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-left-badge-logo {
+    margin: 0 0 4px 0;
+  }
+}

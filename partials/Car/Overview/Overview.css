@@ -1,0 +1,40 @@
+.overview-inner {
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.overview-details {
+  display: grid;
+  grid-template-columns: 500px 500px;
+}
+
+.overview-title {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 26px;
+}
+
+.overview-row {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  margin: 40px 0;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.overview-row-title {
+  display: flex;
+  align-items: center;
+}
+
+.overview-logo {
+  margin-right: 8px;
+}
+
+.overview-row-value {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 1020px) {
+  .overview-details {
+    grid-template-columns: 1fr;
+  }
+}
