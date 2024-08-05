@@ -1,148 +1,148 @@
 import React from "react";
 
-import "./Overview.css";
+import styles from "./Overview.module.css";
 
 const Overview = () => {
   return (
     <section className="overview">
       <div className="container">
-        <div className="overview-inner">
-          <h3 className="overview-title">Car Overview</h3>
-          <div className="overview-details">
+        <div className={styles.inner}>
+          <h3 className={styles.title}>Car Overview</h3>
+          <div className={styles.details}>
             <div className="overview-col">
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_body.svg"
                     alt=""
                   />
-                  <span className="overview-label">Body</span>
+                  <span>Body</span>
                 </div>
-                <span className="overview-row-value">Sedan</span>
+                <span className={styles.value}>Sedan</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_mileage.svg"
                     alt=""
                   />
-                  <span className="overview-label">Mileage</span>
+                  <span>Mileage</span>
                 </div>
-                <span className="overview-row-value">250</span>
+                <span className={styles.value}>250</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_fuel.svg"
                     alt=""
                   />
-                  <span className="overview-label">Fuel Type</span>
+                  <span>Fuel Type</span>
                 </div>
-                <span className="overview-row-value">Petrol</span>
+                <span className={styles.value}>Petrol</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_year.svg"
                     alt=""
                   />
-                  <span className="overview-label">Year</span>
+                  <span>Year</span>
                 </div>
-                <span className="overview-row-value">2021</span>
+                <span className={styles.value}>2021</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_transmission.svg"
                     alt=""
                   />
-                  <span className="overview-label">Transmission</span>
+                  <span>Transmission</span>
                 </div>
-                <span className="overview-row-value">Manual</span>
+                <span className={styles.value}>Manual</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_drive_type.svg"
                     alt=""
                   />
-                  <span className="overview-label">Drive Type</span>
+                  <span>Drive Type</span>
                 </div>
-                <span className="overview-row-value">Real-Wheel Drive</span>
+                <span className={styles.value}>Real-Wheel Drive</span>
               </div>
             </div>
             <div className="overview-col">
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_condition.svg"
                     alt=""
                   />
-                  <span className="overview-label">Condition</span>
+                  <span>Condition</span>
                 </div>
-                <span className="overview-row-value">Used</span>
+                <span className={styles.value}>Used</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_engine.svg"
                     alt=""
                   />
-                  <span className="overview-label">Engine Size</span>
+                  <span>Engine Size</span>
                 </div>
-                <span className="overview-row-value">4.0</span>
+                <span className={styles.value}>4.0</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_door.svg"
                     alt=""
                   />
-                  <span className="overview-label">Door</span>
+                  <span>Door</span>
                 </div>
-                <span className="overview-row-value">4 Doors</span>
+                <span className={styles.value}>4 Doors</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_cylinder.svg"
                     alt=""
                   />
-                  <span className="overview-label">Cylinder</span>
+                  <span>Cylinder</span>
                 </div>
-                <span className="overview-row-value">12</span>
+                <span className={styles.value}>12</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_color.svg"
                     alt=""
                   />
-                  <span className="overview-label">Color</span>
+                  <span>Color</span>
                 </div>
-                <span className="overview-row-value">Black</span>
+                <span className={styles.value}>Black</span>
               </div>
-              <div className="overview-row">
-                <div className="overview-row-title">
+              <div className={styles.row}>
+                <div className={styles.rowTitle}>
                   <img
-                    className="overview-logo"
+                    className={styles.logo}
                     src="/img/overview_vin.svg"
                     alt=""
                   />
-                  <span className="overview-label">VIN</span>
+                  <span>VIN</span>
                 </div>
-                <span className="overview-row-value">FCB123792</span>
+                <span className={styles.value}>FCB123792</span>
               </div>
             </div>
           </div>

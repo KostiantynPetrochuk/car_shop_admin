@@ -1,65 +1,65 @@
 import React from "react";
 
-import "./Hero.css";
+import styles from "./Hero.module.css";
 
 const Hero = () => {
   return (
     <section className="hero">
       <div className="container">
-        <div className="hero-inner">
+        <div className={styles.inner}>
           <div className="hero-left">
-            <div className="hero-left-badges">
-              <div className="hero-left-badge">
+            <div className={styles.badges}>
+              <div className={styles.badge}>
                 <img
-                  className="hero-left-badge-logo"
+                  className={styles.badgeLogo}
                   src="/img/badge_calendar.svg"
                   alt="calendar_badge"
                 />
-                <span className="hero-left-badge-label">2021</span>
+                <span>2021</span>
               </div>
-              <div className="hero-left-badge">
+              <div className={styles.badge}>
                 <img
-                  className="hero-left-badge-logo"
+                  className={styles.badgeLogo}
                   src="/img/badge_speed.svg"
                   alt="speed_badge"
                 />
-                <span className="hero-left-badge-label">250 000 km</span>
+                <span>250 000 km</span>
               </div>
-              <div className="hero-left-badge">
+              <div className={styles.badge}>
                 <img
-                  className="hero-left-badge-logo"
+                  className={styles.badgeLogo}
                   src="/img/badge_transmission.svg"
                   alt=""
                 />
-                <span className="hero-left-badge-label">Manual</span>
+                <span>Manual</span>
               </div>
-              <div className="hero-left-badge">
+              <div className={styles.badge}>
                 <img
-                  className="hero-left-badge-logo"
+                  className={styles.badgeLogo}
                   src="/img/badge_fuel.svg"
                   alt=""
                 />
-                <span className="hero-left-badge-label">Petrol</span>
+                <span>Petrol</span>
               </div>
             </div>
-            <div className="swiper-container hero-swiper">
-              <div className="swiper-wrapper">
-                <div className="swiper-slide">
-                  <img src="/img/test_car.jpg" alt="Car Image" />
-                </div>
-              </div>
+            <div>
+              <img
+                className={styles.sliderImg}
+                src="/img/test_car.jpg"
+                alt="Car Image"
+              />
             </div>
           </div>
-          <div className="hero-right">
-            <span className="hero-right-info">Price</span>
-            <span className="hero-right-price">$165 000</span>
-            <a className="hero-right-link" href="#">
+          <div className={styles.right}>
+            <span>Price</span>
+            <span className={styles.price}>$165 000</span>
+            <a className={styles.link} href="#">
               <img
-                className="hero-right-link-logo"
+                className={styles.linkLogo}
                 src="/img/badge_link.svg"
                 alt=""
               />
-              <span className="hero-right-link-label">Place an Order</span>
+              <span>Place an Order</span>
             </a>
           </div>
         </div>
