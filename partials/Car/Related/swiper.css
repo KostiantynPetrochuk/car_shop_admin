@@ -1,0 +1,43 @@
+.related-inner .swiper-button-prev {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 60px;
+  height: 40px;
+  border-radius: 30px;
+}
+
+.related-inner .swiper-button-prev:after {
+  content: "";
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+}
+
+.related-inner .swiper-button-next {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 60px;
+  height: 40px;
+  border-radius: 30px;
+  right: 0;
+}
+
+.related-inner .swiper-button-next:after {
+  content: "";
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  position: absolute;
+}
+
+.related-inner .swiper-pagination {
+  transform: translateY(12px);
+}
+
+.related-inner .swiper-pagination .swiper-pagination-bullet {
+  background-color: #050b20;
+}

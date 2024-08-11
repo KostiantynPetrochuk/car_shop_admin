@@ -1,0 +1,38 @@
+.cars-list .swiper-button-prev {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 60px;
+  height: 40px;
+  border-radius: 30px;
+}
+
+.cars-list .swiper-button-prev:after {
+  content: "";
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+}
+
+.cars-list .swiper-button-next {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 60px;
+  height: 40px;
+  border-radius: 30px;
+}
+
+.cars-list .swiper-button-next:after {
+  content: "";
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  position: absolute;
+}
+
+.cars-list .swiper-pagination .swiper-pagination-bullet {
+  background-color: #fff;
+}

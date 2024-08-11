@@ -1,9 +1,26 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 import styles from "./Header.module.css";
 
 const Header = () => {
+  const [mobMenu, setMobMenu] = useState(false);
+  const handleClickBurger = () => {
+    setMobMenu(!mobMenu);
+  };
+
+  useEffect(() => {
+    if (mobMenu) {
+      document.body.classList.add("freezed");
+    } else {
+      document.body.classList.remove("freezed");
+    }
+    return () => {
+      document.body.classList.remove("freezed");
+    };
+  }, [mobMenu]);
+
   return (
     <header className={styles.header}>
       <div className={styles.left}>
@@ -36,12 +53,35 @@ const Header = () => {
         </a> */}
       </div>
       <div className={styles.burgerInner}>
-        <div className={styles.burger}>
-          <span className={styles.burgerItem}></span>
-          <span className={styles.burgerItem}></span>
-          <span className={styles.burgerItem}></span>
+        <div className={styles.burger} onClick={handleClickBurger}>
+          <span
+            style={{
+              transform: mobMenu ? "rotate(45deg)" : "rotate(0deg)",
+              top: mobMenu ? "49%" : "4px",
+            }}
+            className={styles.burgerItem}
+          ></span>
+          <span
+            style={{
+              transform: mobMenu ? "translateX(-50px)" : "translateX(0px)",
+              opacity: mobMenu ? "0" : "1",
+            }}
+            className={styles.burgerItem}
+          ></span>
+          <span
+            style={{
+              transform: mobMenu ? "rotate(-45deg)" : "rotate(0deg)",
+              bottom: mobMenu ? "49%" : "4px",
+            }}
+            className={styles.burgerItem}
+          ></span>
         </div>
-        <nav className={styles.mobileMenu}>
+        <nav
+          style={{
+            display: mobMenu ? "flex" : "none",
+          }}
+          className={styles.mobileMenu}
+        >
           <ul className={styles.mobileMenuList}>
             <Link href="/catalog" className={styles.mobileLink}>
               Catalog
