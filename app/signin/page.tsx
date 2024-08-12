@@ -1,50 +1,5 @@
-// "use client";
-// import { BACKEND_URL } from "@/lib/Constants";
-// import Link from "next/link";
-// import React, { useRef } from "react";
-// import { signIn } from "next-auth/react";
-
-// type FormInputs = {
-//   name: string;
-//   email: string;
-//   password: string;
-// };
-
-// const SigninPage = () => {
-//   const login = async () => {
-//     const result = await signIn("credentials", {
-//       redirect: false,
-//       username: "test@gmail.com",
-//       password: "123",
-//     });
-
-//     if (result?.error) {
-//       // setError(result.error);
-//       alert("Login Failed!");
-//     } else {
-//       // Redirect or show success message
-//       window.location.href = "/";
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <div>Sign in</div>
-//       <div>
-//         <div>
-//           <button onClick={login}>Submit</button>
-//           <Link href={"/"}>Cancel</Link>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default SigninPage;
-
-//------------
 "use client";
-import * as React from "react";
+import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -59,6 +14,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Message, Loading } from "@/components/admin";
 
 function Copyright(props: any) {
   return (
@@ -78,32 +34,39 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get("email"),
-  //     password: data.get("password"),
-  //   });
-  // };
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [message, setMessage] = useState({
+    open: false,
+    severity: "warning",
+    text: "Hello",
+    variant: "filled",
+    autoHideDuration: 6000,
+    vertical: "top",
+    horizontal: "center",
+  });
 
   const handleSubmit = async (event: any) => {
     event?.preventDefault();
+    setLoading(true);
     const result = await signIn("credentials", {
       redirect: false,
-      username: "test@gmail.com",
-      password: "123",
+      username: email,
+      password,
     });
-
-    if (result?.error) {
-      // setError(result.error);
-      alert("Login Failed!");
+    setLoading(false);
+    if (!result?.ok) {
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "error",
+        text: "Не вірні дані. Спробуйте ще раз!",
+      }));
     } else {
-      // Redirect or show success message
       window.location.href = "/admin/dashboard";
     }
   };
@@ -141,6 +104,9 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
             />
             <TextField
               margin="normal"
@@ -151,6 +117,9 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -179,6 +148,8 @@ export default function SignIn() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Message message={message} setMessage={setMessage} />
+        <Loading loading={loading} />
       </Container>
     </ThemeProvider>
   );
