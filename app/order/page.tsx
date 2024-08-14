@@ -1,6 +1,6 @@
 import React from "react";
 import { Top, Header, Footer } from "@/components/client";
-import { OrderCard, OrderForm } from "@/partials/Order";
+import { OrderCard, OrderForm } from "@/partials/Client/Order";
 
 import "./page.css";
 

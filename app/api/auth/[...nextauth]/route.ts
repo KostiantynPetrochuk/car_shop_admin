@@ -14,6 +14,9 @@ async function refreshToken(token: JWT): Promise<JWT> {
   console.log("refreshed");
 
   const response = await res.json();
+  // if (res.ok) {
+  // ...
+  // }
 
   return {
     ...token,
@@ -60,6 +63,8 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      console.log("jwt callback");
+      console.log(user);
       if (user) {
         return { ...token, ...user };
       }

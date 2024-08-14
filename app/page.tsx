@@ -8,7 +8,7 @@ import {
   WhyUs,
   FeaturedCars,
   BottomBanner,
-} from "@/partials/Home";
+} from "@/partials/Client/Home";
 
 import "./page.css";
 
