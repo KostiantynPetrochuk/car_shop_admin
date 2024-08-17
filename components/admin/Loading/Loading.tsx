@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 const Loading = ({ loading }: { loading: boolean }) => {
   return (
     <Backdrop
-      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1000 }}
       open={loading}
     >
       <CircularProgress color="inherit" />

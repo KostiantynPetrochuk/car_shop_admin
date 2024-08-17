@@ -5,14 +5,10 @@ import type { RootState } from "../../";
 type Brand = {
   id: string;
   brand_name: string;
+  file_name: string;
 };
 
-const initialState: Brand[] = [
-  {
-    id: "uiehvtiuervhtmity",
-    brand_name: "Toyota",
-  },
-];
+const initialState: Brand[] = [];
 
 export const brandsSlice = createSlice({
   name: "brands",
@@ -26,6 +22,6 @@ export const brandsSlice = createSlice({
 
 export const { setBrands } = brandsSlice.actions;
 
-export const selectBrabds = (state: RootState) => state.brands;
+export const selectBrands = (state: RootState) => state.brands;
 
 export default brandsSlice.reducer;

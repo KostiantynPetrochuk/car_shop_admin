@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
 
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { BACKEND_URL } from "@/lib/Constants";
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
@@ -10,11 +9,7 @@ export const useAppSelector = useSelector.withTypes<RootState>();
 
 export const useFetchWithAuth = () => {
   const { data: session, update } = useSession();
-  //   const [error, setError] = useState<string | null>(null);
-
   const fetchWithAuth = async (url: string, options: RequestInit) => {
-    console.log(options);
-    console.log("current token: ", session?.backendTokens.accessToken);
     const response = await fetch(`${BACKEND_URL}${url}`, {
       ...options,
       headers: {
@@ -22,7 +17,6 @@ export const useFetchWithAuth = () => {
         Authorization: `Bearer ${session?.backendTokens.accessToken}`,
       },
     });
-
     if (response.ok) {
       return await response.json();
     }
@@ -34,14 +28,13 @@ export const useFetchWithAuth = () => {
         headers: {
           ...options.headers,
           Authorization: `Bearer ${newAccessToken}`,
-          // 'Content-Type': 'application/json',
         },
       });
-      return await response.json();
+      if (response.ok) {
+        return await response.json();
+      }
     }
-    return response;
+    throw new Error(response.statusText);
   };
-
-  //   return { fetchWithAuth, error };
   return { fetchWithAuth };
 };
