@@ -4,7 +4,7 @@ import {
   CatalogForm,
   CatalogPagination,
   CatalogFormBg,
-} from "@/partials/Catalog/components";
+} from "@/partials/Client/Catalog/components";
 
 import styles from "./CatalogBody.module.css";
 

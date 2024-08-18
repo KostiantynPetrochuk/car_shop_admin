@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
@@ -15,12 +16,7 @@ import { selectBrands, setBrands } from "@/store/features/brands/brandsSlice";
 import { Loading, Message } from "@/components/admin";
 import { useFetchWithAuth } from "@/hooks";
 import { AddBrandDialog } from "@/partials/Admin/Brands";
-
-type Brand = {
-  id: string;
-  brand_name: string;
-  file_name: string;
-};
+import { Brand } from "@/types";
 
 const AddBrand = ({ open, setOpen }: any) => {
   const dispatch = useAppDispatch();
@@ -142,25 +138,34 @@ const AddBrand = ({ open, setOpen }: any) => {
           <List>
             {brands.map((brand: Brand) => {
               return (
-                <ListItem key={brand.id} disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <Image
-                        src={`http://localhost:3001/uploads/brands/${brand.file_name}`}
-                        alt="brand_logo"
-                        height={50}
-                        width={50}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary={brand.brand_name} />
-                  </ListItemButton>
-                </ListItem>
+                <Link key={brand.id} href={`/admin/brands/${brand.id}`}>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <Image
+                          src={`http://localhost:3001/uploads/brands/${brand.file_name}`}
+                          alt="brand_logo"
+                          height={50}
+                          width={50}
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary={brand.brand_name} />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
               );
             })}
           </List>
         </Paper>
       </Box>
-      <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
+      <Fab
+        sx={{
+          margin: "20px auto 0 auto",
+        }}
+        color="primary"
+        aria-label="add"
+        onClick={handleClickOpen}
+      >
         <AddIcon />
       </Fab>
       <AddBrandDialog

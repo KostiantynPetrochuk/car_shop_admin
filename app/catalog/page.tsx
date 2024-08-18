@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Header, Footer, Top } from "@/components/client";
-import { SortForm, CatalogBody } from "@/partials/Catalog";
+import { SortForm, CatalogBody } from "@/partials/Client/Catalog";
 
 import "./page.css";
 

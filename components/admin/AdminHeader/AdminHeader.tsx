@@ -1,6 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
+import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,20 +9,20 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import BusinessIcon from "@mui/icons-material/Business";
+import HomeIcon from "@mui/icons-material/Home";
 
-import { useSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 const AdminHeader = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -112,29 +113,27 @@ function AdminDrawer({
         onClick={() => setOpen(false)}
       >
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          <Link href="/admin/dashboard">
+            <ListItem key={1} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="Домашня сторінка" />
               </ListItemButton>
             </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          </Link>
+
+          <Link href="/admin/brands">
+            <ListItem key={2} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <BusinessIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="Бренди" />
               </ListItemButton>
             </ListItem>
-          ))}
+          </Link>
         </List>
       </Box>
     </Drawer>
