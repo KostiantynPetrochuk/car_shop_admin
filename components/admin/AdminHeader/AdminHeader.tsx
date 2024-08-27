@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
@@ -123,7 +124,6 @@ function AdminDrawer({
               </ListItemButton>
             </ListItem>
           </Link>
-
           <Link href="/admin/brands">
             <ListItem key={2} disablePadding>
               <ListItemButton>
@@ -131,6 +131,16 @@ function AdminDrawer({
                   <BusinessIcon />
                 </ListItemIcon>
                 <ListItemText primary="Бренди" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link href="/admin/car">
+            <ListItem key={3} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DirectionsCarIcon />
+                </ListItemIcon>
+                <ListItemText primary="Автомобілі" />
               </ListItemButton>
             </ListItem>
           </Link>

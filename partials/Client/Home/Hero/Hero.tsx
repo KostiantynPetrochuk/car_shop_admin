@@ -19,8 +19,8 @@ const Hero = () => {
                 <div className={styles.dropdownItem} data-value="all_cars">
                   All Cars
                 </div>
-                <div className={styles.dropdownItem} data-value="whole_cars">
-                  Whole Cars
+                <div className={styles.dropdownItem} data-value="intact_cars">
+                  Intact Cars
                 </div>
                 <div className={styles.dropdownItem} data-value="damaged_cars">
                   Damaged Cars

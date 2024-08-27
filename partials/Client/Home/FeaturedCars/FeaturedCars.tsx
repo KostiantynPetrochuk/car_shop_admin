@@ -30,7 +30,7 @@ const FeaturedCars = () => {
             </a>
           </div>
           <div className={styles.tabs}>
-            <span className={styles.item}>Whole Cars</span>
+            <span className={styles.item}>Intact Cars</span>
             <span className={`${styles.item} ${styles.selected}`}>
               Damaged Cars
             </span>

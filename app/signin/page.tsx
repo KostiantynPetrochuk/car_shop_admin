@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -37,6 +38,7 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -67,7 +69,7 @@ export default function SignIn() {
         text: "Не вірні дані. Спробуйте ще раз!",
       }));
     } else {
-      window.location.href = "/admin/dashboard";
+      router.push("/admin/dashboard");
     }
   };
 

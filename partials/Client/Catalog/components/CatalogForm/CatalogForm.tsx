@@ -17,20 +17,20 @@ const CatalogForm = () => {
           <span className={styles.title}>Condition</span>
           <div className={styles.items}>
             <div className={styles.item}>
-              <label htmlFor="whole-cars" className={styles.label}>
+              <label htmlFor="intact-cars" className={styles.label}>
                 <input
                   className={styles.realCheckbox}
                   type="checkbox"
-                  name="whole-cars"
-                  id="whole-cars"
+                  name="intact-cars"
+                  id="intact-cars"
                   data-category="condition"
                 />
                 <span
                   className={styles.fakeCheckbox}
-                  data-for="whole-cars"
+                  data-for="intact-cars"
                 ></span>
               </label>
-              <span className={styles.info}>Whole Cars</span>
+              <span className={styles.info}>intact Cars</span>
             </div>
             <div className={styles.item}>
               <label htmlFor="damaged-cars" className={styles.label}>
@@ -43,7 +43,7 @@ const CatalogForm = () => {
                 />
                 <span
                   className={styles.fakeCheckbox}
-                  data-for="whole-cars"
+                  data-for="intact-cars"
                 ></span>
               </label>
               <span className={styles.info}>Damaged Cars</span>
@@ -155,7 +155,7 @@ const CatalogForm = () => {
                 />
                 <span
                   className={styles.fakeCheckbox}
-                  data-for="whole-cars"
+                  data-for="intact-cars"
                 ></span>
               </label>
               <span className={styles.info}>Electric</span>

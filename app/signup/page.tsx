@@ -1,5 +1,6 @@
 "use client";
-import { Button } from "@/components/Button";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/admin/Button";
 import InputBox from "@/components/InputBox";
 import { BACKEND_URL } from "@/lib/Constants";
 import Link from "next/link";
@@ -13,6 +14,7 @@ type FormInputs = {
 };
 
 const SignupPage = () => {
+  const router = useRouter();
   const register = async () => {
     const res = await fetch(BACKEND_URL + "/auth/register", {
       method: "POST",
@@ -48,7 +50,7 @@ const SignupPage = () => {
       alert("Login after register Failed!");
     } else {
       // Redirect or show success message
-      window.location.href = "/";
+      router.push("/");
     }
   };
   const data = useRef<FormInputs>({

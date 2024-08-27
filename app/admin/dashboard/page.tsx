@@ -11,6 +11,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import BusinessIcon from "@mui/icons-material/Business";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 
 import { AdminHeader } from "@/components/admin";
 
@@ -65,6 +66,16 @@ const DashboardPage = () => {
                     </ListItem>
                   </Link>
                 </List>
+                <Link href="/admin/car">
+                  <ListItem key={3} disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <DirectionsCarIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Автомобілі" />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
                 <Button
                   variant="contained"
                   sx={{ marginTop: "12px", width: 100 }}
