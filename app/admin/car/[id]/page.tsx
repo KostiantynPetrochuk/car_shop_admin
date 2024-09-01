@@ -24,6 +24,7 @@ import ListItemText from "@mui/material/ListItemText";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Car } from "@/types";
 import { ComfortTitlesKeys, overviewData } from "./constants";
+import { LABELS } from "@/constants";
 
 const comfortTitles: Record<ComfortTitlesKeys, string> = {
   interior: "Інтер'єр",
@@ -175,44 +176,51 @@ const CarPage = ({ params }: { params: { id: string } }) => {
             >
               <Box>
                 <Grid container spacing={2}>
-                  {overviewData.map((item, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          padding: 2,
-                          border: `1px solid ${theme.palette.divider}`,
-                          borderRadius: 1,
-                          gap: 2,
-                        }}
-                      >
-                        <Image
-                          src={item.src}
-                          alt={item.label}
-                          width={40}
-                          height={40}
-                          layout="fixed"
-                        />
+                  {overviewData.map((item, index) => {
+                    const type = item.value;
+                    let currentTitle = car[item.value];
+                    if (item.translate) {
+                      currentTitle = LABELS[type][currentTitle].ua;
+                    }
+                    return (
+                      <Grid item xs={12} sm={6} md={4} key={index}>
                         <Box
                           sx={{
                             display: "flex",
                             alignItems: "center",
+                            padding: 2,
+                            border: `1px solid ${theme.palette.divider}`,
+                            borderRadius: 1,
+                            gap: 2,
                           }}
                         >
-                          <Typography
-                            variant="body1"
-                            sx={{ fontWeight: "bold" }}
+                          <Image
+                            src={item.src}
+                            alt={item.label}
+                            width={40}
+                            height={40}
+                            layout="fixed"
+                          />
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                            }}
                           >
-                            {item.label}&nbsp;
-                          </Typography>
-                          <Typography variant="body2" color="textSecondary">
-                            {car[item.value] as keyof Car}
-                          </Typography>
+                            <Typography
+                              variant="body1"
+                              sx={{ fontWeight: "bold" }}
+                            >
+                              {item.label}&nbsp;
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary">
+                              {currentTitle}
+                            </Typography>
+                          </Box>
                         </Box>
-                      </Box>
-                    </Grid>
-                  ))}
+                      </Grid>
+                    );
+                  })}
                 </Grid>
               </Box>
             </Paper>

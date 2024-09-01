@@ -25,7 +25,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useFetchWithAuth } from "@/hooks";
 
-import { AdminHeader, Loading } from "@/components/admin";
+import { AdminHeader, Loading, Message } from "@/components/admin";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import { selectBrands, setBrands } from "@/store/features/brands/brandsSlice";
 import {
@@ -39,9 +39,12 @@ import {
   DRIVE_TYPE,
   FUEL_TYPES,
   TRANSMISSION,
+  LABELS,
 } from "@/constants";
 
 import { Feature } from "@/types";
+
+const CAR_COLORS = LABELS.color;
 
 const NewCarPage = () => {
   const router = useRouter();
@@ -51,6 +54,15 @@ const NewCarPage = () => {
   const [images, setImages] = useState(Array(3).fill(null));
   const brands = useAppSelector(selectBrands);
   const features = useAppSelector(selectFeatures);
+  const [message, setMessage] = useState({
+    open: false,
+    severity: "error",
+    text: "",
+    variant: "filled",
+    autoHideDuration: 6000,
+    vertical: "top",
+    horizontal: "center",
+  });
   // Form state
   const [form, setForm] = useState({
     vin: "",
@@ -77,9 +89,6 @@ const NewCarPage = () => {
       | SelectChangeEvent
   ) => {
     const { name, value } = event.target;
-    console.log("typeof event: ", typeof event);
-    console.log({ name });
-    console.log({ value });
     setForm((prevForm) => ({
       ...prevForm,
       [name]: value,
@@ -240,6 +249,12 @@ const NewCarPage = () => {
       !mileage
     ) {
       setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, перевірте правильність введення даних!",
+      }));
       return;
     }
 
@@ -327,6 +342,7 @@ const NewCarPage = () => {
   return (
     <>
       <Loading loading={loading} />
+      <Message message={message} setMessage={setMessage} />
       <AdminHeader />
       <Container component="main">
         <Box>
@@ -577,7 +593,7 @@ const NewCarPage = () => {
                     type="number"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                {/* <Grid item xs={12} sm={6}>
                   <TextField
                     value={form.color}
                     onChange={handleChange}
@@ -586,6 +602,27 @@ const NewCarPage = () => {
                     label="Колір"
                     type="text"
                   />
+                </Grid> */}
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Колір</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Колір"
+                      value={form.color}
+                      onChange={handleChange}
+                      name="color"
+                    >
+                      {Object.keys(CAR_COLORS).map((value) => {
+                        return (
+                          <MenuItem key={value} value={value}>
+                            {CAR_COLORS[value as keyof typeof CAR_COLORS].ua}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
                 </Grid>
               </Grid>
             </Paper>
