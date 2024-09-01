@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../..";
+import { Car } from "@/types";
 
-const initialState: any = [];
+const initialState: Car[] = [];
 
 export const carsSlice = createSlice({
   name: "cars",

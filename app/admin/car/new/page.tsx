@@ -41,13 +41,7 @@ import {
   TRANSMISSION,
 } from "@/constants";
 
-type Feature = {
-  id: string;
-  feature_name: string;
-  category: string;
-  createdDate: string;
-  updatedDate: string;
-};
+import { Feature } from "@/types";
 
 const NewCarPage = () => {
   const router = useRouter();
@@ -119,7 +113,7 @@ const NewCarPage = () => {
             return (
               <FormControlLabel
                 key={feature.id}
-                control={<Checkbox id={feature.id} />}
+                control={<Checkbox id={String(feature.id)} />}
                 label={feature.feature_name}
                 onChange={handleClickFeature}
               />
@@ -141,7 +135,7 @@ const NewCarPage = () => {
             return (
               <FormControlLabel
                 key={feature.id}
-                control={<Checkbox id={feature.id} />}
+                control={<Checkbox id={String(feature.id)} />}
                 label={feature.feature_name}
                 onChange={handleClickFeature}
               />
@@ -163,7 +157,7 @@ const NewCarPage = () => {
             return (
               <FormControlLabel
                 key={feature.id}
-                control={<Checkbox id={feature.id} />}
+                control={<Checkbox id={String(feature.id)} />}
                 label={feature.feature_name}
                 onChange={handleClickFeature}
               />
@@ -187,7 +181,7 @@ const NewCarPage = () => {
             return (
               <FormControlLabel
                 key={feature.id}
-                control={<Checkbox id={feature.id} />}
+                control={<Checkbox id={String(feature.id)} />}
                 label={feature.feature_name}
                 onChange={handleClickFeature}
               />

@@ -63,57 +63,60 @@ const CarPage = () => {
   );
 
   if (cars.length) {
-    listContent = cars.map((car: any) => (
-      <Link key={car.id} href={`/admin/cars/${car.id}`}>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <Grid container spacing={2} alignItems="center">
-              {/* Зображення */}
-              <Grid item xs={12} sm={4} md={3}>
-                <Image
-                  src={`http://localhost:3001/uploads/cars/${car.imageNames[0]}`}
-                  alt={`${car.brand_name} logo`}
-                  height={200}
-                  width={200}
-                  objectFit="contain"
-                  layout="responsive"
-                />
-              </Grid>
+    listContent = (
+      <List>
+        {cars.map((car: any) => (
+          <Link key={car.id} href={`/admin/car/${car.id}`}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <Grid container spacing={2} alignItems="center">
+                  <Grid item xs={12} sm={4} md={3}>
+                    <Image
+                      src={`http://localhost:3001/uploads/cars/${car.imageNames[0]}`}
+                      alt={`${car.brand_name} logo`}
+                      height={200}
+                      width={200}
+                      objectFit="contain"
+                      layout="responsive"
+                    />
+                  </Grid>
 
-              <Grid item xs={12} sm={8} md={9}>
-                <Box
-                  sx={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: 1,
-                  }}
-                >
-                  <Typography variant="body1">
-                    <strong>Бренд:</strong> {car.brand.brand_name}
-                  </Typography>
-                  <Typography variant="body1">
-                    <strong>Модель:</strong> {car.model.model_name}
-                  </Typography>
-                  <Typography variant="body1">
-                    <strong>Стан:</strong> {car.condition}
-                  </Typography>
-                  <Typography variant="body1">
-                    <strong>Пробіг:</strong> {car.mileage} км
-                  </Typography>
-                  <Typography variant="body1">
-                    <strong>Паливо:</strong> {car.fuel_type}
-                  </Typography>
-                  <Typography variant="body1">
-                    <strong>Дата створення:</strong>
-                    {format(new Date(car.createdDate), "dd MMM yyyy")}
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid>
-          </ListItemButton>
-        </ListItem>
-      </Link>
-    ));
+                  <Grid item xs={12} sm={8} md={9}>
+                    <Box
+                      sx={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: 1,
+                      }}
+                    >
+                      <Typography variant="body1">
+                        <strong>Бренд:</strong> {car.brand.brand_name}
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Модель:</strong> {car.model.model_name}
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Стан:</strong> {car.condition}
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Пробіг:</strong> {car.mileage} км
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Паливо:</strong> {car.fuel_type}
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Дата створення:</strong>
+                        {format(new Date(car.createdDate), "dd MMM yyyy")}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        ))}
+      </List>
+    );
   }
 
   return (
@@ -156,7 +159,7 @@ const CarPage = () => {
                 }}
                 elevation={24}
               >
-                <List>{listContent}</List>
+                {listContent}
               </Paper>
 
               <Link href={"/admin/car/new"}>
