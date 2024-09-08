@@ -133,7 +133,7 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
               elevation={24}
             >
               <Typography variant="h5" component="h2">
-                Audi
+                {brand?.brand_name}
               </Typography>
             </Paper>
           </Box>

@@ -5,10 +5,10 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 async function refreshToken(token: JWT): Promise<JWT> {
-  const res = await fetch(BACKEND_URL + "/auth/refresh", {
+  const res = await fetch(BACKEND_URL + "/refresh", {
     method: "POST",
     headers: {
-      authorization: `Refresh ${token.backendTokens.refreshToken}`,
+      authorization: `Bearer ${token.tokens.refreshToken}`,
     },
   });
 
@@ -19,7 +19,7 @@ async function refreshToken(token: JWT): Promise<JWT> {
 
   return {
     ...token,
-    backendTokens: response,
+    tokens: response,
   };
 }
 
@@ -40,11 +40,11 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
         const { username, password } = credentials;
-        const res = await fetch(BACKEND_URL + "/auth/login", {
+        const res = await fetch(BACKEND_URL + "/signin", {
           method: "POST",
           body: JSON.stringify({
             login: username,
-            pwd: password,
+            password,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +52,6 @@ export const authOptions: NextAuthOptions = {
         });
         if (res.status === 401) {
           console.log(res.statusText);
-
           return null;
         }
         const user = await res.json();
@@ -62,21 +61,17 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log("jwt callback");
-      console.log(user);
       if (user) {
         return { ...token, ...user };
       }
-      // console.log({ token, user });
-      if (new Date().getTime() < token.backendTokens.expiresIn) {
+      if (new Date().getTime() < token.tokens.expiresIn) {
         return token;
       }
       return await refreshToken(token);
     },
     async session({ token, session }) {
       session.user = token.user;
-      session.backendTokens = token.backendTokens;
-      // console.log("session: ", session);
+      session.tokens = token.tokens;
       return session;
     },
   },

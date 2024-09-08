@@ -240,6 +240,7 @@ const CarPage = ({ params }: { params: { id: string } }) => {
                 padding: 2,
                 textAlign: "center",
                 marginTop: 2,
+                marginBottom: 2,
               }}
               elevation={24}
             >

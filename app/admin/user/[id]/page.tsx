@@ -13,14 +13,12 @@ const ProfilePage = async (props: Props) => {
   const response = await fetch(BACKEND_URL + `/auth/user`, {
     method: "POST",
     headers: {
-      authorization: `Bearer ${session?.backendTokens.accessToken}`,
+      authorization: `Bearer ${session?.tokens.accessToken}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ id: props.params.id }),
   });
-  // console.log({ response });
   const user = await response.json();
-  console.log(user);
 
   return (
     <div>

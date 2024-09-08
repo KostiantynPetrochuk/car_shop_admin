@@ -14,7 +14,7 @@ export const useFetchWithAuth = () => {
       ...options,
       headers: {
         ...options.headers,
-        Authorization: `Bearer ${session?.backendTokens.accessToken}`,
+        Authorization: `Bearer ${session?.tokens.accessToken}`,
       },
     });
     if (response.ok) {
@@ -22,7 +22,7 @@ export const useFetchWithAuth = () => {
     }
     if (!response.ok && response.status === 401) {
       const newSession = await update();
-      const newAccessToken = newSession?.backendTokens.accessToken;
+      const newAccessToken = newSession?.tokens.accessToken;
       const response = await fetch(`${BACKEND_URL}${url}`, {
         ...options,
         headers: {

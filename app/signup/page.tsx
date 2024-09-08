@@ -1,9 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/admin/Button";
-import InputBox from "@/components/InputBox";
 import { BACKEND_URL } from "@/lib/Constants";
-import Link from "next/link";
 import React, { useRef } from "react";
 import { signIn } from "next-auth/react";
 
@@ -61,32 +58,6 @@ const SignupPage = () => {
   return (
     <div>
       <div>Sign up</div>
-      <div>
-        <InputBox
-          autoComplete="off"
-          name="name"
-          labelText="Name"
-          required
-          onChange={(e) => (data.current.name = e.target.value)}
-        />
-        <InputBox
-          name="email"
-          labelText="Email"
-          required
-          onChange={(e) => (data.current.email = e.target.value)}
-        />
-        <InputBox
-          name="password"
-          labelText="password"
-          type="password"
-          required
-          onChange={(e) => (data.current.password = e.target.value)}
-        />
-        <div>
-          <Button onClick={register}>Submit</Button>
-          <Link href={"/"}>Cancel</Link>
-        </div>
-      </div>
     </div>
   );
 };
