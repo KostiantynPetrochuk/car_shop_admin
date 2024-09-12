@@ -1,19 +1,18 @@
 export type Brand = {
-  id: string;
-  brand_name: string;
-  file_name: string;
-  models: {
-    id: string;
-    model_name: string;
+  ID: string;
+  BrandName: string;
+  FileName: string;
+  Models: {
+    ID: string;
+    ModelName: string;
+    BrandID: string;
   }[];
 };
 
 type CarBrand = {
-  brand_name: string;
-  createdDate: string;
-  file_name: string;
-  id: number;
-  updatedDate: string;
+  BrandName: string;
+  fileMame: string;
+  ID: number;
 };
 
 export type Feature = {

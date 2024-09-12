@@ -29,7 +29,7 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
   const { fetchWithAuth } = useFetchWithAuth();
   const [modelName, setModelName] = useState<string>("");
   const brands = useAppSelector(selectBrands);
-  const brand = brands.find((brand) => brand.id == params.id);
+  const brand = brands.find((brand) => brand.ID == params.id);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({
     open: false,
@@ -61,9 +61,9 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
       return;
     }
     try {
-      const response = await fetchWithAuth("/model", {
+      const response = await fetchWithAuth("/models", {
         method: "POST",
-        body: JSON.stringify({ brandId: params.id, modelName }),
+        body: JSON.stringify({ brandId: Number(params.id), modelName }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -72,8 +72,8 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
         addModelToBrand({
           brandId: params.id,
           model: {
-            id: response.id,
-            model_name: response.model_name,
+            ID: response.model.ID,
+            ModelName: response.model.ModelName,
           },
         })
       );
@@ -102,10 +102,10 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     const getBrands = async () => {
       setLoading(true);
-      const result = await fetchWithAuth("/brand", {
+      const result = await fetchWithAuth("/brands", {
         method: "GET",
       });
-      dispatch(setBrands(result));
+      dispatch(setBrands(result.brands));
       setLoading(false);
     };
     if (!brands.length) {
@@ -133,7 +133,7 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
               elevation={24}
             >
               <Typography variant="h5" component="h2">
-                {brand?.brand_name}
+                {brand?.BrandName}
               </Typography>
             </Paper>
           </Box>
@@ -152,7 +152,7 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
               elevation={24}
             >
               <Image
-                src={`http://localhost:3001/uploads/brands/${brand?.file_name}`}
+                src={`http://localhost:3001/uploads/brands/${brand?.FileName}`}
                 alt="brand_logo"
                 height={50}
                 width={50}
@@ -181,14 +181,14 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
                   margin: "0 auto",
                 }}
               >
-                {brand?.models?.map((model) => {
+                {brand?.Models?.map((model) => {
                   return (
-                    <ListItem key={model.id} disablePadding>
+                    <ListItem key={model.ID} disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
-                          <Typography>{model.id}.</Typography>
+                          <Typography>{model.ID}.</Typography>
                         </ListItemIcon>
-                        <ListItemText primary={model.model_name} />
+                        <ListItemText primary={model.ModelName} />
                       </ListItemButton>
                     </ListItem>
                   );

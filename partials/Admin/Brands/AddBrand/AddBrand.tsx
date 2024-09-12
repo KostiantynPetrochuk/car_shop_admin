@@ -73,11 +73,11 @@ const AddBrand = ({ open, setOpen }: any) => {
       formData.append("file", fileInput.files[0]);
     }
     try {
-      const response = await fetchWithAuth("/brand", {
+      const response = await fetchWithAuth("/brands", {
         method: "POST",
         body: formData,
       });
-      dispatch(setBrands([...brands, response]));
+      dispatch(setBrands([...brands, response.brand]));
       setBrandName("");
       setSelectedImage(null);
       if (fileInput) {
@@ -105,10 +105,10 @@ const AddBrand = ({ open, setOpen }: any) => {
   useEffect(() => {
     setLoading(true);
     const getBrands = async () => {
-      const result = await fetchWithAuth("/brand", {
+      const result = await fetchWithAuth("/brands", {
         method: "GET",
       });
-      dispatch(setBrands(result));
+      dispatch(setBrands(result.brands));
       setLoading(false);
     };
     getBrands();
@@ -138,18 +138,18 @@ const AddBrand = ({ open, setOpen }: any) => {
           <List>
             {brands.map((brand: Brand) => {
               return (
-                <Link key={brand.id} href={`/admin/brands/${brand.id}`}>
+                <Link key={brand.ID} href={`/admin/brands/${brand.ID}`}>
                   <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
                         <Image
-                          src={`http://localhost:3001/uploads/brands/${brand.file_name}`}
+                          src={`http://localhost:3001/uploads/brands/${brand.FileName}`}
                           alt="brand_logo"
                           height={50}
                           width={50}
                         />
                       </ListItemIcon>
-                      <ListItemText primary={brand.brand_name} />
+                      <ListItemText primary={brand.BrandName} />
                     </ListItemButton>
                   </ListItem>
                 </Link>

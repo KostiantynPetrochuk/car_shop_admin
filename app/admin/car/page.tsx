@@ -73,7 +73,7 @@ const CarPage = () => {
                   <Grid item xs={12} sm={4} md={3}>
                     <Image
                       src={`http://localhost:3001/uploads/cars/${car.imageNames[0]}`}
-                      alt={`${car.brand_name} logo`}
+                      alt={`${car.BrandName} logo`}
                       height={200}
                       width={200}
                       objectFit="contain"
@@ -90,7 +90,7 @@ const CarPage = () => {
                       }}
                     >
                       <Typography variant="body1">
-                        <strong>Бренд:</strong> {car.brand.brand_name}
+                        <strong>Бренд:</strong> {car.brand.BrandName}
                       </Typography>
                       <Typography variant="body1">
                         <strong>Модель:</strong> {car.model.model_name}

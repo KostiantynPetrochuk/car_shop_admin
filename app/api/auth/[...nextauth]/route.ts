@@ -13,13 +13,13 @@ async function refreshToken(token: JWT): Promise<JWT> {
   });
 
   const response = await res.json();
-  // if (res.ok) {
-  // ...
-  // }
+  if (!res.ok) {
+    throw new Error("Token refresh failed");
+  }
 
   return {
     ...token,
-    tokens: response,
+    tokens: response.tokens,
   };
 }
 
@@ -36,26 +36,29 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        if (!credentials?.username || !credentials?.password) {
-          return null;
+        try {
+          if (!credentials?.username || !credentials?.password) {
+            return null;
+          }
+          const { username, password } = credentials;
+          const res = await fetch(BACKEND_URL + "/signin", {
+            method: "POST",
+            body: JSON.stringify({
+              login: username,
+              password,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (res.status === 401) {
+            return null;
+          }
+          const user = await res.json();
+          return user;
+        } catch (error) {
+          console.error("error: ", error);
         }
-        const { username, password } = credentials;
-        const res = await fetch(BACKEND_URL + "/signin", {
-          method: "POST",
-          body: JSON.stringify({
-            login: username,
-            password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (res.status === 401) {
-          console.log(res.statusText);
-          return null;
-        }
-        const user = await res.json();
-        return user;
       },
     }),
   ],

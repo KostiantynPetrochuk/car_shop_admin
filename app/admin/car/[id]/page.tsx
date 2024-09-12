@@ -92,7 +92,7 @@ const CarPage = ({ params }: { params: { id: string } }) => {
               elevation={24}
             >
               <Typography variant="h5" component="h2">
-                {car?.brand?.brand_name} {car?.model?.model_name}
+                {car?.brand?.BrandName} {car?.model?.model_name}
               </Typography>
             </Paper>
 
