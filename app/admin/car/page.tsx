@@ -21,29 +21,32 @@ import ListItemButton from "@mui/material/ListItemButton";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 
 import Grid from "@mui/material/Grid";
+import { useSession } from "next-auth/react";
 
 const CarPage = () => {
+  const session = useSession();
   const dispatch = useAppDispatch();
   const { fetchWithAuth } = useFetchWithAuth();
   const [loading, setLoading] = useState(false);
   const cars = useAppSelector(selectCars);
 
   useEffect(() => {
+    if (session.status === "loading") return;
     setLoading(true);
     const getData = async () => {
       try {
         const featuresResult = await fetchWithAuth("/features", {
           method: "GET",
         });
-        dispatch(setFeatures(featuresResult));
-        const brandsResult = await fetchWithAuth("/brand", {
+        dispatch(setFeatures(featuresResult.features));
+        const brandsResult = await fetchWithAuth("/brands", {
           method: "GET",
         });
-        dispatch(setBrands(brandsResult));
+        dispatch(setBrands(brandsResult.brands));
         const carsResult = await fetchWithAuth("/cars", {
           method: "GET",
         });
-        dispatch(setCars(carsResult));
+        dispatch(setCars(carsResult.cars));
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -51,7 +54,7 @@ const CarPage = () => {
       }
     };
     getData();
-  }, []);
+  }, [session.status]);
 
   let listContent = (
     <Box sx={{ textAlign: "center", padding: 4 }}>
@@ -62,59 +65,66 @@ const CarPage = () => {
     </Box>
   );
 
-  if (cars.length) {
+  if (cars?.length) {
     listContent = (
       <List>
-        {cars.map((car: any) => (
-          <Link key={car.id} href={`/admin/car/${car.id}`}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <Grid container spacing={2} alignItems="center">
-                  <Grid item xs={12} sm={4} md={3}>
-                    <Image
-                      src={`http://localhost:3001/uploads/cars/${car.imageNames[0]}`}
-                      alt={`${car.BrandName} logo`}
-                      height={200}
-                      width={200}
-                      objectFit="contain"
-                      layout="responsive"
-                    />
-                  </Grid>
+        {cars.map((car: any) => {
+          return (
+            <Link key={car.ID} href={`/admin/car/${car.ID}`}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={12} sm={4} md={3}>
+                      <Image
+                        src={`http://localhost:3001/uploads/cars/${car.ImageNames[0]}`}
+                        alt={`${car.BrandName} logo`}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        priority={true}
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </Grid>
 
-                  <Grid item xs={12} sm={8} md={9}>
-                    <Box
-                      sx={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: 1,
-                      }}
-                    >
-                      <Typography variant="body1">
-                        <strong>Бренд:</strong> {car.brand.BrandName}
-                      </Typography>
-                      <Typography variant="body1">
-                        <strong>Модель:</strong> {car.model.model_name}
-                      </Typography>
-                      <Typography variant="body1">
-                        <strong>Стан:</strong> {car.condition}
-                      </Typography>
-                      <Typography variant="body1">
-                        <strong>Пробіг:</strong> {car.mileage} км
-                      </Typography>
-                      <Typography variant="body1">
-                        <strong>Паливо:</strong> {car.fuel_type}
-                      </Typography>
-                      <Typography variant="body1">
-                        <strong>Дата створення:</strong>
-                        {format(new Date(car.createdDate), "dd MMM yyyy")}
-                      </Typography>
-                    </Box>
+                    <Grid item xs={12} sm={8} md={9}>
+                      <Box
+                        sx={{
+                          display: "grid",
+                          gridTemplateColumns: "1fr 1fr",
+                          gap: 1,
+                        }}
+                      >
+                        <Typography variant="body1">
+                          <strong>Бренд:</strong> {car.BrandName}
+                        </Typography>
+                        <Typography variant="body1">
+                          <strong>Модель:</strong> {car?.ModelName}
+                        </Typography>
+                        <Typography variant="body1">
+                          <strong>Стан:</strong> {car.Condition}
+                        </Typography>
+                        <Typography variant="body1">
+                          <strong>Пробіг:</strong> {car.Mileage} км
+                        </Typography>
+                        <Typography variant="body1">
+                          <strong>Паливо:</strong> {car.FuelType}
+                        </Typography>
+                        <Typography variant="body1">
+                          <strong>Дата створення:</strong>
+                          {/* {format(new Date(car.createdDate), "dd MMM yyyy")} */}
+                        </Typography>
+                      </Box>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          );
+        })}
       </List>
     );
   }

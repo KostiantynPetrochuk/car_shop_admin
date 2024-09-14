@@ -44,7 +44,7 @@ import {
 
 import { Feature } from "@/types";
 
-const CAR_COLORS = LABELS.color;
+const CAR_COLORS = LABELS.Color;
 
 const NewCarPage = () => {
   const router = useRouter();
@@ -66,7 +66,7 @@ const NewCarPage = () => {
   // Form state
   const [form, setForm] = useState({
     vin: "",
-    brandId: brands[0]?.id ?? "",
+    brandId: brands[0]?.ID ?? "",
     modelId: "",
     body: "",
     mileage: 0,
@@ -117,13 +117,13 @@ const NewCarPage = () => {
       </Typography>
       <FormGroup>
         {features
-          .filter((feature: Feature) => feature.category === "interior")
+          .filter((feature: Feature) => feature.Category === "interior")
           .map((feature: Feature) => {
             return (
               <FormControlLabel
-                key={feature.id}
-                control={<Checkbox id={String(feature.id)} />}
-                label={feature.feature_name}
+                key={feature.ID}
+                control={<Checkbox id={String(feature.ID)} />}
+                label={feature.FeatureName}
                 onChange={handleClickFeature}
               />
             );
@@ -139,13 +139,13 @@ const NewCarPage = () => {
       </Typography>
       <FormGroup>
         {features
-          .filter((feature: Feature) => feature.category === "safety")
+          .filter((feature: Feature) => feature.Category === "safety")
           .map((feature: Feature) => {
             return (
               <FormControlLabel
-                key={feature.id}
-                control={<Checkbox id={String(feature.id)} />}
-                label={feature.feature_name}
+                key={feature.ID}
+                control={<Checkbox id={String(feature.ID)} />}
+                label={feature.FeatureName}
                 onChange={handleClickFeature}
               />
             );
@@ -161,13 +161,13 @@ const NewCarPage = () => {
       </Typography>
       <FormGroup>
         {features
-          .filter((feature: Feature) => feature.category === "exterior")
+          .filter((feature: Feature) => feature.Category === "exterior")
           .map((feature: Feature) => {
             return (
               <FormControlLabel
-                key={feature.id}
-                control={<Checkbox id={String(feature.id)} />}
-                label={feature.feature_name}
+                key={feature.ID}
+                control={<Checkbox id={String(feature.ID)} />}
+                label={feature.FeatureName}
                 onChange={handleClickFeature}
               />
             );
@@ -183,15 +183,13 @@ const NewCarPage = () => {
       </Typography>
       <FormGroup>
         {features
-          .filter(
-            (feature: Feature) => feature.category === "comfort_convenience"
-          )
+          .filter((feature: Feature) => feature.Category === "comfort")
           .map((feature: Feature) => {
             return (
               <FormControlLabel
-                key={feature.id}
-                control={<Checkbox id={String(feature.id)} />}
-                label={feature.feature_name}
+                key={feature.ID}
+                control={<Checkbox id={String(feature.ID)} />}
+                label={feature.FeatureName}
                 onChange={handleClickFeature}
               />
             );
@@ -281,7 +279,7 @@ const NewCarPage = () => {
       console.log(response);
       setForm({
         vin: "",
-        brandId: brands[0]?.id ?? "",
+        brandId: brands[0]?.ID ?? "",
         modelId: "",
         body: "",
         mileage: 0,
@@ -307,10 +305,10 @@ const NewCarPage = () => {
   useEffect(() => {
     setLoading(true);
     const getBrands = async () => {
-      const result = await fetchWithAuth("/brand", {
+      const result = await fetchWithAuth("/brands", {
         method: "GET",
       });
-      dispatch(setBrands(result));
+      dispatch(setBrands(result.brands));
       setLoading(false);
     };
     getBrands();
@@ -322,21 +320,20 @@ const NewCarPage = () => {
       const result = await fetchWithAuth("/features", {
         method: "GET",
       });
-      console.log(result);
-      dispatch(setFeatures(result));
+      dispatch(setFeatures(result.features));
       setLoading(false);
     };
     getFeatures();
   }, []);
 
   const currentBrand = brands.find(
-    (currentBrand) => currentBrand.id == form.brandId
+    (currentBrand) => currentBrand.ID == form.brandId
   );
 
   let modelsItems: any = [];
 
-  if (currentBrand?.models) {
-    modelsItems = currentBrand.models;
+  if (currentBrand?.Models) {
+    modelsItems = currentBrand.Models;
   }
 
   return (
@@ -396,8 +393,8 @@ const NewCarPage = () => {
                     >
                       {brands.map((brand) => {
                         return (
-                          <MenuItem key={brand.id} value={brand.id}>
-                            {brand.brand_name}
+                          <MenuItem key={brand.ID} value={brand.ID}>
+                            {brand.BrandName}
                           </MenuItem>
                         );
                       })}
@@ -419,8 +416,8 @@ const NewCarPage = () => {
                     >
                       {modelsItems?.map((model: any) => {
                         return (
-                          <MenuItem key={model.id} value={model.id}>
-                            {model.model_name}
+                          <MenuItem key={model.ID} value={model.ID}>
+                            {model.ModelName}
                           </MenuItem>
                         );
                       })}

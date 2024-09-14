@@ -8,7 +8,7 @@ export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
 
 export const useFetchWithAuth = () => {
-  const { data: session, update } = useSession();
+  const { data: session, status, update } = useSession();
   const fetchWithAuth = async (url: string, options: RequestInit) => {
     const response = await fetch(`${BACKEND_URL}${url}`, {
       ...options,

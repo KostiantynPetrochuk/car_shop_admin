@@ -35,7 +35,7 @@ export const CONDITION = {
 };
 
 export const LABELS = {
-  body: {
+  BodyType: {
     suv: { ua: "позашляховик", en: "suv", de: "suv" },
     sedan: { ua: "седан", en: "sedan" },
     hatchback: { ua: "хетчбек", en: "hatchback" },
@@ -44,21 +44,21 @@ export const LABELS = {
     van: { ua: "фіргон", en: "van" },
     truck: { ua: "вантажівка", en: "truck" },
   },
-  transmission: {
+  Transmission: {
     manual: { ua: "ручна", en: "manual" },
     automatic: { ua: "автоматична", en: "automatic" },
   },
-  fuel_type: {
+  FuelType: {
     petrol: { en: "petrol", ua: "бензин" },
     diesel: { en: "diesel", ua: "дизель" },
     electricity: { en: "electricity", ua: "електрика" },
   },
-  drive_type: {
+  DriveType: {
     frontWheel: { en: "front-wheel", ua: "передній" },
     rearWheel: { en: "rear-wheel", ua: "задній" },
     allWheel: { en: "all-wheel", ua: "повний" },
   },
-  condition: {
+  Condition: {
     intact: { en: "intact", ua: "цілий" },
     damaged: { en: "damaged", ua: "пошкоджений" },
     insurance: { en: "insurance", ua: "страховий" },
@@ -66,7 +66,7 @@ export const LABELS = {
     new: { en: "new", ua: "новий" },
     used: { en: "used", ua: "вживаний" },
   },
-  color: {
+  Color: {
     white: { en: "white", de: "weiß", ua: "білий" },
     black: { en: "black", de: "schwarz", ua: "чорний" },
     gray: { en: "gray", de: "grau", ua: "сірий" },
