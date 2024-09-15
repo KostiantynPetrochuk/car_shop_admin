@@ -89,7 +89,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Вхід
           </Typography>
           <Box
             component="form"
@@ -102,7 +102,7 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Логін"
               name="email"
               autoComplete="email"
               autoFocus
@@ -115,7 +115,7 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Пароль"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -123,19 +123,19 @@ export default function SignIn() {
                 setPassword(event.target.value);
               }}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Увійти
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
@@ -146,10 +146,10 @@ export default function SignIn() {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
         <Message message={message} setMessage={setMessage} />
         <Loading loading={loading} />
       </Container>

@@ -53,4 +53,5 @@ export type Car = {
   VIN: string;
   Year: number;
   BrandName: string;
+  CreatedAt: string;
 };

@@ -8,33 +8,45 @@ export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
 
 export const useFetchWithAuth = () => {
-  const { data: session, status, update } = useSession();
-  const fetchWithAuth = async (url: string, options: RequestInit) => {
-    const response = await fetch(`${BACKEND_URL}${url}`, {
-      ...options,
-      headers: {
-        ...options.headers,
-        Authorization: `Bearer ${session?.tokens.accessToken}`,
-      },
-    });
-    if (response.ok) {
-      return await response.json();
-    }
-    if (!response.ok && response.status === 401) {
-      const newSession = await update();
-      const newAccessToken = newSession?.tokens.accessToken;
+  const { data: session, update } = useSession();
+  const fetchWithAuth = async (
+    url: string,
+    options: RequestInit
+  ): Promise<{ data: any; error: any }> => {
+    try {
       const response = await fetch(`${BACKEND_URL}${url}`, {
         ...options,
         headers: {
           ...options.headers,
-          Authorization: `Bearer ${newAccessToken}`,
+          Authorization: `Bearer ${session?.tokens.accessToken}`,
         },
       });
       if (response.ok) {
-        return await response.json();
+        const data = await response.json();
+        return { data, error: null };
+      }
+      if (!response.ok && response.status === 401) {
+        const newSession = await update();
+        const newAccessToken = newSession?.tokens.accessToken;
+        const response = await fetch(`${BACKEND_URL}${url}`, {
+          ...options,
+          headers: {
+            ...options.headers,
+            Authorization: `Bearer ${newAccessToken}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          return { data, error: null };
+        }
+        return { data: null, error: response.statusText };
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        return { data: null, error: error.message };
       }
     }
-    throw new Error(response.statusText);
+    return { data: null, error: "Unknown error" };
   };
   return { fetchWithAuth };
 };

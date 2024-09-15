@@ -43,10 +43,12 @@ import {
 } from "@/constants";
 
 import { Feature } from "@/types";
+import { useSession } from "next-auth/react";
 
 const CAR_COLORS = LABELS.Color;
 
 const NewCarPage = () => {
+  const session = useSession();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { fetchWithAuth } = useFetchWithAuth();
@@ -272,11 +274,21 @@ const NewCarPage = () => {
     });
 
     try {
-      const response = await fetchWithAuth("/cars", {
+      const { error } = await fetchWithAuth("/cars", {
         method: "POST",
         body: formData,
       });
-      console.log(response);
+      if (error) {
+        setMessage((prev) => ({
+          ...prev,
+          open: true,
+          severity: "error",
+          text: String(error),
+        }));
+        setLoading(false);
+        return;
+      }
+
       setForm({
         vin: "",
         brandId: brands[0]?.ID ?? "",
@@ -303,28 +315,50 @@ const NewCarPage = () => {
   };
 
   useEffect(() => {
+    if (session.status === "loading") return;
     setLoading(true);
     const getBrands = async () => {
-      const result = await fetchWithAuth("/brands", {
+      const { data, error } = await fetchWithAuth("/brands", {
         method: "GET",
       });
-      dispatch(setBrands(result.brands));
+      if (error) {
+        setMessage((prev) => ({
+          ...prev,
+          open: true,
+          severity: "error",
+          text: String(error),
+        }));
+        setLoading(false);
+        return;
+      }
+      dispatch(setBrands(data.brands));
       setLoading(false);
     };
     getBrands();
-  }, []);
+  }, [session.status]);
 
   useEffect(() => {
+    if (session.status === "loading") return;
     setLoading(true);
     const getFeatures = async () => {
-      const result = await fetchWithAuth("/features", {
+      const { data, error } = await fetchWithAuth("/features", {
         method: "GET",
       });
-      dispatch(setFeatures(result.features));
+      if (error) {
+        setMessage((prev) => ({
+          ...prev,
+          open: true,
+          severity: "error",
+          text: String(error),
+        }));
+        setLoading(false);
+        return;
+      }
+      dispatch(setFeatures(data.features));
       setLoading(false);
     };
     getFeatures();
-  }, []);
+  }, [session.status]);
 
   const currentBrand = brands.find(
     (currentBrand) => currentBrand.ID == form.brandId

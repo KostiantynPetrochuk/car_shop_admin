@@ -17,8 +17,10 @@ import { Loading, Message } from "@/components/admin";
 import { useFetchWithAuth } from "@/hooks";
 import { AddBrandDialog } from "@/partials/Admin/Brands";
 import { Brand } from "@/types";
+import { useSession } from "next-auth/react";
 
 const AddBrand = ({ open, setOpen }: any) => {
+  const session = useSession();
   const dispatch = useAppDispatch();
   const { fetchWithAuth } = useFetchWithAuth();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -73,11 +75,22 @@ const AddBrand = ({ open, setOpen }: any) => {
       formData.append("file", fileInput.files[0]);
     }
     try {
-      const response = await fetchWithAuth("/brands", {
+      const { data, error } = await fetchWithAuth("/brands", {
         method: "POST",
         body: formData,
       });
-      dispatch(setBrands([...brands, response.brand]));
+      if (error) {
+        setMessage((prev) => ({
+          ...prev,
+          open: true,
+          severity: "error",
+          text: String(error),
+        }));
+        setLoading(false);
+        return;
+      }
+
+      dispatch(setBrands([...brands, data.brand]));
       setBrandName("");
       setSelectedImage(null);
       if (fileInput) {
@@ -103,16 +116,27 @@ const AddBrand = ({ open, setOpen }: any) => {
   };
 
   useEffect(() => {
+    if (session.status === "loading") return;
     setLoading(true);
     const getBrands = async () => {
-      const result = await fetchWithAuth("/brands", {
+      const { data, error } = await fetchWithAuth("/brands", {
         method: "GET",
       });
-      dispatch(setBrands(result.brands));
+      if (error) {
+        setMessage((prev) => ({
+          ...prev,
+          open: true,
+          severity: "error",
+          text: String(error),
+        }));
+        setLoading(false);
+        return;
+      }
+      dispatch(setBrands(data.brands));
       setLoading(false);
     };
     getBrands();
-  }, []);
+  }, [session.status]);
 
   return (
     <Box
@@ -136,7 +160,7 @@ const AddBrand = ({ open, setOpen }: any) => {
           elevation={24}
         >
           <List>
-            {brands.map((brand: Brand) => {
+            {brands?.map((brand: Brand) => {
               return (
                 <Link key={brand.ID} href={`/admin/brands/${brand.ID}`}>
                   <ListItem disablePadding>

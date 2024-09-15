@@ -60,10 +60,20 @@ const CarPage = ({ params }: { params: { id: string } }) => {
     setLoading(true);
     const getData = async () => {
       try {
-        const carsResult = await fetchWithAuth(`/cars/${params.id}`, {
+        const { data, error } = await fetchWithAuth(`/cars/${params.id}`, {
           method: "GET",
         });
-        setCar(carsResult.car);
+        if (error) {
+          setMessage((prev) => ({
+            ...prev,
+            open: true,
+            severity: "error",
+            text: error,
+          }));
+          setLoading(false);
+          return;
+        }
+        setCar(data.car);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -115,28 +125,30 @@ const CarPage = ({ params }: { params: { id: string } }) => {
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
+                style={{
+                  aspectRatio: "16/9",
+                  maxWidth: "100%",
+                }}
               >
-                {car?.ImageNames?.map((image) => {
-                  console.log("image", image);
-                  return (
-                    <SwiperSlide>
-                      <Image
-                        src={`http://localhost:3001/uploads/cars/${image}`}
-                        alt={`${image} logo`}
-                        width={300}
-                        height={300}
-                        // sizes="100vw"
-                        priority={true}
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          objectFit: "contain",
-                        }}
-                      />
-                    </SwiperSlide>
-                  );
-                })}
+                {car?.ImageNames?.map((image) => (
+                  <SwiperSlide key={image}>
+                    <Image
+                      src={`http://localhost:3001/uploads/cars/${image}`}
+                      alt={`${image} logo`}
+                      width={300}
+                      height={300}
+                      priority={true}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
+                      quality={100}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
+
               <Swiper
                 onSwiper={(swiper: SwiperClass) => setThumbsSwiper(swiper)}
                 spaceBetween={10}
@@ -146,27 +158,27 @@ const CarPage = ({ params }: { params: { id: string } }) => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
                 style={{
-                  maxHeight: "200px",
+                  marginTop: 10,
+                  maxWidth: "100%",
                 }}
               >
-                {car?.ImageNames?.map((image) => {
-                  return (
-                    <SwiperSlide>
-                      <Image
-                        src={`http://localhost:3001/uploads/cars/${image}`}
-                        alt={`${image} logo`}
-                        height={200}
-                        width={200}
-                        priority={true}
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          objectFit: "contain",
-                        }}
-                      />
-                    </SwiperSlide>
-                  );
-                })}
+                {car?.ImageNames?.map((image) => (
+                  <SwiperSlide key={image}>
+                    <Image
+                      src={`http://localhost:3001/uploads/cars/${image}`}
+                      alt={`${image} logo`}
+                      height={200}
+                      width={200}
+                      priority={true}
+                      quality={100}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </Paper>
 

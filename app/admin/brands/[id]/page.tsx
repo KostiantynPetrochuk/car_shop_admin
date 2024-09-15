@@ -22,8 +22,10 @@ import {
   addModelToBrand,
 } from "@/store/features/brands/brandsSlice";
 import { Message, Loading } from "@/components/admin";
+import { useSession } from "next-auth/react";
 
 const BrandPage = ({ params }: { params: { id: string } }) => {
+  const session = useSession();
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   const { fetchWithAuth } = useFetchWithAuth();
@@ -61,19 +63,32 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
       return;
     }
     try {
-      const response = await fetchWithAuth("/models", {
+      const { data, error } = await fetchWithAuth("/models", {
         method: "POST",
         body: JSON.stringify({ brandId: Number(params.id), modelName }),
         headers: {
           "Content-Type": "application/json",
         },
       });
+      if (error) {
+        setMessage((prev) => ({
+          ...prev,
+          open: true,
+          severity: "error",
+          text: String(error),
+        }));
+        setModelName("");
+        setOpen(false);
+        setLoading(false);
+        return;
+      }
+
       dispatch(
         addModelToBrand({
           brandId: params.id,
           model: {
-            ID: response.model.ID,
-            ModelName: response.model.ModelName,
+            ID: data.model.ID,
+            ModelName: data.model.ModelName,
           },
         })
       );
@@ -100,18 +115,29 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
   };
 
   useEffect(() => {
+    if (session.status === "loading") return;
     const getBrands = async () => {
       setLoading(true);
-      const result = await fetchWithAuth("/brands", {
+      const { data, error } = await fetchWithAuth("/brands", {
         method: "GET",
       });
-      dispatch(setBrands(result.brands));
+      if (error) {
+        setMessage((prev) => ({
+          ...prev,
+          open: true,
+          severity: "error",
+          text: String(error),
+        }));
+        setLoading(false);
+        return;
+      }
+      dispatch(setBrands(data.brands));
       setLoading(false);
     };
     if (!brands.length) {
       getBrands();
     }
-  }, []);
+  }, [session.status]);
 
   return (
     <>

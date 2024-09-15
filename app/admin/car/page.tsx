@@ -11,7 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { format } from "date-fns";
 import { useAppDispatch, useAppSelector, useFetchWithAuth } from "@/hooks";
 
-import { AdminHeader, Loading } from "@/components/admin";
+import { AdminHeader, Loading, Message } from "@/components/admin";
 import { setFeatures } from "@/store/features/features/featuresSlice";
 import { setBrands } from "@/store/features/brands/brandsSlice";
 import { selectCars, setCars } from "@/store/features/cars/carsSlice";
@@ -22,6 +22,8 @@ import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied
 
 import Grid from "@mui/material/Grid";
 import { useSession } from "next-auth/react";
+import { CONDITION, FUEL_TYPES } from "@/constants";
+import { Car } from "@/types";
 
 const CarPage = () => {
   const session = useSession();
@@ -29,23 +31,65 @@ const CarPage = () => {
   const { fetchWithAuth } = useFetchWithAuth();
   const [loading, setLoading] = useState(false);
   const cars = useAppSelector(selectCars);
+  const [message, setMessage] = useState({
+    open: false,
+    severity: "error",
+    text: "",
+    variant: "filled",
+    autoHideDuration: 6000,
+    vertical: "top",
+    horizontal: "center",
+  });
 
   useEffect(() => {
     if (session.status === "loading") return;
     setLoading(true);
     const getData = async () => {
       try {
-        const featuresResult = await fetchWithAuth("/features", {
-          method: "GET",
-        });
+        const { data: featuresResult, error: featuresError } =
+          await fetchWithAuth("/features", {
+            method: "GET",
+          });
+        if (featuresError) {
+          setMessage((prev) => ({
+            ...prev,
+            open: true,
+            severity: "error",
+            text: "Помилка завантаження функцій автомобілів.",
+          }));
+        }
         dispatch(setFeatures(featuresResult.features));
-        const brandsResult = await fetchWithAuth("/brands", {
-          method: "GET",
-        });
+        //
+        const { data: brandsResult, error: brandsError } = await fetchWithAuth(
+          "/brands",
+          {
+            method: "GET",
+          }
+        );
+        if (brandsError) {
+          setMessage((prev) => ({
+            ...prev,
+            open: true,
+            severity: "error",
+            text: "Помилка завантаження брендів автомобілів.",
+          }));
+        }
         dispatch(setBrands(brandsResult.brands));
-        const carsResult = await fetchWithAuth("/cars", {
-          method: "GET",
-        });
+        //
+        const { data: carsResult, error: carsError } = await fetchWithAuth(
+          "/cars",
+          {
+            method: "GET",
+          }
+        );
+        if (carsError) {
+          setMessage((prev) => ({
+            ...prev,
+            open: true,
+            severity: "error",
+            text: "Помилка завантаження автомобілів.",
+          }));
+        }
         dispatch(setCars(carsResult.cars));
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -68,7 +112,7 @@ const CarPage = () => {
   if (cars?.length) {
     listContent = (
       <List>
-        {cars.map((car: any) => {
+        {cars.map((car: Car) => {
           return (
             <Link key={car.ID} href={`/admin/car/${car.ID}`}>
               <ListItem disablePadding>
@@ -102,20 +146,26 @@ const CarPage = () => {
                           <strong>Бренд:</strong> {car.BrandName}
                         </Typography>
                         <Typography variant="body1">
-                          <strong>Модель:</strong> {car?.ModelName}
+                          <strong>Модель:</strong> {car.ModelName}
                         </Typography>
                         <Typography variant="body1">
-                          <strong>Стан:</strong> {car.Condition}
+                          <strong>Стан:</strong>
+                          {CONDITION[car.Condition].label}
                         </Typography>
                         <Typography variant="body1">
                           <strong>Пробіг:</strong> {car.Mileage} км
                         </Typography>
                         <Typography variant="body1">
-                          <strong>Паливо:</strong> {car.FuelType}
+                          <strong>Паливо:</strong>
+                          {FUEL_TYPES[car.FuelType].label}
                         </Typography>
                         <Typography variant="body1">
                           <strong>Дата створення:</strong>
-                          {/* {format(new Date(car.createdDate), "dd MMM yyyy")} */}
+                          {new Intl.DateTimeFormat("uk-UA", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          }).format(new Date(car.CreatedAt))}
                         </Typography>
                       </Box>
                     </Grid>
@@ -133,6 +183,7 @@ const CarPage = () => {
     <>
       <AdminHeader />
       <Loading loading={loading} />
+      <Message message={message} setMessage={setMessage} />
       <Container component="main">
         <Box>
           <Box
