@@ -56,32 +56,35 @@ const CarPage = ({ params }: { params: { id: string } }) => {
   });
 
   useEffect(() => {
-    if (session.status === "loading") return;
-    setLoading(true);
     const getData = async () => {
-      try {
-        const { data, error } = await fetchWithAuth(`/cars/${params.id}`, {
-          method: "GET",
-        });
-        if (error) {
-          setMessage((prev) => ({
-            ...prev,
-            open: true,
-            severity: "error",
-            text: error,
-          }));
+      if (session.status === "authenticated") {
+        setLoading(true);
+        try {
+          const { data, error } = await fetchWithAuth(`/cars/${params.id}`, {
+            method: "GET",
+          });
+          if (error) {
+            setMessage((prev) => ({
+              ...prev,
+              open: true,
+              severity: "error",
+              text: error,
+            }));
+            setLoading(false);
+            return;
+          }
+          setCar(data.car);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
           setLoading(false);
-          return;
         }
-        setCar(data.car);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
       }
     };
-    getData();
-  }, [session.status]);
+    if (session.status === "authenticated") {
+      getData();
+    }
+  }, [session]);
 
   if (!car) {
     return <Loading loading={true} />;

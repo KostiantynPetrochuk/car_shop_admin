@@ -116,27 +116,34 @@ const AddBrand = ({ open, setOpen }: any) => {
   };
 
   useEffect(() => {
-    if (session.status === "loading") return;
-    setLoading(true);
-    const getBrands = async () => {
-      const { data, error } = await fetchWithAuth("/brands", {
-        method: "GET",
-      });
-      if (error) {
-        setMessage((prev) => ({
-          ...prev,
-          open: true,
-          severity: "error",
-          text: String(error),
-        }));
+    const fetchData = async () => {
+      if (session.status === "authenticated") {
+        setLoading(true);
+
+        const { data, error } = await fetchWithAuth("/brands", {
+          method: "GET",
+        });
+
+        if (error) {
+          setMessage((prev) => ({
+            ...prev,
+            open: true,
+            severity: "error",
+            text: String(error),
+          }));
+          setLoading(false);
+          return;
+        }
+
+        dispatch(setBrands(data.brands));
         setLoading(false);
-        return;
       }
-      dispatch(setBrands(data.brands));
-      setLoading(false);
     };
-    getBrands();
-  }, [session.status]);
+
+    if (session.status === "authenticated") {
+      fetchData();
+    }
+  }, [session]);
 
   return (
     <Box

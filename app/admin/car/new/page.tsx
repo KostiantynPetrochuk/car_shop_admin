@@ -315,50 +315,56 @@ const NewCarPage = () => {
   };
 
   useEffect(() => {
-    if (session.status === "loading") return;
-    setLoading(true);
     const getBrands = async () => {
-      const { data, error } = await fetchWithAuth("/brands", {
-        method: "GET",
-      });
-      if (error) {
-        setMessage((prev) => ({
-          ...prev,
-          open: true,
-          severity: "error",
-          text: String(error),
-        }));
+      if (session.status === "authenticated") {
+        setLoading(true);
+        const { data, error } = await fetchWithAuth("/brands", {
+          method: "GET",
+        });
+        if (error) {
+          setMessage((prev) => ({
+            ...prev,
+            open: true,
+            severity: "error",
+            text: String(error),
+          }));
+          setLoading(false);
+          return;
+        }
+        dispatch(setBrands(data.brands));
         setLoading(false);
-        return;
       }
-      dispatch(setBrands(data.brands));
-      setLoading(false);
     };
-    getBrands();
-  }, [session.status]);
+    if (session.status === "authenticated") {
+      getBrands();
+    }
+  }, [session]);
 
   useEffect(() => {
-    if (session.status === "loading") return;
-    setLoading(true);
     const getFeatures = async () => {
-      const { data, error } = await fetchWithAuth("/features", {
-        method: "GET",
-      });
-      if (error) {
-        setMessage((prev) => ({
-          ...prev,
-          open: true,
-          severity: "error",
-          text: String(error),
-        }));
+      if (session.status === "authenticated") {
+        setLoading(true);
+        const { data, error } = await fetchWithAuth("/features", {
+          method: "GET",
+        });
+        if (error) {
+          setMessage((prev) => ({
+            ...prev,
+            open: true,
+            severity: "error",
+            text: String(error),
+          }));
+          setLoading(false);
+          return;
+        }
+        dispatch(setFeatures(data.features));
         setLoading(false);
-        return;
       }
-      dispatch(setFeatures(data.features));
-      setLoading(false);
     };
-    getFeatures();
-  }, [session.status]);
+    if (session.status === "authenticated") {
+      getFeatures();
+    }
+  }, [session]);
 
   const currentBrand = brands.find(
     (currentBrand) => currentBrand.ID == form.brandId

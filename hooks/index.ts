@@ -13,12 +13,22 @@ export const useFetchWithAuth = () => {
     url: string,
     options: RequestInit
   ): Promise<{ data: any; error: any }> => {
+    let currentToken = session?.tokens.accessToken;
+    const nowTimestamp = new Date().getTime();
+    const expiresTimestamp = session?.tokens?.expiresIn;
+    const isTokenValid = expiresTimestamp
+      ? nowTimestamp < expiresTimestamp
+      : true;
+    if (!isTokenValid) {
+      const updatedSession = await update();
+      currentToken = updatedSession?.tokens.accessToken;
+    }
     try {
       const response = await fetch(`${BACKEND_URL}${url}`, {
         ...options,
         headers: {
           ...options.headers,
-          Authorization: `Bearer ${session?.tokens.accessToken}`,
+          Authorization: `Bearer ${currentToken}`,
         },
       });
       if (response.ok) {

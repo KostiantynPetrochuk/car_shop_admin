@@ -29,7 +29,7 @@ const CarPage = () => {
   const session = useSession();
   const dispatch = useAppDispatch();
   const { fetchWithAuth } = useFetchWithAuth();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const cars = useAppSelector(selectCars);
   const [message, setMessage] = useState({
     open: false,
@@ -42,72 +42,87 @@ const CarPage = () => {
   });
 
   useEffect(() => {
-    if (session.status === "loading") return;
-    setLoading(true);
     const getData = async () => {
-      try {
-        const { data: featuresResult, error: featuresError } =
-          await fetchWithAuth("/features", {
-            method: "GET",
-          });
-        if (featuresError) {
-          setMessage((prev) => ({
-            ...prev,
-            open: true,
-            severity: "error",
-            text: "Помилка завантаження функцій автомобілів.",
-          }));
-        }
-        dispatch(setFeatures(featuresResult.features));
-        //
-        const { data: brandsResult, error: brandsError } = await fetchWithAuth(
-          "/brands",
-          {
-            method: "GET",
+      if (session.status === "authenticated") {
+        setLoading(true);
+        try {
+          const { data: featuresResult, error: featuresError } =
+            await fetchWithAuth("/features", {
+              method: "GET",
+            });
+          if (featuresError) {
+            setMessage((prev) => ({
+              ...prev,
+              open: true,
+              severity: "error",
+              text: "Помилка завантаження функцій автомобілів.",
+            }));
           }
-        );
-        if (brandsError) {
-          setMessage((prev) => ({
-            ...prev,
-            open: true,
-            severity: "error",
-            text: "Помилка завантаження брендів автомобілів.",
-          }));
-        }
-        dispatch(setBrands(brandsResult.brands));
-        //
-        const { data: carsResult, error: carsError } = await fetchWithAuth(
-          "/cars",
-          {
-            method: "GET",
+          dispatch(setFeatures(featuresResult.features));
+          //
+          const { data: brandsResult, error: brandsError } =
+            await fetchWithAuth("/brands", {
+              method: "GET",
+            });
+          if (brandsError) {
+            setMessage((prev) => ({
+              ...prev,
+              open: true,
+              severity: "error",
+              text: "Помилка завантаження брендів автомобілів.",
+            }));
           }
-        );
-        if (carsError) {
-          setMessage((prev) => ({
-            ...prev,
-            open: true,
-            severity: "error",
-            text: "Помилка завантаження автомобілів.",
-          }));
+          dispatch(setBrands(brandsResult.brands));
+          //
+          const { data: carsResult, error: carsError } = await fetchWithAuth(
+            "/cars",
+            {
+              method: "GET",
+            }
+          );
+          if (carsError) {
+            setMessage((prev) => ({
+              ...prev,
+              open: true,
+              severity: "error",
+              text: "Помилка завантаження автомобілів.",
+            }));
+          }
+          dispatch(setCars(carsResult.cars));
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false);
         }
-        dispatch(setCars(carsResult.cars));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
       }
     };
-    getData();
-  }, [session.status]);
+    if (session.status === "authenticated") {
+      getData();
+    }
+  }, [session]);
 
-  let listContent = (
-    <Box sx={{ textAlign: "center", padding: 4 }}>
-      <SentimentDissatisfiedIcon sx={{ fontSize: 60, color: "grey.500" }} />
-      <Typography variant="h6" sx={{ marginTop: 2 }}>
-        Поки нема доступних автомобілів.
-      </Typography>
-    </Box>
-  );
+  let listContent = null;
+
+  if (loading) {
+    listContent = (
+      <Box sx={{ textAlign: "center", padding: 4 }}>
+        <Typography variant="h6" sx={{ marginTop: 2 }}>
+          Завантаження...
+        </Typography>
+      </Box>
+    );
+  }
+
+  if (!loading && !cars?.length) {
+    listContent = (
+      <Box sx={{ textAlign: "center", padding: 4 }}>
+        <SentimentDissatisfiedIcon sx={{ fontSize: 60, color: "grey.500" }} />
+        <Typography variant="h6" sx={{ marginTop: 2 }}>
+          Поки нема доступних автомобілів.
+        </Typography>
+      </Box>
+    );
+  }
 
   if (cars?.length) {
     listContent = (

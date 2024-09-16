@@ -115,29 +115,31 @@ const BrandPage = ({ params }: { params: { id: string } }) => {
   };
 
   useEffect(() => {
-    if (session.status === "loading") return;
     const getBrands = async () => {
-      setLoading(true);
-      const { data, error } = await fetchWithAuth("/brands", {
-        method: "GET",
-      });
-      if (error) {
-        setMessage((prev) => ({
-          ...prev,
-          open: true,
-          severity: "error",
-          text: String(error),
-        }));
+      if (session.status === "authenticated") {
+        setLoading(true);
+        const { data, error } = await fetchWithAuth("/brands", {
+          method: "GET",
+        });
+        if (error) {
+          setMessage((prev) => ({
+            ...prev,
+            open: true,
+            severity: "error",
+            text: String(error),
+          }));
+          setLoading(false);
+          return;
+        }
+        dispatch(setBrands(data.brands));
         setLoading(false);
-        return;
       }
-      dispatch(setBrands(data.brands));
-      setLoading(false);
     };
-    if (!brands.length) {
+
+    if (!brands.length && session.status === "authenticated") {
       getBrands();
     }
-  }, [session.status]);
+  }, [session]);
 
   return (
     <>
