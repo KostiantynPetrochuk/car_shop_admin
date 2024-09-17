@@ -24,12 +24,17 @@ import Grid from "@mui/material/Grid";
 import { useSession } from "next-auth/react";
 import { CONDITION, FUEL_TYPES } from "@/constants";
 import { Car } from "@/types";
+import Pagination from "@mui/material/Pagination";
+
+const LIMIT = 5;
 
 const CarPage = () => {
   const session = useSession();
   const dispatch = useAppDispatch();
   const { fetchWithAuth } = useFetchWithAuth();
   const [loading, setLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
   const cars = useAppSelector(selectCars);
   const [message, setMessage] = useState({
     open: false,
@@ -75,7 +80,7 @@ const CarPage = () => {
           dispatch(setBrands(brandsResult.brands));
           //
           const { data: carsResult, error: carsError } = await fetchWithAuth(
-            "/cars",
+            `/cars?offset=0&limit=${LIMIT}`,
             {
               method: "GET",
             }
@@ -89,6 +94,7 @@ const CarPage = () => {
             }));
           }
           dispatch(setCars(carsResult.cars));
+          setTotalPages(Math.ceil(carsResult.total / LIMIT));
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
@@ -100,6 +106,39 @@ const CarPage = () => {
       getData();
     }
   }, [session]);
+
+  useEffect(() => {
+    const getData = async () => {
+      if (session.status === "authenticated") {
+        setLoading(true);
+        try {
+          const { data: carsResult, error: carsError } = await fetchWithAuth(
+            `/cars?offset=${(page - 1) * LIMIT}&limit=${LIMIT}`,
+            {
+              method: "GET",
+            }
+          );
+          if (carsError) {
+            setMessage((prev) => ({
+              ...prev,
+              open: true,
+              severity: "error",
+              text: "Помилка завантаження автомобілів.",
+            }));
+          }
+          dispatch(setCars(carsResult.cars));
+          setTotalPages(Math.ceil(carsResult.total / LIMIT));
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    if (session.status === "authenticated") {
+      getData();
+    }
+  }, [page]);
 
   let listContent = null;
 
@@ -203,7 +242,7 @@ const CarPage = () => {
         <Box>
           <Box
             component="div"
-            sx={{ display: "flex", flexDirection: "column" }}
+            sx={{ display: "flex", flexDirection: "column", marginBottom: 2 }}
           >
             <Paper
               sx={{
@@ -236,6 +275,17 @@ const CarPage = () => {
                 elevation={24}
               >
                 {listContent}
+                {cars?.length ? (
+                  <Pagination
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: 2,
+                    }}
+                    count={totalPages}
+                    onChange={(_, page) => setPage(page)}
+                  />
+                ) : null}
               </Paper>
 
               <Link href={"/admin/car/new"}>
