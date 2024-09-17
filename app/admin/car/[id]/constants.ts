@@ -51,9 +51,9 @@ export const overviewData: OverviewDataItem[] = [
     value: "DoorCount",
   },
   {
-    src: "/img/overview_cylinder.svg",
-    label: "Кількість циліндрів:",
-    value: "CylinderCount",
+    src: "/img/euro.svg",
+    label: "Ціна:",
+    value: "Price",
   },
   {
     src: "/img/overview_color.svg",

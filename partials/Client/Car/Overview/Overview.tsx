@@ -115,10 +115,10 @@ const Overview = () => {
                 <div className={styles.rowTitle}>
                   <img
                     className={styles.logo}
-                    src="/img/overview_cylinder.svg"
+                    src="/img/euro.svg"
                     alt=""
                   />
-                  <span>Cylinder</span>
+                  <span>Price</span>
                 </div>
                 <span className={styles.value}>12</span>
               </div>

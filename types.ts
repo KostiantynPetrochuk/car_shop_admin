@@ -40,7 +40,7 @@ export type Car = {
   Features: CarFeature[];
   Color: string;
   Condition: string;
-  CylinderCount: number;
+  Price: number;
   DoorCount: number;
   DriveType: string;
   EngineSize: string;

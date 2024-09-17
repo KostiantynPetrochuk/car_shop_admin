@@ -79,7 +79,7 @@ const NewCarPage = () => {
     condition: "",
     engine_size: 0,
     door_count: 0,
-    cylinder_count: 0,
+    price: 0,
     color: "",
   });
 
@@ -227,7 +227,7 @@ const NewCarPage = () => {
       condition,
       engine_size,
       door_count,
-      cylinder_count,
+      price,
       color,
       mileage,
     } = form;
@@ -244,7 +244,7 @@ const NewCarPage = () => {
       !condition ||
       !engine_size ||
       !door_count ||
-      !cylinder_count ||
+      !price ||
       !color ||
       !mileage
     ) {
@@ -302,7 +302,7 @@ const NewCarPage = () => {
         condition: "",
         engine_size: 0,
         door_count: 0,
-        cylinder_count: 0,
+        price: 0,
         color: "",
       });
       setImages(Array(3).fill(null));
@@ -622,11 +622,11 @@ const NewCarPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    value={form.cylinder_count}
+                    value={form.price}
                     onChange={handleChange}
-                    name="cylinder_count"
+                    name="price"
                     fullWidth
-                    label="Кількість циліндрів"
+                    label="Ціна"
                     type="number"
                   />
                 </Grid>
