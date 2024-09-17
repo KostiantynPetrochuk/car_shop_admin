@@ -82,6 +82,22 @@ const NewCarPage = () => {
     price: 0,
     color: "",
   });
+  const [errors, setErrors] = useState({
+    vin: false,
+    brandId: false,
+    modelId: false,
+    body: false,
+    mileage: false,
+    year: false,
+    fuel_type: false,
+    transmission: false,
+    drive_type: false,
+    condition: false,
+    engine_size: false,
+    door_count: false,
+    price: false,
+    color: false,
+  });
 
   const [carFeatures, setCarFeatures] = useState<number[]>([]);
 
@@ -91,6 +107,10 @@ const NewCarPage = () => {
       | SelectChangeEvent
   ) => {
     const { name, value } = event.target;
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: false,
+    }));
     setForm((prevForm) => ({
       ...prevForm,
       [name]: value,
@@ -231,6 +251,227 @@ const NewCarPage = () => {
       color,
       mileage,
     } = form;
+
+    if (vin.length !== 17) {
+      setErrors((prev) => ({
+        ...prev,
+        vin: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "VIN повинен містити 17 символів!",
+      }));
+      return;
+    }
+
+    if (!brandId) {
+      setErrors((prev) => ({
+        ...prev,
+        brandId: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, оберіть бренд автомобіля!",
+      }));
+      return;
+    }
+
+    if (!modelId) {
+      setErrors((prev) => ({
+        ...prev,
+        modelId: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, оберіть модель автомобіля!",
+      }));
+      return;
+    }
+
+    if (!body) {
+      setErrors((prev) => ({
+        ...prev,
+        body: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, оберіть тип кузова автомобіля!",
+      }));
+      return;
+    }
+
+    if (mileage <= 0) {
+      setErrors((prev) => ({
+        ...prev,
+        mileage: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Пробіг не може бути від'ємним або дорівнювати нулю!",
+      }));
+      return;
+    }
+
+    if (!fuel_type) {
+      setErrors((prev) => ({
+        ...prev,
+        fuel_type: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, оберіть тип пального автомобіля!",
+      }));
+      return;
+    }
+
+    if (year < 1900 || year > new Date().getFullYear()) {
+      setErrors((prev) => ({
+        ...prev,
+        year: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Рік випуску автомобіля не коректний!",
+      }));
+      return;
+    }
+
+    if (!transmission) {
+      setErrors((prev) => ({
+        ...prev,
+        transmission: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, оберіть тип коробки передач автомобіля!",
+      }));
+      return;
+    }
+
+    if (!drive_type) {
+      setErrors((prev) => ({
+        ...prev,
+        drive_type: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, оберіть тип приводу автомобіля!",
+      }));
+      return;
+    }
+
+    if (!condition) {
+      setErrors((prev) => ({
+        ...prev,
+        condition: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, оберіть стан автомобіля!",
+      }));
+      return;
+    }
+
+    if (engine_size <= 0) {
+      setErrors((prev) => ({
+        ...prev,
+        engine_size: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Об'єм двигуна не може бути від'ємним!",
+      }));
+      return;
+    }
+
+    if (door_count <= 0) {
+      setErrors((prev) => ({
+        ...prev,
+        door_count: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Кількість дверей не може бути від'ємною!",
+      }));
+      return;
+    }
+
+    if (price <= 0) {
+      setErrors((prev) => ({
+        ...prev,
+        price: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Ціна не може бути від'ємною або дорівнювати нулю!",
+      }));
+      return;
+    }
+
+    if (!color) {
+      setErrors((prev) => ({
+        ...prev,
+        color: true,
+      }));
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, оберіть колір автомобіля!",
+      }));
+      return;
+    }
+
+    if (!carFeatures.length) {
+      setLoading(false);
+      setMessage((prev) => ({
+        ...prev,
+        open: true,
+        severity: "warning",
+        text: "Будь ласка, оберіть хоча б одну особливість автомобіля!",
+      }));
+      return;
+    }
 
     if (
       !vin ||
@@ -412,6 +653,8 @@ const NewCarPage = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
+                    error={errors.vin}
+                    helperText={errors.vin ? "не коректні дані" : ""}
                     value={form.vin}
                     onChange={handleChange}
                     name="vin"
@@ -430,6 +673,7 @@ const NewCarPage = () => {
                       value={form.brandId}
                       onChange={handleChange}
                       name="brandId"
+                      error={errors.brandId}
                     >
                       {brands.map((brand) => {
                         return (
@@ -453,6 +697,7 @@ const NewCarPage = () => {
                       value={form.modelId}
                       onChange={handleChange}
                       name="modelId"
+                      error={errors.modelId}
                     >
                       {modelsItems?.map((model: any) => {
                         return (
@@ -476,6 +721,7 @@ const NewCarPage = () => {
                       value={form.body}
                       onChange={handleChange}
                       name="body"
+                      error={errors.body}
                     >
                       {Object.keys(BODY_TYPES).map((model: any, index) => {
                         return (
@@ -495,6 +741,8 @@ const NewCarPage = () => {
                     value={form.mileage}
                     onChange={handleChange}
                     name="mileage"
+                    error={errors.mileage}
+                    helperText={errors.mileage ? "не коректні дані" : ""}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -509,6 +757,7 @@ const NewCarPage = () => {
                       value={form.fuel_type}
                       onChange={handleChange}
                       name="fuel_type"
+                      error={errors.fuel_type}
                     >
                       {Object.keys(FUEL_TYPES).map((value) => {
                         return (
@@ -528,6 +777,8 @@ const NewCarPage = () => {
                     value={form.year}
                     onChange={handleChange}
                     name="year"
+                    error={errors.year}
+                    helperText={errors.year ? "не коректні дані" : ""}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -542,6 +793,7 @@ const NewCarPage = () => {
                       value={form.transmission}
                       onChange={handleChange}
                       name="transmission"
+                      error={errors.transmission}
                     >
                       {Object.keys(TRANSMISSION).map((value, index) => {
                         return (
@@ -568,6 +820,7 @@ const NewCarPage = () => {
                       value={form.drive_type}
                       onChange={handleChange}
                       name="drive_type"
+                      error={errors.drive_type}
                     >
                       {Object.keys(DRIVE_TYPE).map((value, index) => {
                         return (
@@ -589,6 +842,7 @@ const NewCarPage = () => {
                       value={form.condition}
                       onChange={handleChange}
                       name="condition"
+                      error={errors.condition}
                     >
                       {Object.keys(CONDITION).map((value) => {
                         return (
@@ -608,6 +862,8 @@ const NewCarPage = () => {
                     value={form.engine_size}
                     onChange={handleChange}
                     name="engine_size"
+                    error={errors.engine_size}
+                    helperText={errors.engine_size ? "не коректні дані" : ""}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -618,6 +874,8 @@ const NewCarPage = () => {
                     label="Кількість дверей"
                     type="number"
                     name="door_count"
+                    error={errors.door_count}
+                    helperText={errors.door_count ? "не коректні дані" : ""}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -628,6 +886,8 @@ const NewCarPage = () => {
                     fullWidth
                     label="Ціна"
                     type="number"
+                    error={errors.price}
+                    helperText={errors.price ? "не коректні дані" : ""}
                   />
                 </Grid>
                 {/* <Grid item xs={12} sm={6}>
@@ -650,6 +910,7 @@ const NewCarPage = () => {
                       value={form.color}
                       onChange={handleChange}
                       name="color"
+                      error={errors.color}
                     >
                       {Object.keys(CAR_COLORS).map((value) => {
                         return (
