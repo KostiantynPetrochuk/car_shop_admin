@@ -1,29 +1,46 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import styles from "./Car.module.css";
+import { Car as CarType } from "@/types";
 
 type CarProps = {
   background?: string;
+  car: CarType;
 };
 
-const Car = ({ background }: CarProps) => {
+const Car = ({ background, car }: CarProps) => {
   const isLight = background === "lightBlue";
   const bgColor = isLight ? styles.lightBlue : styles.darkBlue;
   return (
     <li className={styles.item}>
       <div className={`${styles.top} ${bgColor}`}>
-        <img
-          className={styles.carImage}
-          src="/img/card_item.jpg"
-          alt="card_item"
-        />
+        <div>
+          <Link href={`/car/${car?.ID}`} className={styles.link}>
+            <Image
+              src={`http://localhost:3001/uploads/cars/${car?.ImageNames[0]}`}
+              alt="car_image"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority={true}
+              style={{
+                objectFit: "cover",
+              }}
+            />
+          </Link>
+        </div>
+
         <div className={styles.category}>Great Price</div>
       </div>
       <div className={`${styles.bot} ${bgColor}`}>
-        <div className={styles.row}>
-          <span className={styles.title}>Ford Transit - 2021</span>
-        </div>
+        <Link href={`/car/${car?.ID}`} className={styles.link}>
+          <div className={styles.row}>
+            <span
+              className={styles.title}
+            >{`${car?.BrandName} ${car?.ModelName} - ${car?.Year}`}</span>
+          </div>
+        </Link>
         <div className={styles.row}>
           <div className={styles.col}>
             <img
@@ -31,7 +48,9 @@ const Car = ({ background }: CarProps) => {
               src="/img/speed_logo.svg"
               alt="speed_logo"
             />
-            <span className={styles.label}>2500 miles</span>
+            <span className={styles.label}>
+              {new Intl.NumberFormat("uk-UA").format(car?.Mileage)} km
+            </span>
           </div>
           <div className={styles.col}>
             <img
@@ -39,7 +58,9 @@ const Car = ({ background }: CarProps) => {
               src="/img/fuel_logo.svg"
               alt="fuel_logo"
             />
-            <span className={styles.label}>Diesel</span>
+            <span className={styles.label}>
+              {car?.FuelType.charAt(0).toUpperCase() + car?.FuelType.slice(1)}
+            </span>
           </div>
           <div className={styles.col}>
             <img
@@ -47,14 +68,24 @@ const Car = ({ background }: CarProps) => {
               src="/img/transmission_logo.svg"
               alt="transmission_logo"
             />
-            <span className={styles.label}>Manual</span>
+            <span className={styles.label}>
+              {car?.Transmission.charAt(0).toUpperCase() +
+                car?.Transmission.slice(1)}
+            </span>
           </div>
         </div>
         <div className={styles.row}>
           <div className={styles.col}>
-            <span className={styles.price}>$22.000</span>
+            <span className={styles.price}>
+              {new Intl.NumberFormat("de-DE", {
+                style: "currency",
+                currency: "EUR",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              }).format(car?.Price)}
+            </span>
           </div>
-          <Link href="/car" className={styles.link}>
+          <Link href={`/car/${car?.ID}`} className={styles.link}>
             <span>View Details</span>
             <img
               className={styles.arrow}

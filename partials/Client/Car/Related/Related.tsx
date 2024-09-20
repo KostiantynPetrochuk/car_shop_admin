@@ -11,8 +11,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import "./swiper.css";
+import { Car as CarType } from "@/types";
 
-const Related = () => {
+const Related = ({ cars }: { cars: CarType[] }) => {
+  const slidesPerView = cars.length < 3 ? cars.length : 3;
+
   return (
     <section className={styles.related}>
       <div className="container">
@@ -25,45 +28,27 @@ const Related = () => {
               pagination={{ clickable: true }}
               scrollbar={{ draggable: true }}
               spaceBetween={50}
-              onSlideChange={() => console.log("slide change")}
-              onSwiper={(swiper) => console.log(swiper)}
+              slidesPerView={slidesPerView}
               breakpoints={{
-                // >= 1024px
                 1024: {
-                  slidesPerView: 3,
+                  slidesPerView: slidesPerView,
                 },
-                // >= 768px
                 768: {
-                  slidesPerView: 2,
+                  slidesPerView: slidesPerView > 1 ? 2 : 1,
                 },
-                // >= 480px
                 480: {
                   slidesPerView: 1,
                 },
-                // < 480px
                 0: {
                   slidesPerView: 1,
                 },
               }}
             >
-              <SwiperSlide>
-                <Car />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Car />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Car />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Car />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Car />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Car />
-              </SwiperSlide>
+              {cars.map((car) => (
+                <SwiperSlide key={car.ID}>
+                  <Car car={car} />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </ul>
         </div>

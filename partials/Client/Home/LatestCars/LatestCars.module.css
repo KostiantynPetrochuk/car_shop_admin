@@ -39,10 +39,11 @@
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
+    gap: 20px;
   }
-  /* .cars .cars-list .card-list-item {
+  .cars .cars-list .card-list-item {
     margin-bottom: 20px;
-  } */
+  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -62,14 +63,4 @@
     grid-template-columns: 1fr;
     margin-bottom: 0;
   }
-  /* .cars .cars-list .card-list-item {
-    margin: 0 0 20px 0;
-  } */
 }
-
-/* @media screen and (max-width: 400px) {
-  .cars .cars-list .card-list-item {
-    height: 400px;
-    width: 280px;
-  }
-} */

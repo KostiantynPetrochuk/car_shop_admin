@@ -1,8 +1,19 @@
 import React from "react";
+import { Car } from "@/types";
 
 import "./Features.css";
 
-const Features = () => {
+const Features = ({ car }: { car: Car }) => {
+  const features = car.Features;
+  const interior = features.filter(
+    (feature) => feature.Category === "interior"
+  );
+  const safety = features.filter((feature) => feature.Category === "safety");
+  const exterior = features.filter(
+    (feature) => feature.Category === "exterior"
+  );
+  const comfort = features.filter((feature) => feature.Category === "comfort");
+
   return (
     <section className="features">
       <div className="container">
@@ -11,116 +22,47 @@ const Features = () => {
           <div className="features-content">
             <div className="features-col">
               <span className="features-col-title">Interior</span>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Air Conditioner</span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">
-                  Digital Odometer
-                </span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Heater</span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Leather Seats</span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">
-                  Panoramic Moonroof
-                </span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Tachometer</span>
-              </div>
+              {interior.map((feature) => (
+                <div className="features-col-item" key={feature.ID}>
+                  <span className="features-col-item-checkbox"></span>
+                  <span className="features-col-item-label">
+                    {feature.FeatureName}
+                  </span>
+                </div>
+              ))}
             </div>
             <div className="features-col">
               <span className="features-col-title">Safety</span>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">
-                  Anti-lock Braking
-                </span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Brake Assist</span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">
-                  Child Safety Locks
-                </span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Driver Air Bag</span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">
-                  Power Door Locks
-                </span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Tachometer</span>
-              </div>
+              {safety.map((feature) => (
+                <div className="features-col-item" key={feature.ID}>
+                  <span className="features-col-item-checkbox"></span>
+                  <span className="features-col-item-label">
+                    {feature.FeatureName}
+                  </span>
+                </div>
+              ))}
             </div>
             <div className="features-col">
               <span className="features-col-title">Exterior</span>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Fog Lights Font</span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">
-                  Rain Sensing Wiper
-                </span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label"> Rear Spoiler </span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">
-                  Windows - Electric
-                </span>
-              </div>
+              {exterior.map((feature) => (
+                <div className="features-col-item" key={feature.ID}>
+                  <span className="features-col-item-checkbox"></span>
+                  <span className="features-col-item-label">
+                    {feature.FeatureName}
+                  </span>
+                </div>
+              ))}
             </div>
             <div className="features-col">
               <span className="features-col-title">Comfort & Convenience</span>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Android Auto</span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label"> Apple CarPlay </span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">Bluetooth</span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label"> Homelink </span>
-              </div>
-              <div className="features-col-item">
-                <span className="features-col-item-checkbox"></span>
-                <span className="features-col-item-label">
-                  {" "}
-                  Power Steering{" "}
-                </span>
-              </div>
+              {comfort.map((feature) => (
+                <div className="features-col-item" key={feature.ID}>
+                  <span className="features-col-item-checkbox"></span>
+                  <span className="features-col-item-label">
+                    {feature.FeatureName}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

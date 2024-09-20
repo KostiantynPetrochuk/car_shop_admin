@@ -1,8 +1,8 @@
-import React from "react";
+import { Car } from "@/types";
 
 import styles from "./Overview.module.css";
 
-const Overview = () => {
+const Overview = ({ car }: { car: Car }) => {
   return (
     <section className="overview">
       <div className="container">
@@ -19,7 +19,7 @@ const Overview = () => {
                   />
                   <span>Body</span>
                 </div>
-                <span className={styles.value}>Sedan</span>
+                <span className={styles.value}>{car.BodyType}</span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
@@ -30,7 +30,9 @@ const Overview = () => {
                   />
                   <span>Mileage</span>
                 </div>
-                <span className={styles.value}>250</span>
+                <span className={styles.value}>
+                  {car.Mileage.toLocaleString()} km
+                </span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
@@ -41,7 +43,7 @@ const Overview = () => {
                   />
                   <span>Fuel Type</span>
                 </div>
-                <span className={styles.value}>Petrol</span>
+                <span className={styles.value}>{car.FuelType}</span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
@@ -52,7 +54,7 @@ const Overview = () => {
                   />
                   <span>Year</span>
                 </div>
-                <span className={styles.value}>2021</span>
+                <span className={styles.value}>{car.Year}</span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
@@ -63,7 +65,7 @@ const Overview = () => {
                   />
                   <span>Transmission</span>
                 </div>
-                <span className={styles.value}>Manual</span>
+                <span className={styles.value}>{car.Transmission}</span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
@@ -74,7 +76,7 @@ const Overview = () => {
                   />
                   <span>Drive Type</span>
                 </div>
-                <span className={styles.value}>Real-Wheel Drive</span>
+                <span className={styles.value}>{car.DriveType}</span>
               </div>
             </div>
             <div className="overview-col">
@@ -87,7 +89,7 @@ const Overview = () => {
                   />
                   <span>Condition</span>
                 </div>
-                <span className={styles.value}>Used</span>
+                <span className={styles.value}>{car.Condition}</span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
@@ -98,7 +100,7 @@ const Overview = () => {
                   />
                   <span>Engine Size</span>
                 </div>
-                <span className={styles.value}>4.0</span>
+                <span className={styles.value}>{car.EngineSize}</span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
@@ -109,18 +111,21 @@ const Overview = () => {
                   />
                   <span>Door</span>
                 </div>
-                <span className={styles.value}>4 Doors</span>
+                <span className={styles.value}>{car.DoorCount} Doors</span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
-                  <img
-                    className={styles.logo}
-                    src="/img/euro.svg"
-                    alt=""
-                  />
+                  <img className={styles.logo} src="/img/euro.svg" alt="" />
                   <span>Price</span>
                 </div>
-                <span className={styles.value}>12</span>
+                <span className={styles.value}>
+                  {new Intl.NumberFormat("de-DE", {
+                    style: "currency",
+                    currency: "EUR",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }).format(car?.Price)}
+                </span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
@@ -131,7 +136,7 @@ const Overview = () => {
                   />
                   <span>Color</span>
                 </div>
-                <span className={styles.value}>Black</span>
+                <span className={styles.value}>{car.Color}</span>
               </div>
               <div className={styles.row}>
                 <div className={styles.rowTitle}>
@@ -142,7 +147,7 @@ const Overview = () => {
                   />
                   <span>VIN</span>
                 </div>
-                <span className={styles.value}>FCB123792</span>
+                <span className={styles.value}>{car.VIN}</span>
               </div>
             </div>
           </div>

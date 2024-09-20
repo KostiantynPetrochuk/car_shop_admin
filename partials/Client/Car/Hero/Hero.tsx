@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -9,8 +10,9 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 import styles from "./Hero.module.css";
+import { Car } from "@/types";
 
-const Hero = () => {
+const Hero = ({ car }: { car: Car }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <section className="hero">
@@ -24,7 +26,7 @@ const Hero = () => {
                   src="/img/badge_calendar.svg"
                   alt="calendar_badge"
                 />
-                <span>2021</span>
+                <span>{car.Year}</span>
               </div>
               <div className={styles.badge}>
                 <img
@@ -32,7 +34,9 @@ const Hero = () => {
                   src="/img/badge_speed.svg"
                   alt="speed_badge"
                 />
-                <span>250 000 km</span>
+                <span>
+                  {new Intl.NumberFormat("uk-UA").format(car?.Mileage)} km
+                </span>
               </div>
               <div className={styles.badge}>
                 <img
@@ -40,7 +44,10 @@ const Hero = () => {
                   src="/img/badge_transmission.svg"
                   alt=""
                 />
-                <span>Manual</span>
+                <span>
+                  {car?.Transmission.charAt(0).toUpperCase() +
+                    car?.Transmission.slice(1)}
+                </span>
               </div>
               <div className={styles.badge}>
                 <img
@@ -48,61 +55,44 @@ const Hero = () => {
                   src="/img/badge_fuel.svg"
                   alt=""
                 />
-                <span>Petrol</span>
+                <span>
+                  {car?.FuelType.charAt(0).toUpperCase() +
+                    car?.FuelType.slice(1)}
+                </span>
               </div>
             </div>
             {/* slider */}
-            <div style={{ maxWidth: "500px" }}>
+            <div>
               <Swiper
-                style={{
-                  maxHeight: "300px",
-                }}
                 spaceBetween={10}
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
+                style={{
+                  aspectRatio: "16/9",
+                  maxWidth: "100%",
+                }}
               >
-                <SwiperSlide>
-                  <img
-                    style={{
-                      // objectFit: "scale-down",
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                    }}
-                    src="/img/test_car.jpg"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-                </SwiperSlide>
+                {car?.ImageNames?.map((image) => (
+                  <SwiperSlide key={image}>
+                    <img
+                      src={`http://localhost:3001/uploads/cars/${image}`}
+                      alt={`${image} logo`}
+                      width={300}
+                      height={300}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
+
               <Swiper
-                onSwiper={setThumbsSwiper}
+                onSwiper={(swiper: SwiperClass) => setThumbsSwiper(swiper)}
                 spaceBetween={10}
                 slidesPerView={4}
                 freeMode={true}
@@ -110,53 +100,42 @@ const Hero = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
                 style={{
-                  maxHeight: "200px",
+                  marginTop: 10,
+                  maxWidth: "100%",
+                  maxHeight: "300px",
                 }}
               >
-                <SwiperSlide>
-                  <img
-                    style={{
-                      // objectFit: "scale-down",
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                    }}
-                    src="/img/test_car.jpg"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-                </SwiperSlide>
+                {car?.ImageNames?.map((image) => (
+                  <SwiperSlide key={image}>
+                    <Image
+                      src={`http://localhost:3001/uploads/cars/${image}`}
+                      alt={`${image} logo`}
+                      width={300}
+                      height={300}
+                      priority={true}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
+                      quality={100}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
 
           <div className={styles.right}>
             <span>Price</span>
-            <span className={styles.price}>$165 000</span>
+            <span className={styles.price}>
+              {new Intl.NumberFormat("de-DE", {
+                style: "currency",
+                currency: "EUR",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              }).format(car?.Price)}
+            </span>
             <a className={styles.link} href="#">
               <img
                 className={styles.linkLogo}

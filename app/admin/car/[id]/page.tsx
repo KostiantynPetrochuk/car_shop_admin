@@ -163,6 +163,7 @@ const CarPage = ({ params }: { params: { id: string } }) => {
                 style={{
                   marginTop: 10,
                   maxWidth: "100%",
+                  maxHeight: 200,
                 }}
               >
                 {car?.ImageNames?.map((image) => (

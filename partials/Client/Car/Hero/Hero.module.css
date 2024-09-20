@@ -1,6 +1,7 @@
 .inner {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 .badges {
@@ -32,7 +33,6 @@
   height: fit-content;
   padding: 30px;
   border-radius: 16px;
-  margin-top: 86px;
 }
 
 .price {
@@ -63,9 +63,6 @@
 }
 
 @media screen and (max-width: 1380px) {
-  .inner {
-    flex-direction: column;
-  }
   .right {
     flex-direction: row;
     align-items: center;
