@@ -21,6 +21,8 @@ const CatalogBody = ({
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [condition, setCondition] = useState<string[]>([]);
+  const [currentBrand, setCurrentBrand] = useState<string | null>(null);
+
   const handleSearch = () => {
     updateSearchParams(condition, page);
   };
@@ -46,6 +48,11 @@ const CatalogBody = ({
     } else {
       searchParams.delete("page");
     }
+    if (currentBrand) {
+      searchParams.set("brand", currentBrand);
+    } else {
+      searchParams.delete("brand");
+    }
     const newPathname = `${
       window.location.pathname
     }?${searchParams.toString()}`;
@@ -58,6 +65,11 @@ const CatalogBody = ({
 
   useEffect(() => {
     handleSearch();
+    setPage(1);
+  }, [currentBrand]);
+
+  useEffect(() => {
+    handleSearch();
   }, [page]);
 
   return (
@@ -65,7 +77,13 @@ const CatalogBody = ({
       <div className="container">
         <div className={styles.inner}>
           <CatalogFormBg />
-          <CatalogForm condition={condition} setCondition={setCondition} />
+          <CatalogForm
+            condition={condition}
+            setCondition={setCondition}
+            brands={brands}
+            currentBrand={currentBrand}
+            setCurrentBrand={setCurrentBrand}
+          />
           <ul className={styles.carsList}>
             {carsData?.cars?.map((car) => (
               <Car key={car.ID} car={car} />

@@ -4,13 +4,23 @@ import React, { useEffect } from "react";
 import { CONDITION } from "@/constants";
 
 import styles from "./CatalogForm.module.css";
+import { Brand } from "@/types";
 
 type ConditionFormProps = {
   condition: string[];
   setCondition: React.Dispatch<React.SetStateAction<string[]>>;
+  brands: Brand[];
+  currentBrand: string | null;
+  setCurrentBrand: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-const CatalogForm = ({ condition, setCondition }: ConditionFormProps) => {
+const CatalogForm = ({
+  condition,
+  setCondition,
+  brands,
+  currentBrand,
+  setCurrentBrand,
+}: ConditionFormProps) => {
   const handleChangeCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setCondition((prev) => {
@@ -19,6 +29,17 @@ const CatalogForm = ({ condition, setCondition }: ConditionFormProps) => {
       }
       return prev.filter((item) => item !== name);
     });
+  };
+
+  const handleChangeBrand = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    const currentBrandId = checked ? name : null;
+    if (!currentBrandId) {
+      setCurrentBrand(null);
+      return;
+    }
+    const currentBrand = brands.find((brand) => brand.ID == currentBrandId);
+    setCurrentBrand(currentBrand?.BrandName || null);
   };
 
   return (
@@ -49,6 +70,31 @@ const CatalogForm = ({ condition, setCondition }: ConditionFormProps) => {
                   <span className={styles.fakeCheckbox} data-for={key}></span>
                 </label>
                 <span className={styles.info}>{value.label.en}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={styles.filter}>
+          <span className={styles.title}>Brands</span>
+          <div className={styles.items}>
+            {brands?.map((brand) => (
+              <div className={styles.item} key={brand.ID}>
+                <label htmlFor={brand.ID} className={styles.label}>
+                  <input
+                    className={styles.realCheckbox}
+                    type="checkbox"
+                    name={brand.ID}
+                    id={brand.ID}
+                    data-category="brand"
+                    checked={currentBrand === brand.BrandName}
+                    onChange={handleChangeBrand}
+                  />
+                  <span
+                    className={styles.fakeCheckbox}
+                    data-for={brand.ID}
+                  ></span>
+                </label>
+                <span className={styles.info}>{brand.BrandName}</span>
               </div>
             ))}
           </div>
