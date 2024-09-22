@@ -26,12 +26,15 @@ export const DRIVE_TYPE = {
 };
 
 export const CONDITION = {
-  intact: { value: "intact", label: "цілий" },
-  damaged: { value: "damaged", label: "пошкоджений" },
-  insurance: { value: "insurance", label: "страховий" },
-  rebuilt: { value: "rebuilt", label: "відновлений" },
-  new: { value: "new", label: "новий" },
-  used: { value: "used", label: "вживаний" },
+  intact: { value: "intact", label: { en: "intact", ua: "цілий" } },
+  damaged: { value: "damaged", label: { en: "damaged", ua: "пошкоджений" } },
+  insurance: {
+    value: "insurance",
+    label: { en: "insurance", ua: "страховий" },
+  },
+  rebuilt: { value: "rebuilt", label: { en: "rebuilt", ua: "відновлений" } },
+  new: { value: "new", label: { en: "new", ua: "новий" } },
+  used: { value: "used", label: { en: "used", ua: "вживаний" } },
 };
 
 export const LABELS = {

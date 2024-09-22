@@ -1,8 +1,26 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
+
+import { CONDITION } from "@/constants";
 
 import styles from "./CatalogForm.module.css";
 
-const CatalogForm = () => {
+type ConditionFormProps = {
+  condition: string[];
+  setCondition: React.Dispatch<React.SetStateAction<string[]>>;
+};
+
+const CatalogForm = ({ condition, setCondition }: ConditionFormProps) => {
+  const handleChangeCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setCondition((prev) => {
+      if (checked) {
+        return [...prev, name];
+      }
+      return prev.filter((item) => item !== name);
+    });
+  };
+
   return (
     <form className={styles.form} action="/catalog" method="GET">
       <div className={styles.mobTitle}>
@@ -16,176 +34,23 @@ const CatalogForm = () => {
         <div className={styles.filter}>
           <span className={styles.title}>Condition</span>
           <div className={styles.items}>
-            <div className={styles.item}>
-              <label htmlFor="intact-cars" className={styles.label}>
-                <input
-                  className={styles.realCheckbox}
-                  type="checkbox"
-                  name="intact-cars"
-                  id="intact-cars"
-                  data-category="condition"
-                />
-                <span
-                  className={styles.fakeCheckbox}
-                  data-for="intact-cars"
-                ></span>
-              </label>
-              <span className={styles.info}>intact Cars</span>
-            </div>
-            <div className={styles.item}>
-              <label htmlFor="damaged-cars" className={styles.label}>
-                <input
-                  className={styles.realCheckbox}
-                  type="checkbox"
-                  name="damaged-cars"
-                  id="damaged-cars"
-                  data-category="condition"
-                />
-                <span
-                  className={styles.fakeCheckbox}
-                  data-for="intact-cars"
-                ></span>
-              </label>
-              <span className={styles.info}>Damaged Cars</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.filter}>
-          <span className={styles.title}>Make</span>
-          <div className={styles.items}>
-            <div className={styles.item}>
-              <label htmlFor="audi" className={styles.label}>
-                <input
-                  className={styles.realCheckbox}
-                  type="checkbox"
-                  name="audi"
-                  id="audi"
-                  data-category="make"
-                />
-                <span className={styles.fakeCheckbox} data-for="audi"></span>
-              </label>
-              <span className={styles.info}>Audi</span>
-            </div>
-            <div className={styles.item}>
-              <label htmlFor="aston_martin" className={styles.label}>
-                <input
-                  className={styles.realCheckbox}
-                  type="checkbox"
-                  name="aston_martin"
-                  id="aston_martin"
-                  data-category="make"
-                />
-                <span
-                  className={styles.fakeCheckbox}
-                  data-for="aston_martin"
-                ></span>
-              </label>
-              <span className={styles.info}>Aston Martin</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.filter}>
-          <span className={styles.title}>Model</span>
-          <div className={styles.items}>
-            <div className={styles.item}>
-              <label htmlFor="q7" className={styles.label}>
-                <input
-                  className={styles.realCheckbox}
-                  type="checkbox"
-                  name="q7"
-                  id="q7"
-                  data-category="model"
-                />
-                <span className={styles.fakeCheckbox} data-for="q7"></span>
-              </label>
-              <span className={styles.info}>Q7</span>
-            </div>
-            <div className={styles.item}>
-              <label htmlFor="dbr" className={styles.label}>
-                <input
-                  className={styles.realCheckbox}
-                  type="checkbox"
-                  name="dbr"
-                  id="dbr"
-                  data-category="model"
-                />
-                <span className={styles.fakeCheckbox} data-for="dbr"></span>
-              </label>
-              <span className={styles.info}>DBR</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.filter}>
-          <span className={styles.title}>Fuel</span>
-          <div className={styles.items}>
-            <div className={styles.item}>
-              <label htmlFor="petrol" className={styles.label}>
-                <input
-                  className={styles.realCheckbox}
-                  type="checkbox"
-                  name="petrol"
-                  id="petrol"
-                  data-category="fuel"
-                />
-                <span className={styles.fakeCheckbox} data-for="petrol"></span>
-              </label>
-              <span className={styles.info}>Petrol</span>
-            </div>
-            <div className={styles.item}>
-              <label htmlFor="diesel" className={styles.label}>
-                <input
-                  className={styles.realCheckbox}
-                  type="checkbox"
-                  name="diesel"
-                  id="diesel"
-                  data-category="fuel"
-                />
-                <span className={styles.fakeCheckbox} data-for="diesel"></span>
-              </label>
-              <span className={styles.info}>Diesel</span>
-            </div>
-            <div className={styles.item}>
-              <label htmlFor="electric" className={styles.label}>
-                <input
-                  className={styles.realCheckbox}
-                  type="checkbox"
-                  name="electric"
-                  id="electric"
-                  data-category="fuel"
-                />
-                <span
-                  className={styles.fakeCheckbox}
-                  data-for="intact-cars"
-                ></span>
-              </label>
-              <span className={styles.info}>Electric</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.filter}>
-          <span className={styles.title}>Price</span>
-          <div className={styles.inputs}>
-            <div className={styles.inputInner}>
-              <input
-                className={styles.priceInput}
-                type="number"
-                name="price_from"
-                id="price_from"
-                max="100000"
-                step="1"
-              />
-            </div>
-            -
-            <div className={styles.inputInner}>
-              <input
-                className={styles.priceInput}
-                type="number"
-                name="price_to"
-                id="price_to"
-                max="100000"
-                step="1"
-              />
-            </div>
+            {Object.entries(CONDITION).map(([key, value]) => (
+              <div className={styles.item} key={key}>
+                <label htmlFor={key} className={styles.label}>
+                  <input
+                    className={styles.realCheckbox}
+                    type="checkbox"
+                    name={key}
+                    id={key}
+                    data-category="condition"
+                    checked={condition[key as keyof typeof condition]}
+                    onChange={handleChangeCondition}
+                  />
+                  <span className={styles.fakeCheckbox} data-for={key}></span>
+                </label>
+                <span className={styles.info}>{value.label.en}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

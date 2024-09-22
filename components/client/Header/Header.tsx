@@ -25,7 +25,7 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.left}>
         <Link href="/">
-          <img className={styles.logo} src="/img/logo.svg" />
+          <img className={styles.logo} src="/img/logo.jpeg" />
         </Link>
         <div className={styles.phoneInner}>
           <img className={styles.phoneLogo} src="/img/phone.svg" />

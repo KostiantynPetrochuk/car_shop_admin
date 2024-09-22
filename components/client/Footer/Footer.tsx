@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-top-inner">
           <div className={styles.top}>
             <div className="footer-top-col">
-              <img className={styles.logo} src="/img/logo.svg" />
+              <img className={styles.logo} src="/img/logo.jpeg" />
               <div className={styles.phoneInner}>
                 <img src="/img/phone.svg" />
                 <span>+75 123 456 789</span>
