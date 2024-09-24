@@ -1,18 +1,14 @@
+export type Model = {
+  ID: number;
+  ModelName: string;
+  BrandID: number;
+};
+
 export type Brand = {
   ID: string;
   BrandName: string;
   FileName: string;
-  Models: {
-    ID: string;
-    ModelName: string;
-    BrandID: string;
-  }[];
-};
-
-type CarBrand = {
-  BrandName: string;
-  fileMame: string;
-  ID: number;
+  Models: Model[];
 };
 
 export type Feature = {
@@ -25,13 +21,6 @@ type CarFeature = {
   ID: number;
   Category: string;
   FeatureName: string;
-};
-
-type Model = {
-  createdDate: string;
-  id: number;
-  model_name: string;
-  updatedDate: string;
 };
 
 export type Car = {

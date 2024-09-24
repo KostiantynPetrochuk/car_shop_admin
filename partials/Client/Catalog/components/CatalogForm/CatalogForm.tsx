@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { CONDITION } from "@/constants";
 
 import styles from "./CatalogForm.module.css";
-import { Brand } from "@/types";
+import { Brand, Model } from "@/types";
 
 type ConditionFormProps = {
   condition: string[];
@@ -12,6 +12,8 @@ type ConditionFormProps = {
   brands: Brand[];
   currentBrand: string | null;
   setCurrentBrand: React.Dispatch<React.SetStateAction<string | null>>;
+  currentModels: string[];
+  setCurrentModels: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const CatalogForm = ({
@@ -20,6 +22,8 @@ const CatalogForm = ({
   brands,
   currentBrand,
   setCurrentBrand,
+  currentModels,
+  setCurrentModels,
 }: ConditionFormProps) => {
   const handleChangeCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
@@ -40,7 +44,27 @@ const CatalogForm = ({
     }
     const currentBrand = brands.find((brand) => brand.ID == currentBrandId);
     setCurrentBrand(currentBrand?.BrandName || null);
+    setCurrentModels([]);
   };
+
+  const handleChangeModel = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setCurrentModels((prev) => {
+      if (checked) {
+        return [...prev, name];
+      }
+      return prev.filter((item) => item !== name);
+    });
+  };
+
+  const selectedBrand = brands.find(
+    (brand) => brand.BrandName === currentBrand
+  );
+
+  const modelsIds =
+    selectedBrand?.Models?.filter((model: Model) => {
+      return currentModels.includes(model.ModelName);
+    }).map((model) => model.ID) || [];
 
   return (
     <form className={styles.form} action="/catalog" method="GET">
@@ -95,6 +119,28 @@ const CatalogForm = ({
                   ></span>
                 </label>
                 <span className={styles.info}>{brand.BrandName}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={styles.filter}>
+          <span className={styles.title}>Models</span>
+          <div className={styles.items}>
+            {selectedBrand?.Models?.map((model) => (
+              <div className={styles.item} key={model.ID}>
+                <label htmlFor={model.ModelName} className={styles.label}>
+                  <input
+                    className={styles.realCheckbox}
+                    type="checkbox"
+                    name={model.ModelName}
+                    id={model.ModelName}
+                    data-category="model"
+                    checked={modelsIds.includes(model.ID)}
+                    onChange={handleChangeModel}
+                  />
+                  <span className={styles.fakeCheckbox} data-for={model}></span>
+                </label>
+                <span className={styles.info}>{model.ModelName}</span>
               </div>
             ))}
           </div>
