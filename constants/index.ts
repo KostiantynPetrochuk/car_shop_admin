@@ -44,7 +44,7 @@ export const LABELS = {
     hatchback: { ua: "хетчбек", en: "hatchback" },
     coupe: { ua: "купе", en: "coupe" },
     convertible: { ua: "кабріолет", en: "convertible" },
-    van: { ua: "фіргон", en: "van" },
+    van: { ua: "фургон", en: "van" },
     truck: { ua: "вантажівка", en: "truck" },
   },
   Transmission: {

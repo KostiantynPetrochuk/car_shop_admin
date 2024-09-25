@@ -204,7 +204,7 @@ const CarPage = () => {
                         </Typography>
                         <Typography variant="body1">
                           <strong>Стан:</strong>
-                          {CONDITION[car.Condition].label}
+                          {CONDITION[car.Condition].label.ua}
                         </Typography>
                         <Typography variant="body1">
                           <strong>Пробіг:</strong> {car.Mileage} км

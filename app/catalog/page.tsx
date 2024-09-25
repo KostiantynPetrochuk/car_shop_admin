@@ -9,11 +9,13 @@ async function getInitPageData({
   page,
   brand,
   modelsString,
+  bodyTypeString,
 }: {
   condition: string;
   page: number;
   brand: string;
   modelsString: string;
+  bodyTypeString: string;
 }) {
   const offset = (page - 1) * 5;
   const brandsResponse = await fetch("http://localhost:3001/brands", {
@@ -39,7 +41,8 @@ async function getInitPageData({
 
   const brandQueryParam = currentBrandId ? `&brand=${currentBrandId}` : "";
   const modelQueryParam = currentModels ? `&model=${currentModels}` : "";
-  const url = `http://localhost:3001/cars?condition=${condition}${brandQueryParam}${modelQueryParam}&limit=5&offset=${offset}`;
+  const bodyTypeQueryParam = bodyTypeString ? `&bodyType=${bodyTypeString}` : "";
+  const url = `http://localhost:3001/cars?condition=${condition}${brandQueryParam}${modelQueryParam}${bodyTypeQueryParam}&limit=5&offset=${offset}`;
   const carsResponse = await fetch(url, {
     cache: "no-store",
   });
@@ -58,6 +61,7 @@ const Catalog = async ({
     page?: number;
     brand?: string;
     model?: string;
+    bodyType?: string;
   };
 }) => {
   const { brands, carsData } = await getInitPageData({
@@ -65,6 +69,7 @@ const Catalog = async ({
     page: searchParams.page || 1,
     brand: searchParams.brand || "",
     modelsString: searchParams.model || "",
+    bodyTypeString: searchParams.bodyType || "",
   });
 
   return (

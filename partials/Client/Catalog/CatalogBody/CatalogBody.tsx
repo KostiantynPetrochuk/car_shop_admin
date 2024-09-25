@@ -23,15 +23,23 @@ const CatalogBody = ({
   const [condition, setCondition] = useState<string[]>([]);
   const [currentBrand, setCurrentBrand] = useState<string | null>(null);
   const [currentModels, setCurrentModels] = useState<string[]>([]);
+  const [currentBodyTypes, setCurrentBodyTypes] = useState<string[]>([]);
 
   const handleSearch = () => {
-    updateSearchParams(condition, currentBrand, currentModels, page);
+    updateSearchParams(
+      condition,
+      currentBrand,
+      currentModels,
+      currentBodyTypes,
+      page
+    );
   };
 
   const updateSearchParams = (
     condition: string[],
     currentBrand: string | null,
     currentModels: string[],
+    currentBodyTypes: string[],
     page: number
   ) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -76,6 +84,18 @@ const CatalogBody = ({
     } else {
       searchParams.delete("model");
     }
+    if (currentBodyTypes) {
+      const currentBodyTypesArray = currentBodyTypes;
+      if (currentBodyTypesArray.length > 1) {
+        searchParams.set("bodyType", currentBodyTypesArray.join(","));
+      }
+      if (currentBodyTypesArray.length === 1) {
+        searchParams.set("bodyType", currentBodyTypesArray[0]);
+      }
+      if (currentBodyTypesArray.length === 0) {
+        searchParams.delete("bodyType");
+      }
+    }
     //
     const newPathname = `${
       window.location.pathname
@@ -89,7 +109,7 @@ const CatalogBody = ({
     } else {
       setPage(1);
     }
-  }, [currentModels, currentBrand, condition]);
+  }, [currentModels, currentBrand, condition, currentBodyTypes]);
 
   useEffect(() => {
     handleSearch();
@@ -108,6 +128,8 @@ const CatalogBody = ({
             setCurrentBrand={setCurrentBrand}
             currentModels={currentModels}
             setCurrentModels={setCurrentModels}
+            currentBodyTypes={currentBodyTypes}
+            setCurrentBodyTypes={setCurrentBodyTypes}
           />
           <ul className={styles.carsList}>
             {carsData?.cars?.map((car) => (

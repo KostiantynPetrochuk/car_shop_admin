@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 
-import { CONDITION } from "@/constants";
+import { CONDITION, BODY_TYPES } from "@/constants";
 
 import styles from "./CatalogForm.module.css";
 import { Brand, Model } from "@/types";
@@ -14,6 +14,8 @@ type ConditionFormProps = {
   setCurrentBrand: React.Dispatch<React.SetStateAction<string | null>>;
   currentModels: string[];
   setCurrentModels: React.Dispatch<React.SetStateAction<string[]>>;
+  currentBodyTypes: string[];
+  setCurrentBodyTypes: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const CatalogForm = ({
@@ -24,6 +26,8 @@ const CatalogForm = ({
   setCurrentBrand,
   currentModels,
   setCurrentModels,
+  currentBodyTypes,
+  setCurrentBodyTypes,
 }: ConditionFormProps) => {
   const handleChangeCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
@@ -50,6 +54,16 @@ const CatalogForm = ({
   const handleChangeModel = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setCurrentModels((prev) => {
+      if (checked) {
+        return [...prev, name];
+      }
+      return prev.filter((item) => item !== name);
+    });
+  };
+
+  const handleChangeBodyType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setCurrentBodyTypes((prev) => {
       if (checked) {
         return [...prev, name];
       }
@@ -123,24 +137,51 @@ const CatalogForm = ({
             ))}
           </div>
         </div>
+        {currentBrand ? (
+          <div className={styles.filter}>
+            <span className={styles.title}>Models</span>
+            <div className={styles.items}>
+              {selectedBrand?.Models?.map((model) => (
+                <div className={styles.item} key={model.ID}>
+                  <label htmlFor={model.ModelName} className={styles.label}>
+                    <input
+                      className={styles.realCheckbox}
+                      type="checkbox"
+                      name={model.ModelName}
+                      id={model.ModelName}
+                      data-category="model"
+                      checked={modelsIds.includes(model.ID)}
+                      onChange={handleChangeModel}
+                    />
+                    <span
+                      className={styles.fakeCheckbox}
+                      data-for={model}
+                    ></span>
+                  </label>
+                  <span className={styles.info}>{model.ModelName}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
         <div className={styles.filter}>
-          <span className={styles.title}>Models</span>
+          <span className={styles.title}>Body Type</span>
           <div className={styles.items}>
-            {selectedBrand?.Models?.map((model) => (
-              <div className={styles.item} key={model.ID}>
-                <label htmlFor={model.ModelName} className={styles.label}>
+            {Object.entries(BODY_TYPES).map(([key, value]) => (
+              <div className={styles.item} key={key}>
+                <label htmlFor={key} className={styles.label}>
                   <input
                     className={styles.realCheckbox}
                     type="checkbox"
-                    name={model.ModelName}
-                    id={model.ModelName}
-                    data-category="model"
-                    checked={modelsIds.includes(model.ID)}
-                    onChange={handleChangeModel}
+                    name={key}
+                    id={key}
+                    data-category="bodyType"
+                    checked={currentBodyTypes.includes(key)}
+                    onChange={handleChangeBodyType}
                   />
-                  <span className={styles.fakeCheckbox} data-for={model}></span>
+                  <span className={styles.fakeCheckbox} data-for={key}></span>
                 </label>
-                <span className={styles.info}>{model.ModelName}</span>
+                <span className={styles.info}>{value}</span>
               </div>
             ))}
           </div>
