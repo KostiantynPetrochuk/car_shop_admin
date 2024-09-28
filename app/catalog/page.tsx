@@ -10,12 +10,16 @@ async function getInitPageData({
   brand,
   modelsString,
   bodyTypeString,
+  mileageFrom,
+  mileageTo,
 }: {
   condition: string;
   page: number;
   brand: string;
   modelsString: string;
   bodyTypeString: string;
+  mileageFrom?: string;
+  mileageTo?: string;
 }) {
   const offset = (page - 1) * 5;
   const brandsResponse = await fetch("http://localhost:3001/brands", {
@@ -41,8 +45,14 @@ async function getInitPageData({
 
   const brandQueryParam = currentBrandId ? `&brand=${currentBrandId}` : "";
   const modelQueryParam = currentModels ? `&model=${currentModels}` : "";
-  const bodyTypeQueryParam = bodyTypeString ? `&bodyType=${bodyTypeString}` : "";
-  const url = `http://localhost:3001/cars?condition=${condition}${brandQueryParam}${modelQueryParam}${bodyTypeQueryParam}&limit=5&offset=${offset}`;
+  const bodyTypeQueryParam = bodyTypeString
+    ? `&bodyType=${bodyTypeString}`
+    : "";
+  const mileageFromQueryParam = mileageFrom
+    ? `&mileageFrom=${mileageFrom}`
+    : "";
+  const mileageToQueryParam = mileageTo ? `&mileageTo=${mileageTo}` : "";
+  const url = `http://localhost:3001/cars?condition=${condition}${brandQueryParam}${modelQueryParam}${bodyTypeQueryParam}${mileageFromQueryParam}${mileageToQueryParam}&limit=5&offset=${offset}`;
   const carsResponse = await fetch(url, {
     cache: "no-store",
   });
@@ -62,6 +72,8 @@ const Catalog = async ({
     brand?: string;
     model?: string;
     bodyType?: string;
+    mileageFrom?: string;
+    mileageTo?: string;
   };
 }) => {
   const { brands, carsData } = await getInitPageData({
@@ -70,6 +82,8 @@ const Catalog = async ({
     brand: searchParams.brand || "",
     modelsString: searchParams.model || "",
     bodyTypeString: searchParams.bodyType || "",
+    mileageFrom: searchParams.mileageFrom || "",
+    mileageTo: searchParams.mileageTo || "",
   });
 
   return (

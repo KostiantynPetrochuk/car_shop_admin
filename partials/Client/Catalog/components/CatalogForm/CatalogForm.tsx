@@ -1,10 +1,23 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 import { CONDITION, BODY_TYPES } from "@/constants";
-
 import styles from "./CatalogForm.module.css";
 import { Brand, Model } from "@/types";
+
+const mileages = [
+  { value: "", label: "All" },
+  { value: "10000", label: "10 000" },
+  { value: "20000", label: "20 000" },
+  { value: "30000", label: "30 000" },
+  { value: "40000", label: "40 000" },
+  { value: "50000", label: "50 000" },
+  { value: "60000", label: "60 000" },
+  { value: "70000", label: "70 000" },
+  { value: "80000", label: "80 000" },
+  { value: "90000", label: "90 000" },
+  { value: "100000", label: "100 000" },
+];
 
 type ConditionFormProps = {
   condition: string[];
@@ -16,6 +29,10 @@ type ConditionFormProps = {
   setCurrentModels: React.Dispatch<React.SetStateAction<string[]>>;
   currentBodyTypes: string[];
   setCurrentBodyTypes: React.Dispatch<React.SetStateAction<string[]>>;
+  mileageFrom: string;
+  setMileageFrom: React.Dispatch<React.SetStateAction<string>>;
+  mileageTo: string;
+  setMileageTo: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const CatalogForm = ({
@@ -28,7 +45,14 @@ const CatalogForm = ({
   setCurrentModels,
   currentBodyTypes,
   setCurrentBodyTypes,
+  mileageFrom,
+  setMileageFrom,
+  mileageTo,
+  setMileageTo,
 }: ConditionFormProps) => {
+  const [isDropdownFromVisible, setIsDropdownFromVisible] = useState(false);
+  const [isDropdownToVisible, setIsDropdownToVisible] = useState(false);
+
   const handleChangeCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setCondition((prev) => {
@@ -71,6 +95,23 @@ const CatalogForm = ({
     });
   };
 
+  const handleSelectMileageFrom = () => {
+    setIsDropdownFromVisible((prev) => !prev);
+    setIsDropdownToVisible(false);
+  };
+  const handleSelectMileageTo = () => {
+    setIsDropdownToVisible((prev) => !prev);
+    setIsDropdownFromVisible(false);
+  };
+
+  const handleSelectMileageItemFrom = (mileage: string) => {
+    setMileageFrom(mileage);
+  };
+
+  const handleSelectMileageItemTo = (mileage: string) => {
+    setMileageTo(mileage);
+  };
+
   const selectedBrand = brands.find(
     (brand) => brand.BrandName === currentBrand
   );
@@ -102,7 +143,7 @@ const CatalogForm = ({
                     name={key}
                     id={key}
                     data-category="condition"
-                    checked={condition[key as keyof typeof condition]}
+                    checked={condition.includes(key)}
                     onChange={handleChangeCondition}
                   />
                   <span className={styles.fakeCheckbox} data-for={key}></span>
@@ -184,6 +225,84 @@ const CatalogForm = ({
                 <span className={styles.info}>{value}</span>
               </div>
             ))}
+          </div>
+        </div>
+        <div className={styles.filter}>
+          <span className={styles.title}>Mileage</span>
+          <div>
+            <div className={styles.mileage} onClick={handleSelectMileageFrom}>
+              <span className={styles.mileageTitle}>From</span>
+              <span className={styles.mileageCurrent}>
+                {
+                  mileages.find((mileage) => mileage.value === mileageFrom)
+                    ?.label
+                }
+              </span>
+              {isDropdownFromVisible && (
+                <div className={styles.mileageDropdown}>
+                  {mileages.map((mileage) => (
+                    <span
+                      key={mileage.value}
+                      className={styles.mileageDropdownItem}
+                      onClick={() => handleSelectMileageItemFrom(mileage.value)}
+                    >
+                      {mileage.label}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {mileageFrom ? (
+                <span
+                  className={styles.mileageCross}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectMileageItemFrom("");
+                  }}
+                >
+                  <span className={styles.mileageCrossItem}></span>
+                  <span className={styles.mileageCrossItem}></span>
+                </span>
+              ) : (
+                <span className={styles.mileageArrow}></span>
+              )}
+            </div>
+          </div>
+        </div>
+        <div style={{ marginTop: "50px" }} className={styles.filter}>
+          <div>
+            <div className={styles.mileage} onClick={handleSelectMileageTo}>
+              <span className={styles.mileageTitle}>To</span>
+              <span className={styles.mileageCurrent}>
+                {mileages.find((mileage) => mileage.value === mileageTo)?.label}
+              </span>
+              {isDropdownToVisible && (
+                <div className={styles.mileageDropdown}>
+                  {mileages.map((mileage) => (
+                    <span
+                      key={mileage.value}
+                      className={styles.mileageDropdownItem}
+                      onClick={() => handleSelectMileageItemTo(mileage.value)}
+                    >
+                      {mileage.label}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {mileageTo ? (
+                <span
+                  className={styles.mileageCross}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectMileageItemTo("");
+                  }}
+                >
+                  <span className={styles.mileageCrossItem}></span>
+                  <span className={styles.mileageCrossItem}></span>
+                </span>
+              ) : (
+                <span className={styles.mileageArrow}></span>
+              )}
+            </div>
           </div>
         </div>
       </div>
