@@ -25,6 +25,20 @@ const mileages = [
   { value: "100000", label: "100 000" },
 ];
 
+const prices = [
+  { value: "", label: "All" },
+  { value: "10000", label: "10 000" },
+  { value: "20000", label: "20 000" },
+  { value: "30000", label: "30 000" },
+  { value: "40000", label: "40 000" },
+  { value: "50000", label: "50 000" },
+  { value: "60000", label: "60 000" },
+  { value: "70000", label: "70 000" },
+  { value: "80000", label: "80 000" },
+  { value: "90000", label: "90 000" },
+  { value: "100000", label: "100 000" },
+];
+
 type ConditionFormProps = {
   condition: string[];
   setCondition: React.Dispatch<React.SetStateAction<string[]>>;
@@ -45,6 +59,10 @@ type ConditionFormProps = {
   setTransmission: React.Dispatch<React.SetStateAction<string[]>>;
   driveType: string[];
   setDriveType: React.Dispatch<React.SetStateAction<string[]>>;
+  priceFrom: string;
+  setPriceFrom: React.Dispatch<React.SetStateAction<string>>;
+  priceTo: string;
+  setPriceTo: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const CatalogForm = ({
@@ -67,9 +85,17 @@ const CatalogForm = ({
   setTransmission,
   driveType,
   setDriveType,
+  priceFrom,
+  setPriceFrom,
+  priceTo,
+  setPriceTo,
 }: ConditionFormProps) => {
   const [isDropdownFromVisible, setIsDropdownFromVisible] = useState(false);
   const [isDropdownToVisible, setIsDropdownToVisible] = useState(false);
+  const [isDropdownPriceFromVisible, setIsDropdownPriceFromVisible] =
+    useState(false);
+  const [isDropdownPriceToVisible, setIsDropdownPriceToVisible] =
+    useState(false);
 
   const handleChangeCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
@@ -148,6 +174,24 @@ const CatalogForm = ({
 
   const handleSelectMileageItemTo = (mileage: string) => {
     setMileageTo(mileage);
+  };
+
+  //
+  const handleSelectPriceFrom = () => {
+    setIsDropdownPriceFromVisible((prev) => !prev);
+    setIsDropdownPriceToVisible(false);
+  };
+  const handleSelectPriceTo = () => {
+    setIsDropdownPriceToVisible((prev) => !prev);
+    setIsDropdownPriceFromVisible(false);
+  };
+
+  const handleSelectPriceItemFrom = (mileage: string) => {
+    setPriceFrom(mileage);
+  };
+
+  const handleSelectPriceItemTo = (mileage: string) => {
+    setPriceTo(mileage);
   };
 
   const handleChangeFuelType = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -429,6 +473,81 @@ const CatalogForm = ({
                 <span className={styles.info}>{driveTypeItem}</span>
               </div>
             ))}
+          </div>
+        </div>
+        <div className={styles.filter}>
+          <span className={styles.title}>Price</span>
+          <div>
+            <div className={styles.mileage} onClick={handleSelectPriceFrom}>
+              <span className={styles.priceTitle}>From</span>
+              <span className={styles.priceCurrent}>
+                {prices.find((price) => price.value === priceFrom)?.label}
+              </span>
+              {isDropdownPriceFromVisible && (
+                <div className={styles.priceDropdown}>
+                  {prices.map((price) => (
+                    <span
+                      key={price.value}
+                      className={styles.priceDropdownItem}
+                      onClick={() => handleSelectPriceItemFrom(price.value)}
+                    >
+                      {price.label}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {priceFrom ? (
+                <span
+                  className={styles.priceCross}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectPriceItemFrom("");
+                  }}
+                >
+                  <span className={styles.priceCrossItem}></span>
+                  <span className={styles.priceCrossItem}></span>
+                </span>
+              ) : (
+                <span className={styles.priceArrow}></span>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className={styles.filter}>
+          <div>
+            <div className={styles.price} onClick={handleSelectPriceTo}>
+              <span className={styles.priceTitle}>To</span>
+              <span className={styles.priceCurrent}>
+                {prices.find((price) => price.value === priceTo)?.label}
+              </span>
+              {isDropdownPriceToVisible && (
+                <div className={styles.priceDropdown}>
+                  {prices.map((price) => (
+                    <span
+                      key={price.value}
+                      className={styles.priceDropdownItem}
+                      onClick={() => handleSelectPriceItemTo(price.value)}
+                    >
+                      {price.label}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {priceTo ? (
+                <span
+                  className={styles.priceCross}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectPriceItemTo("");
+                  }}
+                >
+                  <span className={styles.priceCrossItem}></span>
+                  <span className={styles.priceCrossItem}></span>
+                </span>
+              ) : (
+                <span className={styles.priceArrow}></span>
+              )}
+            </div>
           </div>
         </div>
       </div>

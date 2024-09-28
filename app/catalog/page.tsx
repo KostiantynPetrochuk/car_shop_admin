@@ -15,6 +15,8 @@ async function getInitPageData({
   fuelType,
   transmission,
   driveType,
+  priceFrom,
+  priceTo,
 }: {
   condition: string;
   page: number;
@@ -26,6 +28,8 @@ async function getInitPageData({
   fuelType?: string;
   transmission?: string;
   driveType?: string;
+  priceFrom?: string;
+  priceTo?: string;
 }) {
   const offset = (page - 1) * 5;
   const brandsResponse = await fetch("http://localhost:3001/brands", {
@@ -63,7 +67,9 @@ async function getInitPageData({
     ? `&transmission=${transmission}`
     : "";
   const driveTypeQueryParam = driveType ? `&driveType=${driveType}` : "";
-  const url = `http://localhost:3001/cars?condition=${condition}${brandQueryParam}${modelQueryParam}${bodyTypeQueryParam}${mileageFromQueryParam}${mileageToQueryParam}${fuelTypeQueryParam}${transmissionQueryParam}${driveTypeQueryParam}&limit=5&offset=${offset}`;
+  const priceFromQueryParam = priceFrom ? `&priceFrom=${priceFrom}` : "";
+  const priceToQueryParam = priceTo ? `&priceTo=${priceTo}` : "";
+  const url = `http://localhost:3001/cars?condition=${condition}${brandQueryParam}${modelQueryParam}${bodyTypeQueryParam}${mileageFromQueryParam}${mileageToQueryParam}${fuelTypeQueryParam}${transmissionQueryParam}${driveTypeQueryParam}${priceFromQueryParam}${priceToQueryParam}&limit=5&offset=${offset}`;
   const carsResponse = await fetch(url, {
     cache: "no-store",
   });
@@ -88,6 +94,8 @@ const Catalog = async ({
     fuelType?: string;
     transmission?: string;
     driveType?: string;
+    priceFrom?: string;
+    priceTo?: string;
   };
 }) => {
   const { brands, carsData } = await getInitPageData({
@@ -101,6 +109,8 @@ const Catalog = async ({
     fuelType: searchParams.fuelType || "",
     transmission: searchParams.transmission || "",
     driveType: searchParams.driveType || "",
+    priceFrom: searchParams.priceFrom || "",
+    priceTo: searchParams.priceTo || "",
   });
 
   return (

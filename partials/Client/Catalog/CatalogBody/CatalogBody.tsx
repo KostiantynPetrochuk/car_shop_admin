@@ -29,6 +29,8 @@ const CatalogBody = ({
   const [currentFuelTypes, setCurrentFuelTypes] = useState<string[]>([]);
   const [transmission, setTransmission] = useState<string[]>([]);
   const [driveType, setDriveType] = useState<string[]>([]);
+  const [priceFrom, setPriceFrom] = useState("");
+  const [priceTo, setPriceTo] = useState("");
 
   const handleSearch = () => {
     updateSearchParams(
@@ -158,6 +160,17 @@ const CatalogBody = ({
       }
     }
     //
+    if (priceFrom) {
+      searchParams.set("priceFrom", priceFrom);
+    } else {
+      searchParams.delete("priceFrom");
+    }
+    if (priceTo) {
+      searchParams.set("priceTo", priceTo);
+    } else {
+      searchParams.delete("priceTo");
+    }
+    //
     const newPathname = `${
       window.location.pathname
     }?${searchParams.toString()}`;
@@ -180,6 +193,8 @@ const CatalogBody = ({
     currentFuelTypes,
     transmission,
     driveType,
+    priceFrom,
+    priceTo,
   ]);
 
   useEffect(() => {
@@ -211,6 +226,10 @@ const CatalogBody = ({
             setTransmission={setTransmission}
             driveType={driveType}
             setDriveType={setDriveType}
+            priceFrom={priceFrom}
+            setPriceFrom={setPriceFrom}
+            priceTo={priceTo}
+            setPriceTo={setPriceTo}
           />
           <ul className={styles.carsList}>
             {carsData?.cars?.map((car) => (
