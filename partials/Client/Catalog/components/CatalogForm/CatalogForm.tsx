@@ -26,6 +26,11 @@ const fuelTypes = [
   { value: "hybrid", label: "Hybrid" },
 ];
 
+const transmissionTypes = [
+  { value: "automatic", label: "Automatic" },
+  { value: "manual", label: "Manual" },
+];
+
 type ConditionFormProps = {
   condition: string[];
   setCondition: React.Dispatch<React.SetStateAction<string[]>>;
@@ -42,6 +47,8 @@ type ConditionFormProps = {
   setMileageTo: React.Dispatch<React.SetStateAction<string>>;
   currentFuelTypes: string[];
   setCurrentFuelTypes: React.Dispatch<React.SetStateAction<string[]>>;
+  transmission: string[];
+  setTransmission: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const CatalogForm = ({
@@ -60,6 +67,8 @@ const CatalogForm = ({
   setMileageTo,
   currentFuelTypes,
   setCurrentFuelTypes,
+  transmission,
+  setTransmission,
 }: ConditionFormProps) => {
   const [isDropdownFromVisible, setIsDropdownFromVisible] = useState(false);
   const [isDropdownToVisible, setIsDropdownToVisible] = useState(false);
@@ -99,6 +108,16 @@ const CatalogForm = ({
   const handleChangeBodyType = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setCurrentBodyTypes((prev) => {
+      if (checked) {
+        return [...prev, name];
+      }
+      return prev.filter((item) => item !== name);
+    });
+  };
+
+  const handleChangeTransmission = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setTransmission((prev) => {
       if (checked) {
         return [...prev, name];
       }
@@ -347,6 +366,34 @@ const CatalogForm = ({
                   ></span>
                 </label>
                 <span className={styles.info}>{fuelType.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={styles.filter}>
+          <span className={styles.title}>Transmission</span>
+          <div className={styles.items}>
+            {transmissionTypes.map((transmissionType) => (
+              <div className={styles.item} key={transmissionType.value}>
+                <label
+                  htmlFor={transmissionType.value}
+                  className={styles.label}
+                >
+                  <input
+                    className={styles.realCheckbox}
+                    type="checkbox"
+                    name={transmissionType.value}
+                    id={transmissionType.value}
+                    data-category="transmission"
+                    checked={transmission.includes(transmissionType.value)}
+                    onChange={handleChangeTransmission}
+                  />
+                  <span
+                    className={styles.fakeCheckbox}
+                    data-for={transmissionType.value}
+                  ></span>
+                </label>
+                <span className={styles.info}>{transmissionType.label}</span>
               </div>
             ))}
           </div>
