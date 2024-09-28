@@ -1,7 +1,13 @@
 "use client";
 import React, { useState } from "react";
 
-import { CONDITION, BODY_TYPES } from "@/constants";
+import {
+  CONDITION,
+  BODY_TYPES,
+  FUEL_TYPES,
+  TRANSMISSION,
+  DRIVE_TYPE,
+} from "@/constants";
 import styles from "./CatalogForm.module.css";
 import { Brand, Model } from "@/types";
 
@@ -17,18 +23,6 @@ const mileages = [
   { value: "80000", label: "80 000" },
   { value: "90000", label: "90 000" },
   { value: "100000", label: "100 000" },
-];
-
-const fuelTypes = [
-  { value: "petrol", label: "Petrol" },
-  { value: "diesel", label: "Diesel" },
-  { value: "electric", label: "Electric" },
-  { value: "hybrid", label: "Hybrid" },
-];
-
-const transmissionTypes = [
-  { value: "automatic", label: "Automatic" },
-  { value: "manual", label: "Manual" },
 ];
 
 type ConditionFormProps = {
@@ -49,6 +43,8 @@ type ConditionFormProps = {
   setCurrentFuelTypes: React.Dispatch<React.SetStateAction<string[]>>;
   transmission: string[];
   setTransmission: React.Dispatch<React.SetStateAction<string[]>>;
+  driveType: string[];
+  setDriveType: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const CatalogForm = ({
@@ -69,6 +65,8 @@ const CatalogForm = ({
   setCurrentFuelTypes,
   transmission,
   setTransmission,
+  driveType,
+  setDriveType,
 }: ConditionFormProps) => {
   const [isDropdownFromVisible, setIsDropdownFromVisible] = useState(false);
   const [isDropdownToVisible, setIsDropdownToVisible] = useState(false);
@@ -118,6 +116,16 @@ const CatalogForm = ({
   const handleChangeTransmission = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setTransmission((prev) => {
+      if (checked) {
+        return [...prev, name];
+      }
+      return prev.filter((item) => item !== name);
+    });
+  };
+
+  const handleChangeDriveType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setDriveType((prev) => {
       if (checked) {
         return [...prev, name];
       }
@@ -248,21 +256,24 @@ const CatalogForm = ({
         <div className={styles.filter}>
           <span className={styles.title}>Body Type</span>
           <div className={styles.items}>
-            {Object.entries(BODY_TYPES).map(([key, value]) => (
-              <div className={styles.item} key={key}>
-                <label htmlFor={key} className={styles.label}>
+            {Object.keys(BODY_TYPES).map((bodyKey) => (
+              <div className={styles.item} key={bodyKey}>
+                <label htmlFor={bodyKey} className={styles.label}>
                   <input
                     className={styles.realCheckbox}
                     type="checkbox"
-                    name={key}
-                    id={key}
+                    name={bodyKey}
+                    id={bodyKey}
                     data-category="bodyType"
-                    checked={currentBodyTypes.includes(key)}
+                    checked={currentBodyTypes.includes(bodyKey)}
                     onChange={handleChangeBodyType}
                   />
-                  <span className={styles.fakeCheckbox} data-for={key}></span>
+                  <span
+                    className={styles.fakeCheckbox}
+                    data-for={bodyKey}
+                  ></span>
                 </label>
-                <span className={styles.info}>{value}</span>
+                <span className={styles.info}>{bodyKey}</span>
               </div>
             ))}
           </div>
@@ -348,24 +359,24 @@ const CatalogForm = ({
         <div className={styles.filter}>
           <span className={styles.title}>Fuel Type</span>
           <div className={styles.items}>
-            {fuelTypes.map((fuelType) => (
-              <div className={styles.item} key={fuelType.value}>
-                <label htmlFor={fuelType.value} className={styles.label}>
+            {Object.keys(FUEL_TYPES).map((fuelKey) => (
+              <div className={styles.item} key={fuelKey}>
+                <label htmlFor={fuelKey} className={styles.label}>
                   <input
                     className={styles.realCheckbox}
                     type="checkbox"
-                    name={fuelType.value}
-                    id={fuelType.value}
+                    name={fuelKey}
+                    id={fuelKey}
                     data-category="fuelType"
-                    checked={currentFuelTypes.includes(fuelType.value)}
+                    checked={currentFuelTypes.includes(fuelKey)}
                     onChange={handleChangeFuelType}
                   />
                   <span
                     className={styles.fakeCheckbox}
-                    data-for={fuelType.value}
+                    data-for={fuelKey}
                   ></span>
                 </label>
-                <span className={styles.info}>{fuelType.label}</span>
+                <span className={styles.info}>{fuelKey}</span>
               </div>
             ))}
           </div>
@@ -373,27 +384,49 @@ const CatalogForm = ({
         <div className={styles.filter}>
           <span className={styles.title}>Transmission</span>
           <div className={styles.items}>
-            {transmissionTypes.map((transmissionType) => (
-              <div className={styles.item} key={transmissionType.value}>
-                <label
-                  htmlFor={transmissionType.value}
-                  className={styles.label}
-                >
+            {Object.keys(TRANSMISSION).map((transmissionType) => (
+              <div className={styles.item} key={transmissionType}>
+                <label htmlFor={transmissionType} className={styles.label}>
                   <input
                     className={styles.realCheckbox}
                     type="checkbox"
-                    name={transmissionType.value}
-                    id={transmissionType.value}
+                    name={transmissionType}
+                    id={transmissionType}
                     data-category="transmission"
-                    checked={transmission.includes(transmissionType.value)}
+                    checked={transmission.includes(transmissionType)}
                     onChange={handleChangeTransmission}
                   />
                   <span
                     className={styles.fakeCheckbox}
-                    data-for={transmissionType.value}
+                    data-for={transmissionType}
                   ></span>
                 </label>
-                <span className={styles.info}>{transmissionType.label}</span>
+                <span className={styles.info}>{transmissionType}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={styles.filter}>
+          <span className={styles.title}>Drive Type</span>
+          <div className={styles.items}>
+            {Object.keys(DRIVE_TYPE).map((driveTypeItem) => (
+              <div className={styles.item} key={driveTypeItem}>
+                <label htmlFor={driveTypeItem} className={styles.label}>
+                  <input
+                    className={styles.realCheckbox}
+                    type="checkbox"
+                    name={driveTypeItem}
+                    id={driveTypeItem}
+                    data-category="driveType"
+                    checked={driveType.includes(driveTypeItem)}
+                    onChange={handleChangeDriveType}
+                  />
+                  <span
+                    className={styles.fakeCheckbox}
+                    data-for={driveTypeItem}
+                  ></span>
+                </label>
+                <span className={styles.info}>{driveTypeItem}</span>
               </div>
             ))}
           </div>

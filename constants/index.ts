@@ -1,40 +1,37 @@
 export const BODY_TYPES = {
-  suv: "suv",
-  sedan: "sedan",
-  hatchback: "hatchback",
-  coupe: "coupe",
-  convertible: "convertible",
-  van: "van",
-  truck: "truck",
+  suv: { label: "suv" },
+  sedan: { label: "sedan" },
+  hatchback: { label: "hatchback" },
+  coupe: { lavel: "coupe" },
+  convertible: { label: "convertible" },
+  van: { label: "van" },
+  truck: { label: "truck" },
 };
 
 export const FUEL_TYPES = {
-  petrol: { value: "petrol", label: "бензин" },
-  diesel: { value: "diesel", label: "дизель" },
-  electricity: { value: "electricity", label: "електрика" },
+  petrol: { label: "бензин" },
+  diesel: { label: "дизель" },
+  electricity: { label: "електрика" },
 };
 
 export const TRANSMISSION = {
-  manual: { value: "manual", label: "ручна" },
-  automatic: { value: "automatic", label: "автоматична" },
+  manual: { label: "ручна" },
+  automatic: { label: "автоматична" },
 };
 
 export const DRIVE_TYPE = {
-  frontWheel: { value: "front-wheel", label: "передній" },
-  rearWheel: { value: "rear-wheel", label: "задній" },
-  allWheel: { value: "all-wheel", label: "повний" },
+  frontWheel: { label: "передній" },
+  rearWheel: { label: "задній" },
+  allWheel: { label: "повний" },
 };
 
 export const CONDITION = {
-  intact: { value: "intact", label: { en: "intact", ua: "цілий" } },
-  damaged: { value: "damaged", label: { en: "damaged", ua: "пошкоджений" } },
-  insurance: {
-    value: "insurance",
-    label: { en: "insurance", ua: "страховий" },
-  },
-  rebuilt: { value: "rebuilt", label: { en: "rebuilt", ua: "відновлений" } },
-  new: { value: "new", label: { en: "new", ua: "новий" } },
-  used: { value: "used", label: { en: "used", ua: "вживаний" } },
+  intact: { label: { en: "intact", ua: "цілий" } },
+  damaged: { label: { en: "damaged", ua: "пошкоджений" } },
+  insurance: { label: { en: "insurance", ua: "страховий" } },
+  rebuilt: { label: { en: "rebuilt", ua: "відновлений" } },
+  new: { label: { en: "new", ua: "новий" } },
+  used: { label: { en: "used", ua: "вживаний" } },
 };
 
 export const LABELS = {
