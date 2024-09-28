@@ -28,6 +28,10 @@
   background-color: #fff;
 }
 
+.filter {
+  margin-top: 20px;
+}
+
 .inputs {
   display: flex;
   justify-content: space-between;

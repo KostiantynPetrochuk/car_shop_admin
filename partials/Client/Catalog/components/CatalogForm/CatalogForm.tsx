@@ -19,6 +19,13 @@ const mileages = [
   { value: "100000", label: "100 000" },
 ];
 
+const fuelTypes = [
+  { value: "petrol", label: "Petrol" },
+  { value: "diesel", label: "Diesel" },
+  { value: "electric", label: "Electric" },
+  { value: "hybrid", label: "Hybrid" },
+];
+
 type ConditionFormProps = {
   condition: string[];
   setCondition: React.Dispatch<React.SetStateAction<string[]>>;
@@ -33,6 +40,8 @@ type ConditionFormProps = {
   setMileageFrom: React.Dispatch<React.SetStateAction<string>>;
   mileageTo: string;
   setMileageTo: React.Dispatch<React.SetStateAction<string>>;
+  currentFuelTypes: string[];
+  setCurrentFuelTypes: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const CatalogForm = ({
@@ -49,6 +58,8 @@ const CatalogForm = ({
   setMileageFrom,
   mileageTo,
   setMileageTo,
+  currentFuelTypes,
+  setCurrentFuelTypes,
 }: ConditionFormProps) => {
   const [isDropdownFromVisible, setIsDropdownFromVisible] = useState(false);
   const [isDropdownToVisible, setIsDropdownToVisible] = useState(false);
@@ -110,6 +121,16 @@ const CatalogForm = ({
 
   const handleSelectMileageItemTo = (mileage: string) => {
     setMileageTo(mileage);
+  };
+
+  const handleChangeFuelType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setCurrentFuelTypes((prev) => {
+      if (checked) {
+        return [...prev, name];
+      }
+      return prev.filter((item) => item !== name);
+    });
   };
 
   const selectedBrand = brands.find(
@@ -268,7 +289,7 @@ const CatalogForm = ({
             </div>
           </div>
         </div>
-        <div style={{ marginTop: "50px" }} className={styles.filter}>
+        <div className={styles.filter}>
           <div>
             <div className={styles.mileage} onClick={handleSelectMileageTo}>
               <span className={styles.mileageTitle}>To</span>
@@ -303,6 +324,31 @@ const CatalogForm = ({
                 <span className={styles.mileageArrow}></span>
               )}
             </div>
+          </div>
+        </div>
+        <div className={styles.filter}>
+          <span className={styles.title}>Fuel Type</span>
+          <div className={styles.items}>
+            {fuelTypes.map((fuelType) => (
+              <div className={styles.item} key={fuelType.value}>
+                <label htmlFor={fuelType.value} className={styles.label}>
+                  <input
+                    className={styles.realCheckbox}
+                    type="checkbox"
+                    name={fuelType.value}
+                    id={fuelType.value}
+                    data-category="fuelType"
+                    checked={currentFuelTypes.includes(fuelType.value)}
+                    onChange={handleChangeFuelType}
+                  />
+                  <span
+                    className={styles.fakeCheckbox}
+                    data-for={fuelType.value}
+                  ></span>
+                </label>
+                <span className={styles.info}>{fuelType.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

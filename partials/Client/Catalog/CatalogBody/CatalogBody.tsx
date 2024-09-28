@@ -26,6 +26,7 @@ const CatalogBody = ({
   const [currentBodyTypes, setCurrentBodyTypes] = useState<string[]>([]);
   const [mileageFrom, setMileageFrom] = useState("");
   const [mileageTo, setMileageTo] = useState("");
+  const [currentFuelTypes, setCurrentFuelTypes] = useState<string[]>([]);
 
   const handleSearch = () => {
     updateSearchParams(
@@ -33,6 +34,7 @@ const CatalogBody = ({
       currentBrand,
       currentModels,
       currentBodyTypes,
+      currentFuelTypes,
       page
     );
   };
@@ -42,6 +44,7 @@ const CatalogBody = ({
     currentBrand: string | null,
     currentModels: string[],
     currentBodyTypes: string[],
+    currentFuelTypes: string[],
     page: number
   ) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -110,6 +113,19 @@ const CatalogBody = ({
       searchParams.delete("mileageTo");
     }
     //
+    if (currentFuelTypes) {
+      const currentFuelTypesArray = currentFuelTypes;
+      if (currentFuelTypesArray.length > 1) {
+        searchParams.set("fuelType", currentFuelTypesArray.join(","));
+      }
+      if (currentFuelTypesArray.length === 1) {
+        searchParams.set("fuelType", currentFuelTypesArray[0]);
+      }
+      if (currentFuelTypesArray.length === 0) {
+        searchParams.delete("fuelType");
+      }
+    }
+    //
     const newPathname = `${
       window.location.pathname
     }?${searchParams.toString()}`;
@@ -129,6 +145,7 @@ const CatalogBody = ({
     currentBodyTypes,
     mileageFrom,
     mileageTo,
+    currentFuelTypes,
   ]);
 
   useEffect(() => {
@@ -154,6 +171,8 @@ const CatalogBody = ({
             setMileageFrom={setMileageFrom}
             mileageTo={mileageTo}
             setMileageTo={setMileageTo}
+            currentFuelTypes={currentFuelTypes}
+            setCurrentFuelTypes={setCurrentFuelTypes}
           />
           <ul className={styles.carsList}>
             {carsData?.cars?.map((car) => (
