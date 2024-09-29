@@ -118,7 +118,6 @@ const Catalog = async ({
       <Header />
       <main className="main">
         <Top />
-        <SortForm />
         <CatalogBody brands={brands} carsData={carsData} />
       </main>
       <Footer />

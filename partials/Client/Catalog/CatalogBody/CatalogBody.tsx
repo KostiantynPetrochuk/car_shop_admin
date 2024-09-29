@@ -10,6 +10,8 @@ import {
 } from "@/partials/Client/Catalog/components";
 import { Brand, Car as CarType } from "@/types";
 import styles from "./CatalogBody.module.css";
+import SortForm from "../SortForm";
+import Image from "next/image";
 
 const CatalogBody = ({
   brands,
@@ -19,6 +21,7 @@ const CatalogBody = ({
   carsData: { cars: CarType[]; total: number };
 }) => {
   const router = useRouter();
+  const [isFormVisible, setFormVisible] = useState(false);
   const [page, setPage] = useState(1);
   const [condition, setCondition] = useState<string[]>([]);
   const [currentBrand, setCurrentBrand] = useState<string | null>(null);
@@ -203,9 +206,13 @@ const CatalogBody = ({
 
   return (
     <section className={styles.catalog}>
+      <SortForm setFormVisible={setFormVisible} />
       <div className="container">
         <div className={styles.inner}>
-          <CatalogFormBg />
+          <CatalogFormBg
+            isFormVisible={isFormVisible}
+            setFormVisible={setFormVisible}
+          />
           <CatalogForm
             condition={condition}
             setCondition={setCondition}
@@ -230,18 +237,37 @@ const CatalogBody = ({
             setPriceFrom={setPriceFrom}
             priceTo={priceTo}
             setPriceTo={setPriceTo}
+            isFormVisible={isFormVisible}
+            setFormVisible={setFormVisible}
           />
-          <ul className={styles.carsList}>
-            {carsData?.cars?.map((car) => (
-              <Car key={car.ID} car={car} />
-            ))}
-          </ul>
+          {carsData?.cars?.length ? (
+            <div className={styles.carsListInner}>
+              <ul className={styles.carsList}>
+                {carsData?.cars?.map((car) => (
+                  <Car key={car.ID} car={car} />
+                ))}
+              </ul>
+              <CatalogPagination
+                totalPages={Math.ceil(carsData.total / 5)}
+                page={page}
+                setPage={setPage}
+              />
+            </div>
+          ) : (
+            <div className={styles.carsNotFound}>
+              <Image
+                src="/img/not_finded_cars_logo.jpeg"
+                alt="find_cars"
+                width={300}
+                height={300}
+              />
+              <span className={styles.carsNotFoundInfo}>
+                {/* Нажаль, за вашим запитом не знайдено жодного автомобіля. */}
+                Unfortunately, no cars were found for your request.
+              </span>
+            </div>
+          )}
         </div>
-        <CatalogPagination
-          totalPages={Math.ceil(carsData.total / 5)}
-          page={page}
-          setPage={setPage}
-        />
       </div>
     </section>
   );

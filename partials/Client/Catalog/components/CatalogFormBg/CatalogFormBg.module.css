@@ -6,11 +6,4 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 1;
-  display: none;
-}
-
-@media screen and (max-width: 1050px) {
-  .formBg.show {
-    display: block;
-  }
 }

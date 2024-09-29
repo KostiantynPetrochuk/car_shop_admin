@@ -1,16 +1,27 @@
+"use client";
 import React from "react";
 import styles from "./SortForm.module.css";
 
-const SortForm = () => {
+type SortFormProps = {
+  setFormVisible: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const SortForm = ({ setFormVisible }: SortFormProps) => {
+  const handleOpen = () => {
+    setFormVisible(true);
+    const body = document.querySelector("body");
+    if (!body) return;
+    body.classList.add("freezed");
+  };
   return (
     <section className={styles.sort}>
       <div className="container">
         <div className={styles.inner}>
           <div className={styles.results}>Showing 1 – 12 of 15 results</div>
-          <div className={styles.filter}>
+          <button type="button" className={styles.filter} onClick={handleOpen}>
             <img className={styles.logo} src="/img/filter.svg" alt="" />
             <span className={styles.title}>Filters</span>
-          </div>
+          </button>
           <div className={styles.action}>
             <span className={styles.title}>Sort by:</span>
             <div className={styles.select}>

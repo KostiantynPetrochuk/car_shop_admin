@@ -63,6 +63,8 @@ type ConditionFormProps = {
   setPriceFrom: React.Dispatch<React.SetStateAction<string>>;
   priceTo: string;
   setPriceTo: React.Dispatch<React.SetStateAction<string>>;
+  isFormVisible: boolean;
+  setFormVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CatalogForm = ({
@@ -89,6 +91,8 @@ const CatalogForm = ({
   setPriceFrom,
   priceTo,
   setPriceTo,
+  isFormVisible,
+  setFormVisible,
 }: ConditionFormProps) => {
   const [isDropdownFromVisible, setIsDropdownFromVisible] = useState(false);
   const [isDropdownToVisible, setIsDropdownToVisible] = useState(false);
@@ -109,12 +113,14 @@ const CatalogForm = ({
 
   const handleChangeBrand = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
-    const currentBrandId = checked ? name : null;
-    if (!currentBrandId) {
+    const currentBrandName = checked ? name : null;
+    if (!currentBrandName) {
       setCurrentBrand(null);
       return;
     }
-    const currentBrand = brands.find((brand) => brand.ID == currentBrandId);
+    const currentBrand = brands.find(
+      (brand) => brand.BrandName === currentBrandName
+    );
     setCurrentBrand(currentBrand?.BrandName || null);
     setCurrentModels([]);
   };
@@ -204,6 +210,27 @@ const CatalogForm = ({
     });
   };
 
+  const handleCloseForm = () => {
+    setFormVisible(false);
+    const body = document.querySelector("body");
+    if (!body) return;
+    body.classList.remove("freezed");
+  };
+
+  const clearFilters = () => {
+    setCondition([]);
+    setCurrentBrand(null);
+    setCurrentModels([]);
+    setCurrentBodyTypes([]);
+    setMileageFrom("");
+    setMileageTo("");
+    setCurrentFuelTypes([]);
+    setTransmission([]);
+    setDriveType([]);
+    setPriceFrom("");
+    setPriceTo("");
+  };
+
   const selectedBrand = brands.find(
     (brand) => brand.BrandName === currentBrand
   );
@@ -214,10 +241,23 @@ const CatalogForm = ({
     }).map((model) => model.ID) || [];
 
   return (
-    <form className={styles.form} action="/catalog" method="GET">
+    <form
+      className={`${styles.form} ${isFormVisible ? styles.show : ""}`}
+      action="/catalog"
+      method="GET"
+    >
       <div className={styles.mobTitle}>
         <span>Filters</span>
-        <button className={styles.mobCross} type="button">
+        <button
+          className={styles.mobCross}
+          type="button"
+          onClick={() => {
+            setFormVisible(false);
+            const body = document.querySelector("body");
+            if (!body) return;
+            body.classList.remove("freezed");
+          }}
+        >
           <span className={styles.mobCrossItem}></span>
           <span className={styles.mobCrossItem}></span>
         </button>
@@ -249,20 +289,20 @@ const CatalogForm = ({
           <span className={styles.title}>Brands</span>
           <div className={styles.items}>
             {brands?.map((brand) => (
-              <div className={styles.item} key={brand.ID}>
-                <label htmlFor={brand.ID} className={styles.label}>
+              <div className={styles.item} key={brand.BrandName}>
+                <label htmlFor={brand.BrandName} className={styles.label}>
                   <input
                     className={styles.realCheckbox}
                     type="checkbox"
-                    name={brand.ID}
-                    id={brand.ID}
+                    name={brand.BrandName} // Використовуємо BrandName замість ID
+                    id={brand.BrandName}
                     data-category="brand"
                     checked={currentBrand === brand.BrandName}
                     onChange={handleChangeBrand}
                   />
                   <span
                     className={styles.fakeCheckbox}
-                    data-for={brand.ID}
+                    data-for={brand.BrandName}
                   ></span>
                 </label>
                 <span className={styles.info}>{brand.BrandName}</span>
@@ -275,7 +315,7 @@ const CatalogForm = ({
             <span className={styles.title}>Models</span>
             <div className={styles.items}>
               {selectedBrand?.Models?.map((model) => (
-                <div className={styles.item} key={model.ID}>
+                <div className={styles.item} key={model.ModelName}>
                   <label htmlFor={model.ModelName} className={styles.label}>
                     <input
                       className={styles.realCheckbox}
@@ -288,7 +328,7 @@ const CatalogForm = ({
                     />
                     <span
                       className={styles.fakeCheckbox}
-                      data-for={model}
+                      data-for={model.ModelName}
                     ></span>
                   </label>
                   <span className={styles.info}>{model.ModelName}</span>
@@ -553,10 +593,18 @@ const CatalogForm = ({
       </div>
 
       <div className={styles.submitInner}>
-        <button type="submit" className={styles.submit}>
-          <img src="/img/search.svg" />
-          <span>Search Cars</span>
-        </button>
+        <input
+          type="button"
+          className={styles.clear}
+          value="Clear Filters"
+          onClick={clearFilters}
+        />
+        <input
+          type="button"
+          className={styles.submit}
+          value="Show Results"
+          onClick={handleCloseForm}
+        />
       </div>
     </form>
   );

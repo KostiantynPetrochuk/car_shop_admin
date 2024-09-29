@@ -56,11 +56,6 @@
   pointer-events: none;
 }
 
-/* .dropdown.active {
-  opacity: 1;
-  pointer-events: all;
-} */
-
 .dropdownItem {
   padding: 20px 0 20px 15px;
   cursor: pointer;
@@ -84,6 +79,8 @@
   justify-content: center;
   cursor: pointer;
   display: none;
+  outline: none;
+  border: none;
 }
 
 .title {

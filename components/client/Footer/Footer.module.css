@@ -22,6 +22,12 @@
   margin-top: 24px;
 }
 
+.phoneInner img {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
 .col {
   display: flex;
   flex-direction: column;
@@ -67,5 +73,18 @@
   }
   .link {
     width: fit-content;
+  }
+  .logo {
+    height: 60px;
+    width: 60px;
+  }
+  .topCol {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .topCol {
+    flex-direction: column;
   }
 }
