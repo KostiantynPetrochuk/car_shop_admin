@@ -1,16 +1,49 @@
+"use client";
 import React from "react";
+import Link from "next/link";
 
-const Top = () => {
+type Path = {
+  name: string;
+  link: string | null;
+};
+
+type TopProps = {
+  pathes: Path[];
+};
+
+const Top = ({ pathes }: TopProps) => {
   return (
     <section className="top">
       <div className="container">
         <div className="top-inner">
           <div className="breadcrumbs">
-            <a className="breadcrumbs-link" href="#">
-              Home
-            </a>
-            <span>/</span>
-            <span className="breadcrumbs-last">All Cars</span>
+            {pathes.map((path, index) => {
+              if (index === 0) {
+                return (
+                  <React.Fragment key={index}>
+                    {path.link ? (
+                      <Link className="breadcrumbs-link" href={path.link}>
+                        {path.name}
+                      </Link>
+                    ) : (
+                      <span className="breadcrumbs-last">{path.name}</span>
+                    )}
+                  </React.Fragment>
+                );
+              }
+              return (
+                <React.Fragment key={index}>
+                  {<span>&nbsp;/&nbsp;</span>}
+                  {path.link ? (
+                    <Link className="breadcrumbs-link" href={path.link}>
+                      {path.name}
+                    </Link>
+                  ) : (
+                    <span className="breadcrumbs-last">{path.name}</span>
+                  )}
+                </React.Fragment>
+              );
+            })}
           </div>
           <h1 className="breadcrumbs-title">All Cars</h1>
         </div>

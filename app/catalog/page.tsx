@@ -113,12 +113,41 @@ const Catalog = async ({
     priceTo: searchParams.priceTo || "",
   });
 
+  const pathes = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "All Cars",
+      link: null,
+    },
+  ];
+
+  const currentFilters = {
+    condition: searchParams.condition || "",
+    brand: searchParams.brand || "",
+    model: searchParams.model || "",
+    bodyType: searchParams.bodyType || "",
+    mileageFrom: searchParams.mileageFrom || "",
+    mileageTo: searchParams.mileageTo || "",
+    fuelType: searchParams.fuelType || "",
+    transmission: searchParams.transmission || "",
+    driveType: searchParams.driveType || "",
+    priceFrom: searchParams.priceFrom || "",
+    priceTo: searchParams.priceTo || "",
+  };
+
   return (
     <>
       <Header />
       <main className="main">
-        <Top />
-        <CatalogBody brands={brands} carsData={carsData} />
+        <Top pathes={pathes} />
+        <CatalogBody
+          brands={brands}
+          carsData={carsData}
+          currentFilters={currentFilters}
+        />
       </main>
       <Footer />
     </>

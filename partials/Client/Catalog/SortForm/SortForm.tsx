@@ -4,9 +4,12 @@ import styles from "./SortForm.module.css";
 
 type SortFormProps = {
   setFormVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  start: number;
+  end: number;
+  total: number;
 };
 
-const SortForm = ({ setFormVisible }: SortFormProps) => {
+const SortForm = ({ setFormVisible, start, end, total }: SortFormProps) => {
   const handleOpen = () => {
     setFormVisible(true);
     const body = document.querySelector("body");
@@ -17,7 +20,9 @@ const SortForm = ({ setFormVisible }: SortFormProps) => {
     <section className={styles.sort}>
       <div className="container">
         <div className={styles.inner}>
-          <div className={styles.results}>Showing 1 – 12 of 15 results</div>
+          <div
+            className={styles.results}
+          >{`Showing ${start} – ${end} of ${total} results`}</div>
           <button type="button" className={styles.filter} onClick={handleOpen}>
             <img className={styles.logo} src="/img/filter.svg" alt="" />
             <span className={styles.title}>Filters</span>

@@ -13,27 +13,77 @@ import styles from "./CatalogBody.module.css";
 import SortForm from "../SortForm";
 import Image from "next/image";
 
+type CurrentFilters = {
+  condition: string;
+  brand: string;
+  model: string;
+  bodyType: string;
+  mileageFrom: string;
+  mileageTo: string;
+  fuelType: string;
+  transmission: string;
+  driveType: string;
+  priceFrom: string;
+  priceTo: string;
+};
+
 const CatalogBody = ({
   brands,
   carsData,
+  currentFilters,
 }: {
   brands: Brand[];
   carsData: { cars: CarType[]; total: number };
+  currentFilters: CurrentFilters;
 }) => {
+  const initCondition = currentFilters?.condition
+    ? currentFilters?.condition.split(",")
+    : [];
+  const initBrand = currentFilters?.brand ? currentFilters?.brand : null;
+  const initModels = currentFilters?.model
+    ? currentFilters?.model.split(",")
+    : [];
+  const initBodyTypes = currentFilters?.bodyType
+    ? currentFilters?.bodyType.split(",")
+    : [];
+  const initFuelTypes = currentFilters?.fuelType
+    ? currentFilters?.fuelType.split(",")
+    : [];
+  const initTransmission = currentFilters?.transmission
+    ? currentFilters?.transmission.split(",")
+    : [];
+  const initDriveType = currentFilters?.driveType
+    ? currentFilters?.driveType.split(",")
+    : [];
+  const initPriceFrom = currentFilters?.priceFrom
+    ? currentFilters?.priceFrom
+    : "";
+  const initPriceTo = currentFilters?.priceTo ? currentFilters?.priceTo : "";
+  const initMileageFrom = currentFilters?.mileageFrom
+    ? currentFilters?.mileageFrom
+    : "";
+  const initMileageTo = currentFilters?.mileageTo
+    ? currentFilters?.mileageTo
+    : "";
+
   const router = useRouter();
   const [isFormVisible, setFormVisible] = useState(false);
   const [page, setPage] = useState(1);
-  const [condition, setCondition] = useState<string[]>([]);
-  const [currentBrand, setCurrentBrand] = useState<string | null>(null);
-  const [currentModels, setCurrentModels] = useState<string[]>([]);
-  const [currentBodyTypes, setCurrentBodyTypes] = useState<string[]>([]);
-  const [mileageFrom, setMileageFrom] = useState("");
-  const [mileageTo, setMileageTo] = useState("");
-  const [currentFuelTypes, setCurrentFuelTypes] = useState<string[]>([]);
-  const [transmission, setTransmission] = useState<string[]>([]);
-  const [driveType, setDriveType] = useState<string[]>([]);
-  const [priceFrom, setPriceFrom] = useState("");
-  const [priceTo, setPriceTo] = useState("");
+  const [condition, setCondition] = useState<string[]>(initCondition);
+  const [currentBrand, setCurrentBrand] = useState<string | null>(initBrand);
+  const [currentModels, setCurrentModels] = useState<string[]>(initModels);
+  const [currentBodyTypes, setCurrentBodyTypes] =
+    useState<string[]>(initBodyTypes);
+  const [mileageFrom, setMileageFrom] = useState(initMileageFrom);
+  const [mileageTo, setMileageTo] = useState(initMileageTo);
+  const [currentFuelTypes, setCurrentFuelTypes] =
+    useState<string[]>(initFuelTypes);
+  const [transmission, setTransmission] = useState<string[]>(initTransmission);
+  const [driveType, setDriveType] = useState<string[]>(initDriveType);
+  const [priceFrom, setPriceFrom] = useState(initPriceFrom);
+  const [priceTo, setPriceTo] = useState(initPriceTo);
+  const start = (page - 1) * 5 + 1;
+  const end = Math.min(page * 5, carsData?.total);
 
   const handleSearch = () => {
     updateSearchParams(
@@ -206,7 +256,12 @@ const CatalogBody = ({
 
   return (
     <section className={styles.catalog}>
-      <SortForm setFormVisible={setFormVisible} />
+      <SortForm
+        setFormVisible={setFormVisible}
+        start={start}
+        end={end}
+        total={carsData?.total}
+      />
       <div className="container">
         <div className={styles.inner}>
           <CatalogFormBg

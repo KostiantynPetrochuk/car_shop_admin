@@ -29,11 +29,29 @@ const Car = async ({ params }: { params: { id: string } }) => {
   const { car, related } = await getCarsData(params.id);
   const currentCar = car;
   const relatedCars = related;
+  const pathes = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "All Cars",
+      link: "/catalog",
+    },
+    {
+      name: currentCar.BrandName,
+      link: `/catalog?brand=${currentCar.BrandName}`,
+    },
+    {
+      name: currentCar.ModelName,
+      link: `/catalog?brand=${currentCar.BrandName}&model=${currentCar.ModelName}`,
+    },
+  ];
   return (
     <body>
       <Header />
       <main className="main">
-        <Top />
+        <Top pathes={pathes} />
         <Hero car={currentCar} />
         <Overview car={currentCar} />
         <Features car={currentCar} />
