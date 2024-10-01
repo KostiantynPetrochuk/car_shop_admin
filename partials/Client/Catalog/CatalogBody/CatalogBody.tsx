@@ -82,6 +82,7 @@ const CatalogBody = ({
   const [driveType, setDriveType] = useState<string[]>(initDriveType);
   const [priceFrom, setPriceFrom] = useState(initPriceFrom);
   const [priceTo, setPriceTo] = useState(initPriceTo);
+  const [sortBy, setSortBy] = useState("");
   const start = (page - 1) * 5 + 1;
   const end = Math.min(page * 5, carsData?.total);
 
@@ -94,6 +95,7 @@ const CatalogBody = ({
       currentFuelTypes,
       transmission,
       driveType,
+      sortBy,
       page
     );
   };
@@ -106,6 +108,7 @@ const CatalogBody = ({
     currentFuelTypes: string[],
     transmission: string[],
     driveType: string[],
+    sortBy: string,
     page: number
   ) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -224,6 +227,12 @@ const CatalogBody = ({
       searchParams.delete("priceTo");
     }
     //
+    if (sortBy) {
+      searchParams.set("sortBy", sortBy);
+    } else {
+      searchParams.delete("sortBy");
+    }
+    //
     const newPathname = `${
       window.location.pathname
     }?${searchParams.toString()}`;
@@ -248,6 +257,7 @@ const CatalogBody = ({
     driveType,
     priceFrom,
     priceTo,
+    sortBy,
   ]);
 
   useEffect(() => {
@@ -261,6 +271,8 @@ const CatalogBody = ({
         start={start}
         end={end}
         total={carsData?.total}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
       />
       <div className="container">
         <div className={styles.inner}>

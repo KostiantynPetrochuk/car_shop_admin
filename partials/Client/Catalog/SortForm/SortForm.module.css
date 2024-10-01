@@ -52,8 +52,6 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
 }
 
 .dropdownItem {
