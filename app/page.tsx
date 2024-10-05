@@ -54,7 +54,7 @@ export default async function Home() {
         <Hero brands={brands} />
         <BodyTypes />
         <Brands />
-        <Services />
+        {/* <Services /> */}
         <LatestCars initCars={latestCars} />
         <WhyUs />
         <FeaturedCars intact={intactCars} damaged={damagedCars} />

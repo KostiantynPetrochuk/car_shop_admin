@@ -1,12 +1,40 @@
 "use client";
-import { useState } from "react";
+import { SetStateAction, useState, Dispatch } from "react";
 import { Car } from "@/components/client";
 
 import styles from "./LatestCars.module.css";
 import { Car as CarType } from "@/types";
 
+const loadCars = async (
+  offset: number,
+  setCars: Dispatch<SetStateAction<CarType[]>>,
+  setIsButtonDisabled: Dispatch<SetStateAction<boolean>>
+) => {
+  const res = await fetch(
+    `http://localhost:3001/cars?offset=${offset}&limit=5`,
+    {
+      cache: "no-store",
+    }
+  );
+  if (!res.ok) {
+    throw new Error("Failed to fetch latest cars");
+  }
+  const data = await res.json();
+  if (!data?.cars) {
+    setIsButtonDisabled(true);
+    return;
+  }
+
+  setCars((prev) => [...prev, ...data.cars]);
+
+  console.log(data.cars);
+};
+
 const LatestCars = ({ initCars }: { initCars: CarType[] }) => {
   const [cars, setCars] = useState<CarType[]>(initCars);
+  const [skip, setSkip] = useState(0);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   return (
     <section className={styles.cars}>
       <div className="container">
@@ -18,7 +46,17 @@ const LatestCars = ({ initCars }: { initCars: CarType[] }) => {
             ))}
           </ul>
           <div className={styles.buttonInner}>
-            <button className={styles.button}>Show More</button>
+            {!isButtonDisabled ? (
+              <button
+                className={styles.button}
+                onClick={() => {
+                  setSkip(skip + 1);
+                  loadCars(skip * 5, setCars, setIsButtonDisabled);
+                }}
+              >
+                Show More
+              </button>
+            ) : null}
           </div>
         </div>
       </div>

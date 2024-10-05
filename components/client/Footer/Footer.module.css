@@ -47,6 +47,15 @@
   margin: 8px 0;
 }
 
+.disabledLink {
+  color: #fff;
+  font-size: 15px;
+  margin: 8px 0;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .bot {
   color: #fff;
 }
@@ -57,6 +66,11 @@
 
 .phoneInner {
   margin-right: 20px;
+}
+
+.phoneInner a {
+  color: #fff;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 550px) {

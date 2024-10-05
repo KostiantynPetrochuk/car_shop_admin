@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import "./swiper.css";
+import Link from "next/link";
 
 const FeaturedCars = ({
   intact,
@@ -42,14 +43,17 @@ const FeaturedCars = ({
         <div className="featured-inner">
           <div className={styles.top}>
             <h3 className={styles.title}>Featured Cars</h3>
-            <a href="#" className="featured-link">
+            <Link
+              href={`/catalog?condition=${selectedTab}`}
+              className="featured-link"
+            >
               <span className={styles.text}>View All</span>
               <img
                 className={styles.arrow}
                 src="/img/link_arrow.svg"
                 alt="arrow-link"
               />
-            </a>
+            </Link>
           </div>
           <div className={styles.tabs}>
             <span

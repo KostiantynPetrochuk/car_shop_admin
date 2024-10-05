@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import { Car } from "@/components/client";
+import { Car as CarType } from "@/types";
 
 import styles from "./Related.module.css";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 
 import "swiper/css";
@@ -11,7 +12,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import "./swiper.css";
-import { Car as CarType } from "@/types";
 
 const Related = ({ cars }: { cars: CarType[] }) => {
   const slidesPerView = cars.length < 3 ? cars.length : 3;

@@ -27,10 +27,10 @@ const Header = () => {
         <Link href="/">
           <img className={styles.logo} src="/img/logo.jpeg" />
         </Link>
-        <div className={styles.phoneInner}>
+        <a href="tel:+75123456789" className={styles.phoneInner}>
           <img className={styles.phoneLogo} src="/img/phone.svg" />
           <span className={styles.phone}>+75 123 456 789</span>
-        </div>
+        </a>
       </div>
       <div className={styles.right}>
         <Link href="/catalog" className={styles.link}>

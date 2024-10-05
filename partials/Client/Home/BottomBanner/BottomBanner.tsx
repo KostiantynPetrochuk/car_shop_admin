@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import styles from "./BottomBanner.module.css";
 
@@ -21,7 +22,7 @@ const BottomBanner = () => {
               </h3>
             </div>
             <div className={styles.row}>
-              <a href="#" className={styles.link}>
+              <a href="tel:+75123456789" className={styles.link}>
                 <img
                   className={styles.logo}
                   src="/img/phone_black.svg"
@@ -29,7 +30,7 @@ const BottomBanner = () => {
                 />
                 <span>+76 956 039 999</span>
               </a>
-              <a href="#" className={styles.link}>
+              <a href="mailto:ali@boxcars.com" className={styles.link}>
                 <img
                   className={styles.logo}
                   src="/img/mail.svg"
@@ -39,14 +40,14 @@ const BottomBanner = () => {
               </a>
             </div>
             <div className={styles.row}>
-              <a className={styles.rowLink} href="#">
+              <Link href={"/catalog"} className={styles.rowLink}>
                 <span>Get Started</span>
                 <img
                   className={styles.rowLinkImg}
                   src="/img/link_arrow.svg"
                   alt="arrow_logo"
                 />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

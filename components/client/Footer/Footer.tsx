@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import styles from "./Footer.module.css";
 
@@ -9,86 +10,97 @@ const Footer = () => {
         <div className="footer-top-inner">
           <div className={styles.top}>
             <div className={styles.topCol}>
-              <img className={styles.logo} src="/img/logo.jpeg" />
-              <div className={styles.phoneInner}>
+              <Link href="/">
+                <img className={styles.logo} src="/img/logo.jpeg" />
+              </Link>
+              <a href="tel:+75123456789" className={styles.phoneInner}>
                 <img src="/img/phone.svg" />
                 <span>+75 123 456 789</span>
-              </div>
+              </a>
             </div>
             <div className={styles.col}>
               <span className={styles.title}>Company</span>
-              <a className={styles.link} href="#">
+              <a className={styles.disabledLink} href="/">
                 About Us
               </a>
-              <a className={styles.link} href="#">
+              <a className={styles.disabledLink} href="/">
                 Blog
               </a>
-              <a className={styles.link} href="#">
+              <a className={styles.disabledLink} href="/">
                 Services
               </a>
-              <a className={styles.link} href="#">
+              <a className={styles.disabledLink} href="/">
                 FAQs
               </a>
-              <a className={styles.link} href="#">
+              <a className={styles.disabledLink} href="/">
                 Terms
               </a>
-              <a className={styles.link} href="#">
+              <a className={styles.disabledLink} href="/">
                 Contact Us
               </a>
             </div>
             <div className={styles.col}>
               <span className={styles.title}>Top Brands</span>
-              <a className={styles.link} href="#">
+              <Link href={`/catalog?brand=Toyota`} className={styles.link}>
                 Toyota
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?brand=Porsche`} className={styles.link}>
                 Porsche
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?brand=Audi`} className={styles.link}>
                 Audi
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?brand=BMW`} className={styles.link}>
                 BMW
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?brand=Ford`} className={styles.link}>
                 Ford
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?brand=Nissan`} className={styles.link}>
                 Nissan
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?brand=Peugeot`} className={styles.link}>
                 Peugeot
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?brand=Volkswagen`} className={styles.link}>
                 Volkswagen
-              </a>
+              </Link>
             </div>
             <div className={styles.col}>
               <span className={styles.title}>Vehicles Type</span>
-              <a className={styles.link} href="#">
+              <Link href={`/catalog?bodyType=sedan`} className={styles.link}>
                 Sedan
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link
+                href={`/catalog?bodyType=hatchback`}
+                className={styles.link}
+              >
                 Hatchback
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?bodyType=suv`} className={styles.link}>
                 SUV
-              </a>
-              <a className={styles.link} href="#">
-                Hybrid
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?bodyType=diesel`} className={styles.link}>
+                Diesel
+              </Link>
+              <Link
+                href={`/catalog?fuelType=electricity`}
+                className={styles.link}
+              >
                 Electric
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?bodyType=coupe`} className={styles.link}>
                 Coupe
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link href={`/catalog?bodyType=truck`} className={styles.link}>
                 Truck
-              </a>
-              <a className={styles.link} href="#">
+              </Link>
+              <Link
+                href={`/catalog?bodyType=convertible`}
+                className={styles.link}
+              >
                 Convertible
-              </a>
+              </Link>
             </div>
           </div>
         </div>
