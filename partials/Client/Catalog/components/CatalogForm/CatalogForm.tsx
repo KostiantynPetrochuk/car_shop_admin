@@ -27,6 +27,15 @@ const mileages = [
 
 const prices = [
   { value: "", label: "All" },
+  { value: "1000", label: "1 000" },
+  { value: "2000", label: "2 000" },
+  { value: "3000", label: "3 000" },
+  { value: "4000", label: "4 000" },
+  { value: "5000", label: "5 000" },
+  { value: "6000", label: "6 000" },
+  { value: "7000", label: "7 000" },
+  { value: "8000", label: "8 000" },
+  { value: "9000", label: "9 000" },
   { value: "10000", label: "10 000" },
   { value: "20000", label: "20 000" },
   { value: "30000", label: "30 000" },

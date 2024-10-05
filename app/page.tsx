@@ -33,14 +33,25 @@ async function getFeaturedCars() {
   return await res.json();
 }
 
+async function getBrandsCars() {
+  const res = await fetch("http://localhost:3001/brands", {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch latest cars");
+  }
+  return await res.json();
+}
+
 export default async function Home() {
   const latestCars = await getLatestCars();
   const { intactCars, damagedCars } = await getFeaturedCars();
+  const { brands } = await getBrandsCars();
   return (
     <>
       <Header />
       <main className="main">
-        <Hero />
+        <Hero brands={brands} />
         <BodyTypes />
         <Brands />
         <Services />
