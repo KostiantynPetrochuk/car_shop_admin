@@ -3,6 +3,9 @@ import Providers from "@/components/Providers";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
+
 import theme from "../theme";
 
 import "./globals.css";
@@ -13,19 +16,23 @@ export const metadata: Metadata = {
   description: "Find Your Car",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <Providers>{children}</Providers>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <NextIntlClientProvider messages={messages}>
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <Providers>{children}</Providers>
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

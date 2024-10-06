@@ -1,6 +1,7 @@
 import React from "react";
 import { Top, Header, Footer } from "@/components/client";
 import { OrderCard, OrderForm } from "@/partials/Client/Order";
+import { cookies } from "next/headers";
 
 import "./page.css";
 
@@ -27,6 +28,8 @@ async function getCarsData(id: string) {
 }
 
 const Order = async ({ params }: { params: { carId: string } }) => {
+  const cookieData = cookies().get("locale");
+  const locale = cookieData?.value || "de";
   const { car, related } = await getCarsData(params.carId);
   const pathes = [
     {
@@ -52,7 +55,7 @@ const Order = async ({ params }: { params: { carId: string } }) => {
   ];
   return (
     <body>
-      <Header />
+      <Header locale={locale} />
       <main className="main">
         <Top pathes={pathes} title={"New Order"} />
         <section className="order">

@@ -1,6 +1,7 @@
 import { Header, Footer, Top } from "@/components/client";
 import { SortForm, CatalogBody } from "@/partials/Client/Catalog";
 import { Brand, Model } from "@/types";
+import { cookies } from "next/headers";
 
 import "./page.css";
 
@@ -102,6 +103,8 @@ const Catalog = async ({
     sortBy?: string;
   };
 }) => {
+  const cookieData = cookies().get("locale");
+  const locale = cookieData?.value || "de";
   const { brands, carsData } = await getInitPageData({
     condition: searchParams.condition || "",
     page: searchParams.page || 1,
@@ -146,7 +149,7 @@ const Catalog = async ({
 
   return (
     <>
-      <Header />
+      <Header locale={locale} />
       <main className="main">
         <Top pathes={pathes} title={"All Cars"} />
         <CatalogBody

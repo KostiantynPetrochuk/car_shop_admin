@@ -35,6 +35,8 @@
 
 .right {
   padding-right: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .link {

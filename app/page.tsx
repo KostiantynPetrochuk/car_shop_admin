@@ -9,6 +9,8 @@ import {
   FeaturedCars,
   BottomBanner,
 } from "@/partials/Client/Home";
+import { cookies } from "next/headers";
+import { getTranslations } from "next-intl/server";
 
 import "./page.css";
 
@@ -44,12 +46,16 @@ async function getBrandsCars() {
 }
 
 export default async function Home() {
+  const cookieData = cookies().get("locale");
+  const locale = cookieData?.value || "de";
   const latestCars = await getLatestCars();
   const { intactCars, damagedCars } = await getFeaturedCars();
   const { brands } = await getBrandsCars();
+  // const t = await getTranslations("Home");
+
   return (
     <>
-      <Header />
+      <Header locale={locale} />
       <main className="main">
         <Hero brands={brands} />
         <BodyTypes />

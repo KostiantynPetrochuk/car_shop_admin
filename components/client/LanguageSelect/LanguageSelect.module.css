@@ -1,0 +1,27 @@
+.languageSelect {
+  position: relative;
+  margin-left: 20px;
+}
+
+.selected {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: -14px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  z-index: 10;
+}
+
+.item {
+  padding: 5px;
+  cursor: pointer;
+}

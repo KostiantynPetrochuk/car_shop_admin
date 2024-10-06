@@ -1,10 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
+import LanguageSelect from "../LanguageSelect";
 import styles from "./Header.module.css";
 
-const Header = () => {
+type HeaderProps = {
+  locale: string;
+};
+
+const Header = ({ locale }: HeaderProps) => {
+  const t = useTranslations("Home");
   const [mobMenu, setMobMenu] = useState(false);
   const handleClickBurger = () => {
     setMobMenu(!mobMenu);
@@ -34,7 +41,7 @@ const Header = () => {
       </div>
       <div className={styles.right}>
         <Link href="/catalog" className={styles.link}>
-          Catalog
+          {t("catalog")}
         </Link>
         {/* <a href="#" className="header-link">
           Listings
@@ -51,6 +58,7 @@ const Header = () => {
         <a href="#" className="header-link">
           Contacts
         </a> */}
+        <LanguageSelect locale={locale} />
       </div>
       <div className={styles.burgerInner}>
         <div className={styles.burger} onClick={handleClickBurger}>

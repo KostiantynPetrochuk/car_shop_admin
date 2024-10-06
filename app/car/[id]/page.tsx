@@ -1,5 +1,6 @@
 import { Header, Footer, Top } from "@/components/client";
 import { Hero, Overview, Features, Related } from "@/partials/Client/Car";
+import { cookies } from "next/headers";
 
 import "./page.css";
 
@@ -26,6 +27,8 @@ async function getCarsData(id: string) {
 }
 
 const Car = async ({ params }: { params: { id: string } }) => {
+  const cookieData = cookies().get("locale");
+  const locale = cookieData?.value || "de";
   const { car, related } = await getCarsData(params.id);
   const currentCar = car;
   const relatedCars = related;
@@ -49,7 +52,7 @@ const Car = async ({ params }: { params: { id: string } }) => {
   ];
   return (
     <body>
-      <Header />
+      <Header locale={locale} />
       <main className="main">
         <Top
           pathes={pathes}
