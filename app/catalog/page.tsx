@@ -148,7 +148,7 @@ const Catalog = async ({
     <>
       <Header />
       <main className="main">
-        <Top pathes={pathes} />
+        <Top pathes={pathes} title={"All Cars"} />
         <CatalogBody
           brands={brands}
           carsData={carsData}

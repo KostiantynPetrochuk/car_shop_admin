@@ -1,10 +1,13 @@
+.related {
+  margin-bottom: 200px;
+}
+
 .list {
   padding: 0;
   display: flex;
 }
 
 .title {
-  color: #fff;
   font-size: 26px;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }

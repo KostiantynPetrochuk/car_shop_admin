@@ -1,5 +1,6 @@
-import { Header, Footer, Top } from "@/components/client";
-import { Hero, Overview, Features, Related } from "@/partials/Client/Car";
+import React from "react";
+import { Top, Header, Footer } from "@/components/client";
+import { OrderCard, OrderForm } from "@/partials/Client/Order";
 
 import "./page.css";
 
@@ -25,10 +26,8 @@ async function getCarsData(id: string) {
   return { car: data.car, related: relatedData.cars };
 }
 
-const Car = async ({ params }: { params: { id: string } }) => {
-  const { car, related } = await getCarsData(params.id);
-  const currentCar = car;
-  const relatedCars = related;
+const Order = async ({ params }: { params: { carId: string } }) => {
+  const { car, related } = await getCarsData(params.carId);
   const pathes = [
     {
       name: "Home",
@@ -39,30 +38,35 @@ const Car = async ({ params }: { params: { id: string } }) => {
       link: "/catalog",
     },
     {
-      name: currentCar.BrandName,
-      link: `/catalog?brand=${currentCar.BrandName}`,
+      name: car.BrandName,
+      link: `/catalog?brand=${car.BrandName}`,
     },
     {
-      name: currentCar.ModelName,
-      link: `/catalog?brand=${currentCar.BrandName}&model=${currentCar.ModelName}`,
+      name: car.ModelName,
+      link: `/catalog?brand=${car.BrandName}&model=${car.ModelName}`,
+    },
+    {
+      name: "New Order",
+      link: null,
     },
   ];
   return (
     <body>
       <Header />
       <main className="main">
-        <Top
-          pathes={pathes}
-          title={`${currentCar.BrandName} ${currentCar.ModelName} ${currentCar.Year}`}
-        />
-        <Hero car={currentCar} />
-        <Overview car={currentCar} />
-        <Features car={currentCar} />
-        <Related cars={relatedCars} />
+        <Top pathes={pathes} title={"New Order"} />
+        <section className="order">
+          <div className="container">
+            <section className="order-inner">
+              <OrderCard car={car} />
+              <OrderForm />
+            </section>
+          </div>
+        </section>
       </main>
       <Footer />
     </body>
   );
 };
 
-export default Car;
+export default Order;

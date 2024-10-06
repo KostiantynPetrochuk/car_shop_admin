@@ -9,9 +9,10 @@ type Path = {
 
 type TopProps = {
   pathes: Path[];
+  title?: string;
 };
 
-const Top = ({ pathes }: TopProps) => {
+const Top = ({ pathes, title }: TopProps) => {
   return (
     <section className="top">
       <div className="container">
@@ -45,7 +46,7 @@ const Top = ({ pathes }: TopProps) => {
               );
             })}
           </div>
-          <h1 className="breadcrumbs-title">All Cars</h1>
+          <h1 className="breadcrumbs-title">{title}</h1>
         </div>
       </div>
     </section>

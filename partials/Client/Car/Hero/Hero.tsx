@@ -9,8 +9,11 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
-import styles from "./Hero.module.css";
 import { Car } from "@/types";
+import Link from "next/link";
+
+import styles from "./Hero.module.css";
+import "./swiper.css";
 
 const Hero = ({ car }: { car: Car }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -136,14 +139,14 @@ const Hero = ({ car }: { car: Car }) => {
                 maximumFractionDigits: 0,
               }).format(car?.Price)}
             </span>
-            <a className={styles.link} href="#">
+            <Link href={`/order/${car.ID}`} className={styles.link}>
               <img
                 className={styles.linkLogo}
                 src="/img/badge_link.svg"
                 alt=""
               />
               <span>Place an Order</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

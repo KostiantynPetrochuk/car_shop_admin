@@ -1,15 +1,30 @@
 import React from "react";
+import Image from "next/image";
+import { Car as CarType } from "@/types";
 
 import styles from "./OrderCard.module.css";
 
-const OrderCard = () => {
+const OrderCard = ({ car }: { car: CarType }) => {
   return (
     <div className={styles.item}>
       <div className={styles.col}>
-        <img src="/img/order_item.png" alt="order_item" />
+        <Image
+          src={`http://localhost:3001/uploads/cars/${car.ImageNames[0]}`}
+          alt={`${car.BrandName} logo`}
+          width={350}
+          height={300}
+          priority={true}
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "cover",
+          }}
+        />
       </div>
       <div className={styles.col}>
-        <h3>T-Cross – 2023</h3>
+        <h3>
+          {car.BrandName} {car.ModelName} - {car.Year}
+        </h3>
         <div>
           <div className={styles.row}>
             <img
@@ -17,7 +32,7 @@ const OrderCard = () => {
               src="/img/speed_logo.svg"
               alt="speed_logo"
             />
-            <span>250 000 km</span>
+            <span>{car.Mileage.toLocaleString()} km</span>
           </div>
           <div className={styles.row}>
             <img
@@ -25,7 +40,7 @@ const OrderCard = () => {
               src="/img/fuel_logo.svg"
               alt="fuel_logo"
             />
-            <span>Petrol</span>
+            <span>{car.FuelType}</span>
           </div>
           <div className={styles.row}>
             <img
@@ -33,10 +48,17 @@ const OrderCard = () => {
               src="/img/transmission_logo.svg"
               alt="transmission_logo"
             />
-            <span>CVT</span>
+            <span>{car.Transmission}</span>
           </div>
         </div>
-        <div className={styles.bot}>$15.000</div>
+        <div className={styles.bot}>
+          {new Intl.NumberFormat("de-DE", {
+            style: "currency",
+            currency: "EUR",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          }).format(car?.Price)}
+        </div>
       </div>
     </div>
   );
