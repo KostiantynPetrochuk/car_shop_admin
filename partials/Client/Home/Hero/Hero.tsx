@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Brand } from "@/types";
 import { CONDITION } from "@/constants";
 
@@ -11,10 +11,7 @@ type HeroProps = {
 };
 
 const Hero = ({ brands }: HeroProps) => {
-  const [isConditionOpen, setIsConditionOpen] = useState(false);
-  const [isMakeOpen, setIsMakeOpen] = useState(false);
-  const [isModelOpen, setIsModelOpen] = useState(false);
-  const [isPriceOpen, setIsPriceOpen] = useState(false);
+  const [openSelect, setOpenSelect] = useState<string | null>(null);
 
   const [condition, setCondition] = useState<string>("");
   const [currentBrand, setCurrentBrand] = useState<string>("all_makes");
@@ -24,42 +21,41 @@ const Hero = ({ brands }: HeroProps) => {
 
   const [searchParams, setSearchParams] = useState("");
 
+  const handleSelectToggle = (selectName: string) => {
+    setOpenSelect((prev) => (prev === selectName ? null : selectName));
+  };
+
   const handleConditionClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (target.dataset.value) {
-      const target = e.target as HTMLElement;
-      setCondition(target.dataset.value || "");
-    } else {
-      setCondition("");
+      setCondition(target.dataset.value || "all_cars");
     }
-    setIsConditionOpen(!isConditionOpen);
+    if (target.dataset.value === "all_cars" && openSelect === "condition") {
+      setCurrentModel("all_models");
+    }
+    handleSelectToggle("condition");
   };
 
   const handleMakeClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (target.dataset.value) {
-      const target = e.target as HTMLElement;
       setCurrentBrand(target.dataset.value || "all_makes");
     }
-
     if (
-      (target.dataset.value === "all_makes" && isMakeOpen) ||
-      (target.dataset.value !== currentBrand && isMakeOpen)
+      (target.dataset.value === "all_makes" && openSelect === "make") ||
+      (target.dataset.value !== currentBrand && openSelect === "make")
     ) {
       setCurrentModel("all_models");
     }
-
-    setIsMakeOpen(!isMakeOpen);
+    handleSelectToggle("make");
   };
 
   const handleModelClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (target.dataset.value) {
-      const target = e.target as HTMLElement;
       setCurrentModel(target.dataset.value || "all_models");
     }
-
-    setIsModelOpen(!isModelOpen);
+    handleSelectToggle("model");
   };
 
   const handlePriceClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -69,12 +65,7 @@ const Hero = ({ brands }: HeroProps) => {
       setPriceFrom(from);
       setPriceTo(to);
     }
-
-    if (target.dataset.value === "" && isPriceOpen) {
-      setPriceFrom("");
-      setPriceTo("");
-    }
-    setIsPriceOpen(!isPriceOpen);
+    handleSelectToggle("price");
   };
 
   const currentBrandModels = brands.find(
@@ -99,12 +90,21 @@ const Hero = ({ brands }: HeroProps) => {
     if (priceTo) {
       searchParamsArr.push(`priceTo=${priceTo}`);
     }
-    if (searchParams === "?") {
-      setSearchParams("");
-    } else {
-      setSearchParams(searchParamsArr.join("&"));
-    }
+    setSearchParams(searchParamsArr.join("&"));
   }, [condition, currentBrand, currentModel, priceFrom, priceTo]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(`.${styles.filter}`)) {
+        setOpenSelect(null);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   return (
     <section className={styles.hero}>
@@ -120,7 +120,7 @@ const Hero = ({ brands }: HeroProps) => {
               <div className={styles.value}>
                 {condition === "" ? "All Cars" : condition}
               </div>
-              {isConditionOpen ? (
+              {openSelect === "condition" && (
                 <div className={styles.dropdown}>
                   <div className={styles.dropdownItem} data-value="">
                     All Cars
@@ -135,15 +135,15 @@ const Hero = ({ brands }: HeroProps) => {
                     </div>
                   ))}
                 </div>
-              ) : null}
-              <input type="hidden" name="carCondition" value="all_cars" />
+              )}
+              <input type="hidden" name="carCondition" value={condition} />
             </div>
 
             <div className={styles.filter} onClick={handleMakeClick}>
               <div className={styles.value}>
                 {currentBrand === "all_makes" ? "All Makes" : currentBrand}
               </div>
-              {isMakeOpen ? (
+              {openSelect === "make" && (
                 <div className={styles.dropdown}>
                   <div className={styles.dropdownItem} data-value="all_makes">
                     All Makes
@@ -158,15 +158,14 @@ const Hero = ({ brands }: HeroProps) => {
                     </div>
                   ))}
                 </div>
-              ) : null}
+              )}
             </div>
 
             <div className={styles.filter} onClick={handleModelClick}>
               <div className={styles.value}>
                 {currentModel === "all_models" ? "All Models" : currentModel}
               </div>
-
-              {isModelOpen ? (
+              {openSelect === "model" && (
                 <div className={styles.dropdown}>
                   <div className={styles.dropdownItem} data-value="all_models">
                     All Models
@@ -181,13 +180,12 @@ const Hero = ({ brands }: HeroProps) => {
                     </div>
                   ))}
                 </div>
-              ) : null}
+              )}
             </div>
 
             <div className={styles.filter} onClick={handlePriceClick}>
               <div className={styles.value}>{priceLabel}</div>
-
-              {isPriceOpen ? (
+              {openSelect === "price" && (
                 <div className={styles.dropdown}>
                   <div className={styles.dropdownItem} data-value="">
                     All Prices
@@ -211,7 +209,7 @@ const Hero = ({ brands }: HeroProps) => {
                     10 000 $ - 20 000 $
                   </div>
                 </div>
-              ) : null}
+              )}
             </div>
 
             <Link href={`/catalog?${searchParams}`} className={styles.button}>
