@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./SortForm.module.css";
 
 const sortOptions = [
@@ -26,6 +26,7 @@ const SortForm = ({
   setSortBy,
 }: SortFormProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const selectRef = useRef<HTMLDivElement>(null);
 
   const handleOpen = () => {
     setFormVisible(true);
@@ -43,6 +44,22 @@ const SortForm = ({
     setIsDropdownOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <section className={styles.sort}>
       <div className="container">
@@ -56,7 +73,11 @@ const SortForm = ({
           </button>
           <div className={styles.action}>
             <span className={styles.title}>Sort by:</span>
-            <div className={styles.select} onClick={handleSelectClick}>
+            <div
+              className={styles.select}
+              onClick={handleSelectClick}
+              ref={selectRef}
+            >
               <span>
                 {sortOptions.find((option) => option.value === sortBy)?.label}
               </span>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import {
   CONDITION,
@@ -109,6 +109,11 @@ const CatalogForm = ({
     useState(false);
   const [isDropdownPriceToVisible, setIsDropdownPriceToVisible] =
     useState(false);
+
+  const mileageFromRef = useRef<HTMLDivElement>(null);
+  const mileageToRef = useRef<HTMLDivElement>(null);
+  const priceFromRef = useRef<HTMLDivElement>(null);
+  const priceToRef = useRef<HTMLDivElement>(null);
 
   const handleChangeCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
@@ -240,6 +245,43 @@ const CatalogForm = ({
     setPriceTo("");
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mileageFromRef.current &&
+        !mileageFromRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownFromVisible(false);
+      }
+
+      if (
+        mileageToRef.current &&
+        !mileageToRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownToVisible(false);
+      }
+
+      if (
+        priceFromRef.current &&
+        !priceFromRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownPriceFromVisible(false);
+      }
+
+      if (
+        priceToRef.current &&
+        !priceToRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownPriceToVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [mileageFromRef, mileageToRef, priceFromRef, priceToRef]);
+
   const selectedBrand = brands.find(
     (brand) => brand.BrandName === currentBrand
   );
@@ -303,7 +345,7 @@ const CatalogForm = ({
                   <input
                     className={styles.realCheckbox}
                     type="checkbox"
-                    name={brand.BrandName} // Використовуємо BrandName замість ID
+                    name={brand.BrandName}
                     id={brand.BrandName}
                     data-category="brand"
                     checked={currentBrand === brand.BrandName}
@@ -373,7 +415,7 @@ const CatalogForm = ({
         </div>
         <div className={styles.filter}>
           <span className={styles.title}>Mileage</span>
-          <div>
+          <div ref={mileageFromRef}>
             <div className={styles.mileage} onClick={handleSelectMileageFrom}>
               <span className={styles.mileageTitle}>From</span>
               <span className={styles.mileageCurrent}>
@@ -413,7 +455,7 @@ const CatalogForm = ({
           </div>
         </div>
         <div className={styles.filter}>
-          <div>
+          <div ref={mileageToRef}>
             <div className={styles.mileage} onClick={handleSelectMileageTo}>
               <span className={styles.mileageTitle}>To</span>
               <span className={styles.mileageCurrent}>
@@ -526,7 +568,7 @@ const CatalogForm = ({
         </div>
         <div className={styles.filter}>
           <span className={styles.title}>Price</span>
-          <div>
+          <div ref={priceFromRef}>
             <div className={styles.mileage} onClick={handleSelectPriceFrom}>
               <span className={styles.priceTitle}>From</span>
               <span className={styles.priceCurrent}>
@@ -563,7 +605,7 @@ const CatalogForm = ({
           </div>
         </div>
         <div className={styles.filter}>
-          <div>
+          <div ref={priceToRef}>
             <div className={styles.price} onClick={handleSelectPriceTo}>
               <span className={styles.priceTitle}>To</span>
               <span className={styles.priceCurrent}>

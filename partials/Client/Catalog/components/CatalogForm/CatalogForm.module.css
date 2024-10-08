@@ -250,6 +250,9 @@
   width: 100%;
   left: 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow: auto;
+  z-index: 1000;
 }
 
 .mileageDropdownItem {
@@ -321,6 +324,9 @@
   width: 100%;
   left: 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow: auto;
+  z-index: 1000;
 }
 
 .priceDropdownItem {
@@ -384,4 +390,41 @@
   .mobTitle {
     display: flex;
   }
+}
+
+/* WebKit браузери (Chrome, Safari) */
+.mileageDropdown,
+.priceDropdown {
+  scrollbar-width: thin; /* Для Firefox */
+  scrollbar-color: #888 #f1f1f1; /* Для Firefox */
+}
+
+.mileageDropdown::-webkit-scrollbar,
+.priceDropdown::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.mileageDropdown::-webkit-scrollbar-track,
+.priceDropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.mileageDropdown::-webkit-scrollbar-thumb,
+.priceDropdown::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.mileageDropdown::-webkit-scrollbar-thumb:hover,
+.priceDropdown::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Firefox */
+
+.mileageDropdown,
+.priceDropdown {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
 }
