@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./LanguageSelect.module.css";
 import Image from "next/image";
 
@@ -18,6 +17,7 @@ type LanguageSelectProps = {
 const LanguageSelect = ({ locale }: LanguageSelectProps) => {
   const [isOpened, setIsOpened] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(locale);
+  const selectRef = useRef<HTMLDivElement>(null);
 
   const handleLanguageChange = (code: string) => {
     setSelectedLanguage(code);
@@ -35,8 +35,28 @@ const LanguageSelect = ({ locale }: LanguageSelectProps) => {
     setIsOpened(!isOpened);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
+        setIsOpened(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={styles.languageSelect} onClick={handleClick}>
+    <div
+      className={styles.languageSelect}
+      onClick={handleClick}
+      ref={selectRef}
+    >
       <div className={styles.selected}>
         <Image
           src={selectedLang?.flag || "/img/en.svg"}

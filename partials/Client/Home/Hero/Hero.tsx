@@ -13,7 +13,7 @@ type HeroProps = {
 const Hero = ({ brands }: HeroProps) => {
   const [openSelect, setOpenSelect] = useState<string | null>(null);
 
-  const [condition, setCondition] = useState<string>("");
+  const [condition, setCondition] = useState<string>("all_cars");
   const [currentBrand, setCurrentBrand] = useState<string>("all_makes");
   const [currentModel, setCurrentModel] = useState<string>("all_models");
   const [priceFrom, setPriceFrom] = useState("");
