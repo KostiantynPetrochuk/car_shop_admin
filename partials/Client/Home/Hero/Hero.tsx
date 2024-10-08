@@ -30,9 +30,6 @@ const Hero = ({ brands }: HeroProps) => {
     if (target.dataset.value) {
       setCondition(target.dataset.value || "all_cars");
     }
-    if (target.dataset.value === "all_cars" && openSelect === "condition") {
-      setCurrentModel("all_models");
-    }
     handleSelectToggle("condition");
   };
 
@@ -118,11 +115,11 @@ const Hero = ({ brands }: HeroProps) => {
           <form className={styles.filters} action="/catalog" method="GET">
             <div className={styles.filter} onClick={handleConditionClick}>
               <div className={styles.value}>
-                {condition === "" ? "All Cars" : condition}
+                {condition === "all_cars" ? "All Cars" : condition}
               </div>
               {openSelect === "condition" && (
                 <div className={styles.dropdown}>
-                  <div className={styles.dropdownItem} data-value="">
+                  <div className={styles.dropdownItem} data-value="all_cars">
                     All Cars
                   </div>
                   {Object.entries(CONDITION).map(([key, value]) => (
@@ -136,7 +133,6 @@ const Hero = ({ brands }: HeroProps) => {
                   ))}
                 </div>
               )}
-              <input type="hidden" name="carCondition" value={condition} />
             </div>
 
             <div className={styles.filter} onClick={handleMakeClick}>
