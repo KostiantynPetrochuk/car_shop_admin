@@ -15,6 +15,18 @@
   display: flex;
 }
 
+.item {
+  margin: 0 20px 0 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  transition: 0.3s;
+  gap: 10px;
+}
+
 .itemTitle {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 20px;
@@ -22,21 +34,35 @@
 
 .info {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 2;
 }
 
 @media screen and (max-width: 1550px) {
+  .item:nth-child(1),
+  .item:nth-child(3) {
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .item:nth-child(2),
+  .item:nth-child(4) {
+    margin-right: auto;
+    margin-left: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
   .list {
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-  .item {
-    margin: 4px;
+    justify-content: center;
+    gap: 20px;
+    justify-items: center;
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
   .whyus {
     padding-bottom: 10px;
   }

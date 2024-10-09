@@ -18,7 +18,8 @@ const BottomBanner = () => {
           <div className={styles.right}>
             <div className={styles.row}>
               <h3 className={styles.title}>
-                Have more questions? Don't hesitate to reach us
+                Need Help Finding a Car? Contact us, and we’ll help you find the
+                right one!
               </h3>
             </div>
             <div className={styles.row}>

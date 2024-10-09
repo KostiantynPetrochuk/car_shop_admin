@@ -13,7 +13,7 @@ type HeroProps = {
 const Hero = ({ brands }: HeroProps) => {
   const [openSelect, setOpenSelect] = useState<string | null>(null);
 
-  const [condition, setCondition] = useState<string>("all_cars");
+  const [condition, setCondition] = useState<string>("");
   const [currentBrand, setCurrentBrand] = useState<string>("all_makes");
   const [currentModel, setCurrentModel] = useState<string>("all_models");
   const [priceFrom, setPriceFrom] = useState("");
@@ -27,9 +27,9 @@ const Hero = ({ brands }: HeroProps) => {
 
   const handleConditionClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
-    if (target.dataset.value) {
-      setCondition(target.dataset.value || "all_cars");
-    }
+
+    setCondition(target.dataset.value || "");
+
     handleSelectToggle("condition");
   };
 
@@ -107,19 +107,17 @@ const Hero = ({ brands }: HeroProps) => {
     <section className={styles.hero}>
       <div className="container">
         <div>
-          <div className={styles.info}>
-            Find cars for sale and for rent near you
-          </div>
+          <div className={styles.info}>Explore a Wide Selection of Cars</div>
           <h1 className={styles.title}>Find You Dream Car</h1>
 
           <form className={styles.filters} action="/catalog" method="GET">
             <div className={styles.filter} onClick={handleConditionClick}>
               <div className={styles.value}>
-                {condition === "all_cars" ? "All Cars" : condition}
+                {condition === "" ? "All Cars" : condition}
               </div>
               {openSelect === "condition" && (
                 <div className={styles.dropdown}>
-                  <div className={styles.dropdownItem} data-value="all_cars">
+                  <div className={styles.dropdownItem} data-value="">
                     All Cars
                   </div>
                   {Object.entries(CONDITION).map(([key, value]) => (
