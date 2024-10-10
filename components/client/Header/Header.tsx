@@ -11,7 +11,7 @@ type HeaderProps = {
 };
 
 const Header = ({ locale }: HeaderProps) => {
-  const t = useTranslations("Home");
+  const t = useTranslations("Header");
   const [mobMenu, setMobMenu] = useState(false);
   const handleClickBurger = () => {
     setMobMenu(!mobMenu);

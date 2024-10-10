@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Brand } from "@/types";
 import { CONDITION } from "@/constants";
+import { useTranslations } from "next-intl";
 
 import styles from "./Hero.module.css";
 import Link from "next/link";
@@ -11,6 +12,7 @@ type HeroProps = {
 };
 
 const Hero = ({ brands }: HeroProps) => {
+  const t = useTranslations("Home");
   const [openSelect, setOpenSelect] = useState<string | null>(null);
 
   const [condition, setCondition] = useState<string>("");
@@ -27,7 +29,10 @@ const Hero = ({ brands }: HeroProps) => {
 
   const handleConditionClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
-
+    if (!target.dataset.value && target.dataset.value !== "") {
+      handleSelectToggle("condition");
+      return;
+    }
     setCondition(target.dataset.value || "");
 
     handleSelectToggle("condition");
@@ -68,7 +73,7 @@ const Hero = ({ brands }: HeroProps) => {
   const currentBrandModels = brands.find(
     (brand) => brand.BrandName === currentBrand
   )?.Models;
-  let priceLabel = priceFrom ? `${priceFrom} $ - ${priceTo} $` : "All Prices";
+  let priceLabel = priceFrom ? `${priceFrom} $ - ${priceTo} $` : t("allPrices");
 
   useEffect(() => {
     const searchParamsArr = [];
@@ -107,18 +112,17 @@ const Hero = ({ brands }: HeroProps) => {
     <section className={styles.hero}>
       <div className="container">
         <div>
-          <div className={styles.info}>Explore a Wide Selection of Cars</div>
-          <h1 className={styles.title}>Find You Dream Car</h1>
-
+          <div className={styles.info}>{t("subtitle")}</div>
+          <h1 className={styles.title}>{t("title")}</h1>
           <form className={styles.filters} action="/catalog" method="GET">
             <div className={styles.filter} onClick={handleConditionClick}>
               <div className={styles.value}>
-                {condition === "" ? "All Cars" : condition}
+                {condition === "" ? t("allConditions") : t(condition)}
               </div>
               {openSelect === "condition" && (
                 <div className={styles.dropdown}>
                   <div className={styles.dropdownItem} data-value="">
-                    All Cars
+                    {t("allConditions")}
                   </div>
                   {Object.entries(CONDITION).map(([key, value]) => (
                     <div
@@ -126,7 +130,7 @@ const Hero = ({ brands }: HeroProps) => {
                       className={styles.dropdownItem}
                       data-value={key}
                     >
-                      {value.label.en}
+                      {t(value.label.en)}
                     </div>
                   ))}
                 </div>
@@ -135,12 +139,12 @@ const Hero = ({ brands }: HeroProps) => {
 
             <div className={styles.filter} onClick={handleMakeClick}>
               <div className={styles.value}>
-                {currentBrand === "all_makes" ? "All Makes" : currentBrand}
+                {currentBrand === "all_makes" ? t("allMakes") : currentBrand}
               </div>
               {openSelect === "make" && (
                 <div className={styles.dropdown}>
                   <div className={styles.dropdownItem} data-value="all_makes">
-                    All Makes
+                    {t("allMakes")}
                   </div>
                   {brands.map((brand) => (
                     <div
@@ -157,12 +161,12 @@ const Hero = ({ brands }: HeroProps) => {
 
             <div className={styles.filter} onClick={handleModelClick}>
               <div className={styles.value}>
-                {currentModel === "all_models" ? "All Models" : currentModel}
+                {currentModel === "all_models" ? t("allModels") : currentModel}
               </div>
               {openSelect === "model" && (
                 <div className={styles.dropdown}>
                   <div className={styles.dropdownItem} data-value="all_models">
-                    All Models
+                    {t("allModels")}
                   </div>
                   {currentBrandModels?.map((model) => (
                     <div
@@ -182,7 +186,7 @@ const Hero = ({ brands }: HeroProps) => {
               {openSelect === "price" && (
                 <div className={styles.dropdown}>
                   <div className={styles.dropdownItem} data-value="">
-                    All Prices
+                    {t("allPrices")}
                   </div>
                   <div className={styles.dropdownItem} data-value="1000_2000">
                     1 000 $ - 2 000 $

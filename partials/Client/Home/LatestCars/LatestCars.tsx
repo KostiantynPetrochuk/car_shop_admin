@@ -1,5 +1,6 @@
 "use client";
 import { SetStateAction, useState, Dispatch } from "react";
+import { useTranslations } from "next-intl";
 import { Car } from "@/components/client";
 
 import styles from "./LatestCars.module.css";
@@ -31,6 +32,7 @@ const loadCars = async (
 };
 
 const LatestCars = ({ initCars }: { initCars: CarType[] }) => {
+  const t = useTranslations("Home");
   const [cars, setCars] = useState<CarType[]>(initCars);
   const [skip, setSkip] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -39,7 +41,7 @@ const LatestCars = ({ initCars }: { initCars: CarType[] }) => {
     <section className={styles.cars}>
       <div className="container">
         <div className="cars-inner">
-          <h3 className={styles.title}>Latest Cars</h3>
+          <h3 className={styles.title}>{t("latestCars")}</h3>
           <ul className={styles.list}>
             {cars?.map((car) => (
               <Car key={car.ID} car={car} />
@@ -54,7 +56,7 @@ const LatestCars = ({ initCars }: { initCars: CarType[] }) => {
                   loadCars(skip * 5, setCars, setIsButtonDisabled);
                 }}
               >
-                Show More
+                {t("showMore")}
               </button>
             ) : null}
           </div>

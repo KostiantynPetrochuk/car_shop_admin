@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -11,6 +12,7 @@ type CarProps = {
 };
 
 const Car = ({ background, car }: CarProps) => {
+  const t = useTranslations("CarCard");
   const isLight = background === "lightBlue";
   const bgColor = isLight ? styles.lightBlue : styles.darkBlue;
   return (
@@ -31,7 +33,7 @@ const Car = ({ background, car }: CarProps) => {
           </Link>
         </div>
 
-        <div className={styles.category}>Great Price</div>
+        <div className={styles.category}>{t("greatPrice")}</div>
       </div>
       <div className={`${styles.bot} ${bgColor}`}>
         <Link href={`/car/${car?.ID}`} className={styles.link}>
@@ -49,7 +51,7 @@ const Car = ({ background, car }: CarProps) => {
               alt="speed_logo"
             />
             <span className={styles.label}>
-              {new Intl.NumberFormat("uk-UA").format(car?.Mileage)} km
+              {new Intl.NumberFormat("uk-UA").format(car?.Mileage)} {t("km")}
             </span>
           </div>
           <div className={styles.col}>
@@ -58,9 +60,7 @@ const Car = ({ background, car }: CarProps) => {
               src="/img/fuel_logo.svg"
               alt="fuel_logo"
             />
-            <span className={styles.label}>
-              {car?.FuelType.charAt(0).toUpperCase() + car?.FuelType.slice(1)}
-            </span>
+            <span className={styles.label}>{t(car?.FuelType)}</span>
           </div>
           <div className={styles.col}>
             <img
@@ -68,10 +68,7 @@ const Car = ({ background, car }: CarProps) => {
               src="/img/transmission_logo.svg"
               alt="transmission_logo"
             />
-            <span className={styles.label}>
-              {car?.Transmission.charAt(0).toUpperCase() +
-                car?.Transmission.slice(1)}
-            </span>
+            <span className={styles.label}>{t(car?.Transmission)}</span>
           </div>
         </div>
         <div className={styles.row}>
@@ -86,7 +83,7 @@ const Car = ({ background, car }: CarProps) => {
             </span>
           </div>
           <Link href={`/car/${car?.ID}`} className={styles.link}>
-            <span>View Details</span>
+            <span>{t("viewDetails")}</span>
             <img
               className={styles.arrow}
               src="/img/link_arrow.svg"

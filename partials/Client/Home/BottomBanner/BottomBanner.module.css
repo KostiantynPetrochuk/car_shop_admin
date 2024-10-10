@@ -38,6 +38,12 @@
   display: flex;
 }
 
+.row:nth-child(3) {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 50px;
+}
+
 .logo {
   margin-right: 10px;
 }
@@ -48,8 +54,7 @@
   align-items: center;
   color: #fff;
   background-color: #050b20;
-  height: 54px;
-  width: 154px;
+  padding: 20px 30px;
   border-radius: 12px;
   margin-top: 50px;
 }

@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import styles from "./BottomBanner.module.css";
 
-const BottomBanner = () => {
+const BottomBanner = async () => {
+  const t = await getTranslations("Home");
   return (
     <section className={styles.banner}>
       <div className="container">
@@ -17,10 +19,7 @@ const BottomBanner = () => {
           </div>
           <div className={styles.right}>
             <div className={styles.row}>
-              <h3 className={styles.title}>
-                Need Help Finding a Car? Contact us, and we’ll help you find the
-                right one!
-              </h3>
+              <h3 className={styles.title}>{t("bottomBannerInfo")}</h3>
             </div>
             <div className={styles.row}>
               <a href="tel:+75123456789" className={styles.link}>
@@ -42,7 +41,7 @@ const BottomBanner = () => {
             </div>
             <div className={styles.row}>
               <Link href={"/catalog"} className={styles.rowLink}>
-                <span>Get Started</span>
+                <span>{t("getStarted")}</span>
                 <img
                   className={styles.rowLinkImg}
                   src="/img/link_arrow.svg"

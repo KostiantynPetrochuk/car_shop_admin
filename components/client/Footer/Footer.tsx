@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import styles from "./Footer.module.css";
 
 const Footer = () => {
+  const t = useTranslations("Footer");
   return (
     <footer className={styles.footer}>
       <div className="container">
@@ -19,28 +21,28 @@ const Footer = () => {
               </a>
             </div>
             <div className={styles.col}>
-              <span className={styles.title}>Company</span>
+              <span className={styles.title}>{t("company")}</span>
               <a className={styles.disabledLink} href="/">
-                About Us
+                {t("aboutUs")}
               </a>
               <a className={styles.disabledLink} href="/">
-                Blog
+                {t("blog")}
               </a>
               <a className={styles.disabledLink} href="/">
-                Services
+                {t("services")}
               </a>
               <a className={styles.disabledLink} href="/">
-                FAQs
+                {t("faqs")}
               </a>
               <a className={styles.disabledLink} href="/">
-                Terms
+                {t("terms")}
               </a>
               <a className={styles.disabledLink} href="/">
-                Contact Us
+                {t("contactUs")}
               </a>
             </div>
             <div className={styles.col}>
-              <span className={styles.title}>Top Brands</span>
+              <span className={styles.title}>{t("topBrands")}</span>
               <Link href={`/catalog?brand=Toyota`} className={styles.link}>
                 Toyota
               </Link>
@@ -67,7 +69,7 @@ const Footer = () => {
               </Link>
             </div>
             <div className={styles.col}>
-              <span className={styles.title}>Vehicles Type</span>
+              <span className={styles.title}>{t("vehiclesTypes")}</span>
               <Link href={`/catalog?bodyType=sedan`} className={styles.link}>
                 Sedan
               </Link>
@@ -108,7 +110,7 @@ const Footer = () => {
       <div className={styles.botInner}>
         <div className="container">
           <div className={styles.bot}>
-            © 2024 exemple.com. All rights reserved.
+            © 2024 exemple.com. {t("allRightsReserved")}
           </div>
         </div>
       </div>

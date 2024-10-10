@@ -1,14 +1,16 @@
 import React from "react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import styles from "./Brands.module.css";
 
-const Brands = () => {
+const Brands = async () => {
+  const t = await getTranslations("Home");
   return (
     <section className="brands">
       <div className="container">
         <div className="brands-inner">
-          <h3 className={styles.title}>Browse by Brand</h3>
+          <h3 className={styles.title}>{t("browseByBrand")}</h3>
           <ul className={styles.list}>
             <li className={styles.item}>
               <Link href={`/catalog?brand=Audi`} className={styles.link}>
@@ -103,7 +105,7 @@ const Brands = () => {
           </ul>
           <div className={styles.bottomLinkInner}>
             <Link href={`/catalog`} className={styles.bottomLink}>
-              <span className={styles.bottomLinkTitle}>View All</span>
+              <span className={styles.bottomLinkTitle}>{t("viewAll")}</span>
               <img
                 className={styles.bottomLinkArrow}
                 src="/img/link_arrow_black.svg"

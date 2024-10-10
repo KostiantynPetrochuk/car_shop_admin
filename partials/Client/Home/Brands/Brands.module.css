@@ -53,8 +53,7 @@
 
 .bottomLink {
   border: 2px solid #050b20;
-  height: 60px;
-  width: 160px;
+  padding: 20px 30px;
   display: flex;
   justify-content: center;
   align-items: center;

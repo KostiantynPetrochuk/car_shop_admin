@@ -7,6 +7,7 @@ import styles from "./FeaturedCars.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Car as CarType } from "@/types";
+import { useTranslations } from "next-intl";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -22,6 +23,7 @@ const FeaturedCars = ({
   intact: CarType[];
   damaged: CarType[];
 }) => {
+  const t = useTranslations("Home");
   const [intactCars, setIntactCars] = React.useState<CarType[]>(intact);
   const [damagedCars, setDamagedCars] = React.useState<CarType[]>(damaged);
   const [selectedTab, setSelectedTab] = React.useState("intact");
@@ -42,12 +44,12 @@ const FeaturedCars = ({
       <div className="container">
         <div className="featured-inner">
           <div className={styles.top}>
-            <h3 className={styles.title}>Featured Cars</h3>
+            <h3 className={styles.title}>{t("featuredCars")}</h3>
             <Link
               href={`/catalog?condition=${selectedTab}`}
               className="featured-link"
             >
-              <span className={styles.text}>View All</span>
+              <span className={styles.text}>{t("viewAll")}</span>
               <img
                 className={styles.arrow}
                 src="/img/link_arrow.svg"
@@ -62,7 +64,7 @@ const FeaturedCars = ({
               }`}
               onClick={() => handleTabClick("intact")}
             >
-              Intact Cars
+              {t("intactCars")}
             </span>
             <span
               className={`${styles.item} ${
@@ -70,7 +72,7 @@ const FeaturedCars = ({
               }`}
               onClick={() => handleTabClick("damaged")}
             >
-              Damaged Cars
+              {t("damagedCars")}
             </span>
           </div>
           <div>
@@ -81,8 +83,8 @@ const FeaturedCars = ({
                 pagination={{ clickable: true }}
                 scrollbar={{ draggable: true }}
                 spaceBetween={50}
-                onSlideChange={() => console.log("slide change")}
-                onSwiper={(swiper) => console.log(swiper)}
+                // onSlideChange={() => console.log("slide change")}
+                // onSwiper={(swiper) => console.log(swiper)}
                 breakpoints={{
                   // >= 1024px
                   1024: {
